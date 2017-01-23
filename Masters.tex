@@ -56,10 +56,13 @@
 \listoftables
 
 
-\include{introduction} % includes latex files from the same directory
-\include{packages} % could be called Methodology or methods or anyfile name 
-\include{structure} % could be results
-
+\include{01-Introduction}
+\include{02-Representation}
+\include{03-Combining}
+\include{04-Evaluation}
+\include{05-Discussion}
+\include{06-Related}
+\include{07-Conclusion}
 
 \ifthenelse{\boolean{HarvardCitations}}{%
 	\bibliographystyle{agsm} % used for Harvard style references. Names - Humanities & Interaction Design
@@ -67,7 +70,7 @@
 	\bibliographystyle{ntnuthesis/ntnuthesis} %used for Vancover style references. Numbers - Computer Science & Physics
 }
 
-\bibliography{MastersExample}
+\bibliography{Masters}
 
 \appendix
 \include{appendix}

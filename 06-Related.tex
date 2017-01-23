@@ -1,0 +1,29 @@
+\chapter{Related Work}
+Xueqiang and Hong developed a generalized L-system method, called GLSM, that better follows botanical principles and increases the expressive ability of L-systems~\cite{Xueqiang2012}.
+They emphasize the importance of a stochastic property in the L-systems to reflect botanical principles.
+
+Wensheng and Xinyan model grass with stochastic L-systems and trees with parametric L-systems~\cite{Wensheng2010}.
+For the tree models, they create one L-system where four parameters determine the branching angles and branch lengths.
+They show how two different set of parameter in the same L-system can generate two different looking trees, and how adding stochastic multiples to the parameters can generate more naturally looking trees.
+This is different from stochastic L-systems, because here they multiply stochastic values with parameters in the productions, while stochastic L-systems select productions stochastically.
+
+Ashlock et al.\ use an evolutionary algorithm to evolve both the grammar and the interpreter parameters at the same time~\cite{Ashlock2006}.
+This resulted in a larger variety of generated plants.
+They pack the grammar and interpreter parameters as real parameters, which made it possible to solve it as a real parameter optimization problem.
+
+Corchado et al.\ use genetic algorithms to grow plants over time, as they argue that L-systems alone inefficiently simulate growth and change over time~\cite{Corchado2009}.
+They define the genotype as a compact string representation of a production rule, and the phenotype as the visualized plant.
+The contact string representation consists of the predecessor and the successor connected by the ``='' character.
+E.g.\ the production $F\rightarrow FF$ would be the string ``F=FF''.
+Crossover is performed by selecting two strings based on their fitness and swapping two substrings between the two strings.
+They mutate the string in two different ways: either by randomly changing a character in the string with another, or randomly changing a substring in the string with another.
+The crossover and mutation needs to ensure that the string is still syntactically correct.
+This mainly involves making sure the branching brackets always have a matching start and end bracket.
+To solve this, they use Mock's solution~\cite{Mock1998}, where they only select strings with a balanced number of start and end brackets, which may also be zero brackets.
+
+Beaumont and Stepney use Grammatical Evolution (GE) on L-systems to evolve them~\cite{Beaumont2009}.
+GE is ``an evolutionary algorithm (EA) that can evolve complete programs in an arbitrary language using a variable-length binary string''~\cite{Oneil2003}.
+Beaumont and Stepney do crossover by selecting random parents and selecting a random crossover point.
+The crossover point is different for each parent, to allow variation in genome length in the children.
+Elitism is used to allow the most fit genomes to pass to the next generation without being mutated.
+They find that elitism is a significant advantage and that certain alterations to the grammar have a significant effect.

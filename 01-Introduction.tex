@@ -1,0 +1,74 @@
+\chapter{Introduction}
+\label{chap:introduction}
+
+\section{Topic covered by the project}
+In the area of computer graphics and visualization, there is a desire to replicate environments and creatures found in nature in a virtual environment.
+All types of environments and creatures are of interests.
+Some examples are terrain, mountains, rivers, plants, animals and bacteria.
+These can be recreated by manually modelling the specific objects, but to be able to represent the large variations of the objects, this method is tedious and costly.
+Another approach to solve this is to procedurally generate the content using procedural content generation (PCG) methods.
+This way, digital programs can generate virtually infinite amounts of variations based on a representation and a recipe.
+
+Plants can be generated using L-Systems~\cite{Prusinkiewicz2012}, where their structure is represented as strings of characters in a parallel rewrite system.
+Based on actual plants, one may model a virtual plant by creating the rewrite rules and parameters for how the system should be drawn.
+Alternatively, it is possible to generate new plant species by using genetic algorithms and natural selection.
+
+\section{Keywords}
+l-system, plant, procedural content generation, pcg, genetic algorithm, feature extraction.
+
+\section{Problem description}
+\label{sec:ProblemDescription}
+% Should add some sources.
+Plants can be cross-bred and selected to create offspring with desirable features from multiple species.
+For example, most of the species used in agriculture have gone through selection and cross-breeding over several years to yield species that produce a bigger quantity of food and are resistant to deceases and harsh environments.
+This can be a long process, taking several hundred of years with gradual improvements, and many combinations do not even work.
+To make this process more fun and interesting, a virtual world where people can cross-breed plants can be created.
+In this world, cross-breeding is not limited like it is in the real world.
+Plants could be combined in ways never possible in the real world.
+For example, a user may like both apple trees and venus flytraps, so they want to combine them into a tree with venus flytrap mouths that could eat humans.
+The problem here is that randomly crossing the representation of different plants may not produce meaningful or interesting offsprings, but rather random creatures that do not satisfy the user.
+
+\section{Justification, motivation and benefit}
+Solving this problem will create the fundation for multpile games based on or using cross-bredeing of plants.
+Additionally, it may be possible to generalize the results to other areas of cross-breeding and PCG, such as breeding animals, or generating levels.
+Creating a game based on cross-breeding where the offsprings may be disliked by the users may be catastrophal and result in a game that will not make any revenue.
+
+The results from this research can be used in a game where users may create their own virtual garden, potentially in virtual reality (VR), where they breed the plants they always wanted to see or new surprising species, and have a place outside the busy world to relax and watch their plants grow.
+The research results will directly benefit game developers wishing to create games like the one described, and indirectly benefit the PCG research community, other game areas, users of the produced games and companies developing and publishing games.
+The game developers and publishers will benefit from more revenue by producing new and interesting games, while users will benefit from new games that fulfill their entertainment and relaxation needs.
+
+\section{Research questions}
+The problem described can be summarized in a single research question: How can plant L-systems be combined into offspring that humans find at least as aesthetically pleasing as its parents?
+As L-systems can be used to generate various types of shapes, not only plants, ``plant L-systems'' is used as a term meaning L-systems used for generating plants.
+To avoid having to reuse the term ``plant L-system'', the term ``L-system'' from this point on mean specifically L-systems to generate plants in the context of the problem.
+A hypothesis to this question is that if distinct features from both parents are included in the offspring, the offspring should be at least as pleasing as its parents.
+Thus, the initial question can be split into two more specific sub questions: How can L-systems be combined to create offspring with distinct features from both parents, and how aesthetically pleasing are the generated offspring compared to their parents?
+
+To discover how L-systems can be combined with features from both parents, some more knowledge is needed.
+First, the L-systems should be able to represent plants both found in nature and not found in nature, as the problem involves combining existing plants into new plants.
+Thus a new research question is defined: What types of L-systems are appropriate to represent plants both found in nature and not found in nature?
+To combine the L-systems together into offspring with distinct features from both parents, features in an L-systems that appropriately reflect the features found in the produced plants need to be identified.
+This gives raise to the question: What are the features of an L-system that can be combined?
+Finally, the combination of the features needs to happen, and thus comes the question: How can the features be combined to create offspring that contain distinct features from both parents?
+
+In the end, there is one main research question, and four sub questions that aim to answer the main question.
+The questions are listed below.
+It is important to notice that these questions can not be answered individually, but as a sequence where the next question depends on the previous.
+
+\begin{description}
+    \item[RQ0] How can plant L-systems be combined into offspring that humans find at least as aesthetically pleasing as its parents?
+    \begin{description}
+        \item[RQ1] What types of L-systems are appropriate to represent plants both found in nature and not found in nature?
+        \item[RQ2] What are the features of an L-system that can be combined?
+        \item[RQ3] How can the features be combined to create offspring that contain distinct features from both parents?
+        \item[RQ4] How aesthetically pleasing are the resulting plants compared to their parents?
+    \end{description}
+\end{description}
+
+\section{Contribution}
+\begin{itemize}
+    \item A literature review of L-system representations and features of those representations.
+    \item A proposed algorithm for how to combine L-systems while retaining distinct features from both parents.
+    \item A software implementation of the algorithm that can take two L-systems and combine them into a new L-system.
+    \item An analysis of how well users perceive the combination of plants using the algorithm.
+\end{itemize}

@@ -1,0 +1,62 @@
+\chapter{Plant Representation With L-system}
+
+\section{L-systems}
+L-systems was introduced by Lindenmayer in 1968 as a ``theoretical framework for studying the development of simple multicellular organisms''~\cite{Prusinkiewicz2012}, and then later applied to model plants.
+An L-system consists of an alphabet, an axiom and a set of production rules.
+It is a parallel rewrite system where each letter in the axiom word is rewritten independently based on the production rules.
+This happens iteratively, where a new word replaces the previous word each iteration.
+A way to draw the plant based on the L-System has to be applied to visualize it.
+Prusinkiewicz and Lindemayer summarize multiple research papers into a comprehensive book about L-systems~\cite{Prusinkiewicz2012}.
+For a more comprehensive and in-depth explanation of L-systems, refer to this book.
+
+There are also multiple types of L-systems, including discrete, stochastic, context sensitive and parametric~\cite{Prusinkiewicz2012}.
+All of these can be combined into one L-system.
+A stochastic, context sensitive and parametric L-system (parametric S2L-System) can model all of the other types of L-System by having 100\% probabilities (discrete), no contexts or no parameters, and is thus the most flexible representation.
+To be able to generate realistic looking plants with variations per instance, a parametric S2L-system is required.
+
+Discrete context-free L-systems (D0L-systems) are the simplest L-systems, and can be created using edge rewriting, node rewriting, or both~\cite{Prusinkiewicz2012}.
+In these systems, there exists one production rule per letter in the alphabet.
+By default the productions will produce the same letter as the input (identity).
+
+Stochastic L-systems add a randomness to the generation of the plants.
+Each letter in the alphabet may have multiple productions, each with a probability of being selected~\cite{Prusinkiewicz2012}.
+This may simulate how different instances of a plant species may look slightly different, thus making the plants look less synthetic when seen together with other plants of the same species.
+
+Context sensitive L-systems add a context to the production rule.
+The context can be on either left, right or both sides of the letter.
+A production will only be used if the context matches the surrounding letters in the word.
+With this, signal propagation can be simulated either upwards or downwards through the plant~\cite{Prusinkiewicz2012}, and more complex plants may be generated.
+
+Parametric L-systems adds parameters to the letters in the words, and conditial rules~\cite{Prusinkiewicz2012}.
+The main benefit of using parametric L-systems, is that it can work with rational numbers rather than only integers.
+For example, with non-parametric L-systems, extension of a segment can be modeled with the rule $F\rightarrow FF$, or any number of ``F'' in the successor.
+In any case, it will only be possible to grow the segment with a multiple of the previous.
+For some plants, this is enough, but to model a larger variety of plants, rational numbers are required.
+With parametric L-systems, the same rule would be $F(l)\rightarrow F(l*2)$, where $l$ is the length of the segment.
+But now it is also possible to grow it at another rate, e.g.\ $F(l)\rightarrow F(l*1.2)$.
+Prusinkiewicz and Lindenmayer describe more of the benefits of parametric L-systems~\cite{Prusinkiewicz2012}.
+
+Prusinkiewicz describe L-systems as having three levels of model specification: partial L-systems, L-system schemata, and complete L-systems~\cite{Prusinkiewicz2012}.
+The three different levels go from more abstract to more concrete, where partial L-systems specify which structures may result into which new structures (e.g.\ bud becomes a flower), schemata specifies when the different structure switches happen (e.g.\ when the bud becomes a flower), and complete systems specify the geometry of the plant to be visualized (e.g.\ how the bud and the flower should look).
+Different methods exist for each level, and which method to use will depend on the type of plant that should be generated.
+
+L-system schemata is of particular interest because there exists multiple methods to use.
+The event of a structure resulting into a new structure is called a ``developmental switch''~\cite{Prusinkiewicz2012}.
+The timing of the switches need to be controlled by a control mechanism in the system.
+There are two classes of these mechanisms: lineage and interaction.
+Lineage mechanisms are transferring information from a module to a descendant, while interaction mechanisms exchange information between cells.
+Prusinkiewicz and Lindenmayer descibe some of the mechanisms used.
+The stochastic mechanism uses a stochastic L-system to apply probabilities to developmental switches.
+A table L-system has multiple tables with different rules that can be applied depending on some external factor.
+For example, one table can represent summer and another can represent winter, making different switches happen at differnet seasons.
+The delay mechanism can delay the developmental switch by a specified number of iterations, for example making a flower bud bloom after a certain amount of iterations.
+Accumulation of components uses parametric L-systems to accumulate some parameter until it reaches a threshold causing the switch to happen.
+Parametric L-systems can also be used to control development switches with signals, where a signal travels either upwards or downwards through the plant.~\cite{Prusinkiewicz2012}
+
+A popular way to render complete L-systems is the turtle interpretation, where a cursor (the turtle) follows instructions to draw lines, and the alphabet is the set of instructions to use~\cite{Prusinkiewicz2012}.
+Turtle interpretation is in its original form simple and can only draw lines on a 2D image, but it has been extended to draw realistic looking plants in 3D~\cite{Prusinkiewicz1988}.
+To use the turtle interpretation, extra parameters describing how much the L-system should be expanded and how it should be drawn has to be defined~\cite{Prusinkiewicz2012}.
+For example, the number of rewrite iterations, the branching angle, the segment length, and the segment width have to be specified.
+This may depend on the plant to be rendered, as some plants might require a more complex set of drawing instructions.
+
+\section{Features in L-systems}
