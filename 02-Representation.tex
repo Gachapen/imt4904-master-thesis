@@ -59,4 +59,28 @@ To use the turtle interpretation, extra parameters describing how much the L-sys
 For example, the number of rewrite iterations, the branching angle, the segment length, and the segment width have to be specified.
 This may depend on the plant to be rendered, as some plants might require a more complex set of drawing instructions.
 
+\section{Genetically Evolving L-systems}
+Genetic evolution involves crossing genes from parents to create an offspring.
+Thus, the research field of L-system genetic evolution is a good starting point for finding out how L-systems can be combined into offspring with distinct features from both parents, potentially providing a basis for answering \textit{RQ2} and \textit{RQ3}.
+
+%Niklas pioneered artificial evolution of L-systems in 1986. % Can't find copy of paper. Only have one source from another paper. Remove this?
+Jacob argues that manually inferring an L-system from a real plant seen in nature is a difficult and tedious task involving several steps~\cite{Jacob1998}.
+Some of these steps can be automated using evolutionary algorithms, specifically defining L-systems, comparing the generated plant with the real plant and correcting the L-system based on how it matched.
+Based on this, Jacob defines three parts of evolutionary L-system inference: generation functions that create L-systems within some constraints, evaluation functions that measure the fitness of the interpreted L-system, and modification and selection functions that allow editing of L-systems with evolutionary techniques.
+
+To evolve the L-systems, Jacob uses Genetic Programming (GP) techniques introduced by Koza~\cite{Koza1993}.
+The difference is that Jacob uses higher-order building blocks for generation and modification of expressions.
+A pool of expression patterns is defined that contains several expressions that each are represented in a tree structure.
+Expressions can be combined using pattern matching, such that if a leaf node of an expression matches a root node of another expression, they can be combined.
+Thus, an L-systems may be built by plugging together expressions in various ways, and the resulting L-system is always guaranteed to be valid.
+
+Jacob defines multiple genetic operators, such as mutation and crossover.
+Mutation replaces a subterm of an expression with another equivalent subexpression.
+Crossover exchanges to subexpressions between two parents.
+Both operators use pattern matching to find subexpressions in the L-system that can be modified.
+Multiple patterns may be defined for each operator and are ranked such that if there is a match with multiple patterns, the one with the highest rank is selected.
+
+The technique described by Jacob is shown to evolve an L-system based on requirements that it should have a complex structure and leaves within a certain cubic boundary.
+Jacob took this method further and showed that it could evolve L-systems that looked more like plants with certain requirements~\cite{Jacob1995,Jacob1996,Jacob1996-2}.
+
 \section{Features in L-systems}
