@@ -62,7 +62,25 @@ This may depend on the plant to be rendered, as some plants might require a more
 \section{Genetically Evolving L-systems}
 Genetic evolution involves crossing genes from parents to create an offspring.
 Thus, the research field of L-system genetic evolution is a good starting point for finding out how L-systems can be combined into offspring with distinct features from both parents, potentially providing a basis for answering \textit{RQ2} and \textit{RQ3}.
+A set of research papers published between 1995 and 2013 was studied to see what different techniques have been used.
 
+When evolving objects, an evolutionary algorithm (EA) is often used.
+EA is composed of a series of steps that will evolve a population over multipe generations based on some criteria.
+It begins by generating an initial population of individuals.
+Then it evaluates the individuals with a fitness function.
+This is then used to select the best individuals to be used for reproduction.
+The individuals are then used to create offspring for a new population by using crossover and mutation.
+Finally, the new population is evaluated and the steps repeat.
+In the context of L-systems, the \textit{object} will be replaced with L-system.
+
+To get a better overview of the EA techniques used for L-systems, the EA has been split into five parts: model, representation, generation, selection, and genetic operators.
+The \textit{model} and \textit{representation} are related and sometimes almost equal.
+The difference is that the model represents the plant is modelled, while the representation may be a small part of the model or the model represented in a different format.
+\textit{Generation} is how the representations are generated, e.g.\ for the initial population, or when replacing parts of an L-system with a new part.
+\textit{Selection} is the part of selecting individuals to be used for creating the next generation.
+\textit{Genetic operators} are used on the selected individuals to modify the representation by either doing crossover between parents, mutating an offspring, or both.
+
+% From here and below should be moved to Related Work.
 %Niklas pioneered artificial evolution of L-systems in 1986. % Can't find copy of paper. Only have one source from another paper. Remove this?
 Jacob argues that manually inferring an L-system from a real plant seen in nature is a difficult and tedious task involving several steps~\cite{Jacob1998}.
 Some of these steps can be automated using evolutionary algorithms, specifically defining L-systems, comparing the generated plant with the real plant and correcting the L-system based on how it matched.
@@ -83,7 +101,7 @@ Multiple patterns may be defined for each operator and are ranked such that if t
 The technique described by Jacob is shown to evolve a 3D L-system based on requirements that it should have a complex structure and leaves within a certain cubic boundary.
 Jacob took this method further and showed that it could evolve L-systems that looked more like plants with certain requirements~\cite{Jacob1995,Jacob1996,Jacob1996-2}.
 
-Mock continues Jacob work, but works directly with L-system strings instead of expressions~\cite{Mock1998}.
+Mock continues Jacob's work, but works directly with L-system strings instead of expressions~\cite{Mock1998}.
 It is thus more of a Genetic Algorithm (GA) technique rather than a GP technique.
 The L-systems used are simple 2D interpreted L-systems that only have one node rewriting rule with branching.
 The successor of this single rule is used as the genetic representation in the genetic algorithm.
