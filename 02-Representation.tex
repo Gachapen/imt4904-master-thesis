@@ -80,7 +80,19 @@ Crossover exchanges to subexpressions between two parents.
 Both operators use pattern matching to find subexpressions in the L-system that can be modified.
 Multiple patterns may be defined for each operator and are ranked such that if there is a match with multiple patterns, the one with the highest rank is selected.
 
-The technique described by Jacob is shown to evolve an L-system based on requirements that it should have a complex structure and leaves within a certain cubic boundary.
+The technique described by Jacob is shown to evolve a 3D L-system based on requirements that it should have a complex structure and leaves within a certain cubic boundary.
 Jacob took this method further and showed that it could evolve L-systems that looked more like plants with certain requirements~\cite{Jacob1995,Jacob1996,Jacob1996-2}.
+
+Mock continues Jacob work, but works directly with L-system strings instead of expressions~\cite{Mock1998}.
+It is thus more of a Genetic Algorithm (GA) technique rather than a GP technique.
+The L-systems used are simple 2D interpreted L-systems that only have one node rewriting rule with branching.
+The successor of this single rule is used as the genetic representation in the genetic algorithm.
+Two genetic operators are used: crossover and mutation.
+Crossover finds a random substring in each parent with equal number of branching brackets and exchanges them.
+Mutation also finds a random substring the same way, but replaces it with a new randomly generated string instead.
+To select individuals from the population that should be used for the next population, both humans and a fitness function have been used independently.
+Humans manually assigned fitness to the phenotypes and selected one individual to keep.
+When using humans, the generated L-systems started as weed-like or random doodles and ended up with simple 2D plants.
+The fitness used was a simple ``tall and wide plants preferred'' function that ended up generating objects that looked less like pants than the human-selected samples.
 
 \section{Features in L-systems}
