@@ -109,6 +109,25 @@ The right node is also the same, but it can have parameters and also stacks for 
 It can practically represent any PD0L-system this way, but without conditions and with a limited set of letters.
 This could be extended.
 
+GA is the second major method used in the research.
+The main difference between GA and GP is that GA represents the genotype as a flat string of elements, while GP represents it as a tree structure.
+Both Mock and Ochoa use only a single rule successor to represent the genotype~\cite{1998Mock,1998Ochoa}.
+The successor is a plain string of symbols, including letters and the branching operators.
+
+Ebner et al.\ represent the genotype as a set of production rules with one edge rewriting rule and 0--26 node rewriting rules, each with individual nodes ranging from A--Z~\cite{2002Ebner,2003Ebner}.
+The predecessor is fixed based on the rule number.
+For example, the first rule predecessor is always \textit{f}, while the second and third predecessors would be \textit{A} and \textit{B}.
+This means that the genotype is a set of strings (successors), instead of one single string.
+This would allow the GA to search a bigger space compared to Mock and Ochoa's genotypes.
+Hornby and Pollack takes this further and represents the genotype as a fixed number of production rules composed of a predecessor and successor~\cite{2001Hornby}.
+In this case, the genotype has as set of pairs of strings, which would allow the GA to search a even bigger space.
+
+Finally, Ashlock et al.\ encodes the L-system as a string of real numbers~\cite{2006Ashlock}.
+Some of numbers encoded are used to index a table of a fixed set of rules, and some are used directly in the interpretation step.
+None of the previous genotypes presented represented the interpretation, though Ebner et al. and Hornby and Pollock used PD0L-systems where some interpretation parameters can be moved into the L-system production strings.
+Even though the encoded genotype can affect more aspects of the L-system (rules and interpretation), it is more limited because of its fixed set of rules that are used.
+Thus it can search a smaller space than Hornby and Pollack's representation.
+
 In addition, there is a non-EA method introduced by Vanak that still is relevant, called XL-system.
 
 \section{Features in L-systems}
