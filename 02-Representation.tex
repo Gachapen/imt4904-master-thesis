@@ -86,6 +86,8 @@ Other types of L-systems, such as stochastic, context-sensitive, timed, table, e
 Hornby and Pollack argue that stochastic L-systems are hard to use for EA because they are non-deterministic~\cite{2001Hornby}.
 Additionally, they argue that context-sensitive L-systems are not as powerful as parametric L-systems, and should thus not be used.
 They use PD0L-systems in their own research, but it is worth noting that they evolve moving creatures rather than plants.
+All of the above-mentioned L-systems are bracketed L-systems, i.e.\ they include stack operators (\textit{[} and \textit{]}) in their alphabets to push and pop the current interpretation state.
+Additionally, Hornby and Pollack use repetition brackets (\textit{\{} and \textit{\}}) with an integer parameter to specify how many times the content inside the brackets should be repeated~\cite{2001Hornby}.
 
 The L-system type is only the first part of the model required to model a plant.
 The second and final part is the interpretation of the L-system into a visualized model.
