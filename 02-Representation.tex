@@ -128,6 +128,20 @@ None of the previous genotypes presented represented the interpretation, though 
 Even though the encoded genotype can affect more aspects of the L-system (rules and interpretation), it is more limited because of its fixed set of rules that are used.
 Thus it can search a smaller space than Hornby and Pollack's representation.
 
+GE is the final and latest method used in the research.
+It was introduced for L-systems by Beaumont and Stepney to evolve a D0L-system to match an object~\cite{2009Beaumont}.
+Interestingly, L-systems themselves are grammar that produce plants, but Beaumont and Stepney's work define a grammar that produce the L-systems, which then is used to produce the plant.
+They represent the genome as a string of numbers that index into a Backus Naur Form (BNF) grammar to build the L-system.
+In this sense the representation is similar to that of Ashlock~\cite{2006Ashlock}, but with integers instead of real numbers and a different way of mapping from numbers to the L-system.
+When undergoing evolution, the genotype (string of numbers) will be modified by a GA.
+Thus the GE method is strongly related to GA.
+
+Beaumont and Stepney use a limited search space for the GE method.
+Their alphabet only consists of \textit{F}, \textit{+} and \textit{-}, their axiom is always \textit{F}, and only \textit{F} can be the production predecessor (i.e.\ it is an edge rewriting L-system).
+They also have a fixed number of iterations and rotation angle.
+This can be expanded, and they did some experiments to try this.
+\textit{+} and \textit{-} was added as predecessor letters, and the axiom was allowed to contain any symbols and have any length.
+
 In addition, there is a non-EA method introduced by Vanak that still is relevant, called XL-system.
 
 \section{Features in L-systems}
