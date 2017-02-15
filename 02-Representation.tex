@@ -139,6 +139,7 @@ It was introduced for L-systems by Beaumont and Stepney to evolve a D0L-system t
 Interestingly, L-systems themselves are grammar that produce plants, but Beaumont and Stepney's work define a grammar that produce the L-systems, which then is used to produce the plant.
 They represent the genome as a string of numbers that index into a Backus Naur Form (BNF) grammar to build the L-system.
 In this sense the representation is similar to that of Ashlock~\cite{2006Ashlock}, but with integers instead of real numbers and a different way of mapping from numbers to the L-system.
+It is also similar to Jacob's GP representation because it uses a pool of expressions that could be compared to a BNF.
 When undergoing evolution, the genotype (string of numbers) will be modified by a GA.
 Thus the GE method is strongly related to GA.
 
