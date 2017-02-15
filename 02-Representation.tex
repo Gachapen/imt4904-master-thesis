@@ -80,6 +80,7 @@ The difference is that the model describes how the plant is modeled, while the r
 \textit{Selection} is the part of selecting individuals to be used for creating the next generation.
 \textit{Genetic operators} are used on the selected individuals to modify the representation by either doing crossover between parents, mutating an offspring, or both.
 
+\subsection{Model}
 Discrete context-free L-systems (D0L-systems) are the simplest form of L-systems and is commonly used for EA~\cite{1998Mock,1998Ochoa,2002Ebner,2003Ebner,2006Ashlock,2009Beaumont}.
 Parametric discrete context-free L-systems (PD0L-systems) have also been prominently used in research for EA~\cite{1994Jacob,1995Jacob,200Vanak,2001Hornby}.
 Other types of L-systems, such as stochastic, context-sensitive, timed, table, environmentally-sensitive and open L-systems have not been used for EA in research.
@@ -95,6 +96,7 @@ Even though researchers only use two types of L-systems (D0L and PD0L), they use
 Both Mock, Ochoa, and Beaumont and Stepney visualize the L-systems in 2D with branching, but while Mock uses node rewriting~\cite{1998Mock}, Ochoa and Beaumont and Stepney use edge rewriting~\cite{1998Ochoa,2009Beaumont}, which results in different types of plants.
 The remaining authors use 3D visualization with branching~\cite{1994Jacob,2006Ashlock}, though Jacob adds the concepts of sprout, stalk leaf and bloom~\cite{1995Jacob}, and Ebner et al.\ only add leaves~\cite{2002Ebner,2003Ebner}.
 
+\subsection{Representation}
 The representation used for EA also varies.
 In the research, there have been three main EA methods: genetic programming (GP), genetic algorithms (GA) and grammar evolution (GE).
 Jacob and Ochoa use the GP methods~\cite{1994Jacob,1995Jacob,1998Ochoa}, both based on techniques introduced by Koza~\cite{1993Koza}.
@@ -143,7 +145,27 @@ Their alphabet only consists of \textit{F}, \textit{+} and \textit{-}, their axi
 They also have a fixed number of iterations and rotation angle.
 This can be expanded, and they did some experiments to try this.
 \textit{+} and \textit{-} was added as predecessor letters, and the axiom was allowed to contain any symbols and have any length.
+This expanded the search space, making the algorithm find fewer very bad solutions, but also far fewer good solutions.
+Finally they added a second terminal symbol \textit{X} in addition to \textit{F}, allowing for both edge and node rewriting L-systems.
+This further expanded the search space, but required a significantly larger population size and more generations, making the computation time significantly longer.
+The search space for this GE representation is smaller than some of the other methods because of its use of non-parametric L-systems and limited set of symbols, but it could be expanded to include this.
 
-In addition, there is a non-EA method introduced by Vanak that still is relevant, called XL-system.
+In addition, there is a non-EA method introduced by Vanak that still is relevant, called XL-system~\cite{2000Vanak}.
+Rather than evolving L-systems, the XL-system is another form of L-systems where two or more PD0L-systems are combined with an X-machine into an XL-system.
+The original L-systems are not modified in any way, but rather kept as two states in the X-machine.
+The XL-system is used as a normal L-system, running a specified amount of derivations to rewrite an axiom.
+The difference is that the XL-system switches between the contained L-systems based on specified conditions while iterating.
+The active L-system is the one switched to, and is the one that will be used for rewriting the axiom in the current derivation.
+This means that it for example can alternate between the productions of two L-systems every derivation, creating a phenotype with properties from both L-systems.
+
+The phenotypes achieved from the XL-systems are perfect for ``[creating] offspring that contain distinct features from both parents'', which is the goal of the third research question (RQ3).
+The big benefit of XL-systems is that they are a lossless combination of L-systems, compared to the EA methods presented where properties of the L-systems may be lost.
+The drawback is that the original L-systems have to be stored, causing an XL-system combining several generations of L-systems to be a large and complex structure.
+
+\subsection{Generation}
+
+\subsection{Selection}
+
+\subsection{Genetic Operators}
 
 \section{Features in L-systems}
