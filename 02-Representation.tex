@@ -82,17 +82,19 @@ The difference is that the model describes how the plant is modeled, while the r
 
 \subsection{Model}
 Discrete context-free L-systems (D0L-systems) are the simplest form of L-systems and is commonly used for EA~\cite{1998Mock,1998Ochoa,2002Ebner,2003Ebner,2006Ashlock,2009Beaumont}.
-Parametric discrete context-free L-systems (PD0L-systems) have also been prominently used in research for EA~\cite{1994Jacob,1995Jacob,2000Vanak,2001Hornby}.
-Other types of L-systems, such as stochastic, context-sensitive, timed, table, environmentally-sensitive and open L-systems have not been used for EA in research.
+Parametric discrete context-free L-systems (PD0L-systems) have also been prominently used in research for EA~\cite{1994Jacob,2000Vanak,2001Hornby}.
+Parametric discrete context-sensitive L-systems (PDIL-systems) was used in Jacob's further work by extending the PD0L-system version~\cite{1995Jacob, 1996Jacob, 1996Jacob-2}.
+Other types of L-systems, such as stochastic, timed, table, environmentally-sensitive and open L-systems have not been used for EA in research.
 Hornby and Pollack argue that stochastic L-systems are hard to use for EA because they are non-deterministic~\cite{2001Hornby}.
 Additionally, they argue that context-sensitive L-systems are not as powerful as parametric L-systems, and should thus not be used.
 They use PD0L-systems in their own research, but it is worth noting that they evolve moving creatures rather than plants.
+
 All of the above-mentioned L-systems are bracketed L-systems, i.e.\ they include stack operators (\textit{[} and \textit{]}) in their alphabets to push and pop the current interpretation state.
 Additionally, Hornby and Pollack use repetition brackets (\textit{\{} and \textit{\}}) with an integer parameter to specify how many times the content inside the brackets should be repeated~\cite{2001Hornby}.
 
 The L-system type is only the first part of the model required to model a plant.
 The second and final part is the interpretation of the L-system into a visualized model.
-Even though researchers only use two types of L-systems (D0L and PD0L), they use different ways of interpreting it.
+Even though researchers only use three types of L-systems (D0L, PD0L and PDIL), they use different ways of interpreting it.
 Both Mock, Ochoa, and Beaumont and Stepney visualize the L-systems in 2D with branching, but while Mock uses node rewriting~\cite{1998Mock}, Ochoa and Beaumont and Stepney use edge rewriting~\cite{1998Ochoa,2009Beaumont}, which results in different types of plants.
 The remaining authors use 3D visualization with branching~\cite{1994Jacob,2006Ashlock}, though Jacob adds the concepts of sprout, stalk leaf and bloom~\cite{1995Jacob}, and Ebner et al.\ only add leaves~\cite{2002Ebner,2003Ebner}.
 
