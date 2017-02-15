@@ -54,7 +54,7 @@ Accumulation of components uses parametric L-systems to accumulate some paramete
 Parametric L-systems can also be used to control development switches with signals, where a signal travels either upwards or downwards through the plant.~\cite{2012Prusinkiewicz}
 
 A popular way to render complete L-systems is the turtle interpretation, where a cursor (the turtle) follows instructions to draw lines, and the alphabet is the set of instructions to use~\cite{2012Prusinkiewicz}.
-Turtle interpretation is in its original form simple and can only draw lines on a 2D image, but it has been extended to draw realistic looking plants in 3D~\cite{1998Prusinkiewicz}.
+Turtle interpretation is in its original form simple and can only draw lines on a 2D image, but it has been extended to draw realistic looking plants in 3D~\cite{2012Prusinkiewicz}.
 To use the turtle interpretation, extra parameters describing how much the L-system should be expanded and how it should be drawn has to be defined~\cite{2012Prusinkiewicz}.
 For example, the number of rewrite iterations, the branching angle, the segment length, and the segment width have to be specified.
 This may depend on the plant to be rendered, as some plants might require a more complex set of drawing instructions.
@@ -82,7 +82,7 @@ The difference is that the model describes how the plant is modeled, while the r
 
 \subsection{Model}
 Discrete context-free L-systems (D0L-systems) are the simplest form of L-systems and is commonly used for EA~\cite{1998Mock,1998Ochoa,2002Ebner,2003Ebner,2006Ashlock,2009Beaumont}.
-Parametric discrete context-free L-systems (PD0L-systems) have also been prominently used in research for EA~\cite{1994Jacob,1995Jacob,200Vanak,2001Hornby}.
+Parametric discrete context-free L-systems (PD0L-systems) have also been prominently used in research for EA~\cite{1994Jacob,1995Jacob,2000Vanak,2001Hornby}.
 Other types of L-systems, such as stochastic, context-sensitive, timed, table, environmentally-sensitive and open L-systems have not been used for EA in research.
 Hornby and Pollack argue that stochastic L-systems are hard to use for EA because they are non-deterministic~\cite{2001Hornby}.
 Additionally, they argue that context-sensitive L-systems are not as powerful as parametric L-systems, and should thus not be used.
@@ -99,7 +99,7 @@ The remaining authors use 3D visualization with branching~\cite{1994Jacob,2006As
 \subsection{Representation}
 The representation used for EA also varies.
 In the research, there have been three main EA methods: genetic programming (GP), genetic algorithms (GA) and grammar evolution (GE).
-Jacob and Ochoa use the GP methods~\cite{1994Jacob,1995Jacob,1998Ochoa}, both based on techniques introduced by Koza~\cite{1993Koza}.
+Jacob and Ochoa use the GP methods~\cite{1994Jacob,1995Jacob,1998Ochoa}, both based on techniques introduced by Koza~\cite{1992Koza}.
 Ochoa uses a simple version of GP, where representation only consists of one single rule successor~\cite{1998Ochoa}.
 The successor is divided into a hierarchy based on the branching in the string, such that top-level letters are on the top, and each stack below is one level down.
 In their paper, they only use successors with one level deep branching.
