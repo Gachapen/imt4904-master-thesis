@@ -17,7 +17,7 @@
 \usepackage{color}
 \hypersetup{
     colorlinks=true,
-	linkcolor=blue,
+    linkcolor=blue,
     citecolor=blue,
     filecolor=blue,
     urlcolor=blue
@@ -29,11 +29,11 @@
 
 \begin{document}
 
-\input{DaimData}
+\input{inc/DaimData}
 
 \makefrontpages
 
-\input{MastersIntro}
+\input{inc/MastersIntro}
 
 \tableofcontents
 
@@ -42,19 +42,16 @@
 \listoffigures
 \listoftables
 
-\include{01-Introduction}
-\include{02-Representation}
-\include{03-Combining}
-\include{04-Evaluation}
-\include{05-Discussion}
-\include{06-Related}
-\include{07-Conclusion}
+\include{inc/01-Introduction}
+\include{inc/02-Representation}
+\include{inc/03-Combining}
+\include{inc/04-Evaluation}
+\include{inc/05-Discussion}
+\include{inc/06-Related}
+\include{inc/07-Conclusion}
 
 \bibliographystyle{ntnuthesis/ntnuthesis}
 
 \bibliography{Masters}
-
-\appendix
-\include{appendix}
 
 \end{document}

@@ -120,6 +120,7 @@
 \RequirePackage{lastpage}
 \RequirePackage{babel}
 \RequirePackage{enumitem}
+\RequirePackage{listings}
 \setlist[enumerate]{itemsep=0mm, topsep=5pt, partopsep=0mm, parsep=0mm}
 \setlist[enumerate,1]{label=\arabic*., ref=\arabic*}
 \setlist[enumerate,2]{label=\arabic*., ref=\arabic*}
@@ -152,6 +153,7 @@
 % Header and footer
 
 \def\thesis@title{Use thesistitle to insert your title here.}
+\def\thesis@shorttitle{Use thesisshorttitle to insert your short title here.}
 \def\thesis@date{Use thesisdate to insert your date here.}
 \def\thesis@author{Use thesisauthor to insert your name here.}
 \def\thesis@hostInstitution{Use thesisHostInstitution to insert the location of the defense.}
@@ -159,12 +161,19 @@
 \def\thesis@publishertext{}
 
 % for theses with multiple authors
-\def\thesis@authorA{}
-\def\thesis@authorB{}
-\def\thesis@authorC{}
+%\def\thesis@authorA{}
+%\def\thesis@authorB{}
+%\def\thesis@authorC{}
 \def\thesis@supervisor{}
-\def\thesis@supervisorA{}
-\def\thesis@supervisorB{}
+%\def\thesis@supervisorA{}
+
+\newif\if@supervisorA    \@supervisorAfalse
+\def\setthesissupervisorA#1{\gdef\@supervisorA{#1} \@supervisorAtrue }
+
+\newif\if@supervisorB    \@supervisorBfalse
+\def\setthesissupervisorB#1{\gdef\@supervisorB{#1} \@supervisorBtrue }
+
+%\def\thesis@supervisorB{}
 
 %for the french thesis with know jury
 \def\thesis@juryA{}
@@ -177,7 +186,7 @@
 \def\nmt@desc{}
 \def\nmt@pub{}
 
-\def\thesis@titleNOR{Use thesistitleNor to insert your title here.}
+\def\thesis@titleNOR{Use thesistitleNor to insert your Norwegian title here.}
 \def\nmt@keywordsNOR{}
 \def\nmt@descNOR{}
 \def\nmt@pubNOR{}
@@ -187,7 +196,8 @@
 \def\nmt@appnumber{}
 \def\nmt@pagecount{}
 
-\def\setthesistitle#1{\def\thesis@title{#1}}
+\def\setthesistitle#1{\def\thesis@title{#1}\def\thesis@shorttitle{#1}}
+\def\setthesisshorttitle#1{\def\thesis@shorttitle{#1}}
 \def\setthesisdate#1{\def\thesis@date{#1}}
 %\def\setthesisyear#1{\def\thesis@year{#1}}
 
@@ -197,8 +207,8 @@
 \def\setthesisauthorB#1{\def\thesis@authorB{#1}}
 \def\setthesisauthorC#1{\def\thesis@authorC{#1}}
 \def\setthesissupervisor#1{\def\thesis@supervisor{#1}}
-\def\setthesissupervisorA#1{\def\thesis@supervisorA{#1}}
-\def\setthesissupervisorB#1{\def\thesis@supervisorB{#1}}
+%\def\setthesissupervisorA#1{\def\thesis@supervisorA{#1}}
+%\def\setthesissupervisorB#1{\def\thesis@supervisorB{#1}}
 \def\setnmtoppdragsgiver#1{\def\thesis@oppdragsgiver{#1}}
 
 \def\setthesisHostInstitution#1{\def\thesis@hostInstitution{#1}}
@@ -213,8 +223,8 @@
 \def\thesisyear{\thesis@year}
 \def\thesisauthor{\thesis@author}
 \def\thesissupervisor{\thesis@supervisor}
-\def\thesissupervisorA{\thesis@supervisorA}
-\def\thesissupervisorB{\thesis@supervisorB}
+%\def\thesissupervisorA{\thesis@supervisorA}
+%\def\thesissupervisorB{\thesis@supervisorB}
 
 
 
@@ -239,9 +249,9 @@
 \def\ps@ntnuheadings{%
   \def\@oddfoot{\reset@font\hfil\thepage\hfil}
   \def\@oddhead{\underline{\hbox
-      to\hsize{\fontsize{7}{9}\selectfont\hfil\thesis@title}}}
+      to\hsize{\fontsize{7}{9}\selectfont\hfil\thesis@shorttitle}}}
   \def\@evenhead{\underline{\hbox
-      to\hsize{\fontsize{7}{9}\selectfont\thesis@title\hfil}}}
+      to\hsize{\fontsize{7}{9}\selectfont\thesis@shorttitle\hfil}}}
   \let\@evenfoot=\@oddfoot}
 \pagestyle{ntnuheadings}
 % Empty page does not have header or footer
@@ -488,7 +498,7 @@ Use $\backslash$setthesisyear\{<year>\} to set year.
 	\if@Bpaper{
 		\geometry{b5paper, left=25mm,   right=25mm,  top=27mm, bottom=30mm, head=1.2cm, foot=2cm}}
 	\else{
-		\geometry{a4paper, left=3.75cm, right=3.75cm, top=3cm, bottom=4cm, head=1.2cm, foot=2cm}}
+		\geometry{a4paper, left=3.75cm, right=3.75cm, top=3cm, bottom=4cm, head=1.2cm, foot=2cm, marginpar=2.75cm}}
 	\fi
 	}
 	
@@ -721,11 +731,11 @@ Use $\backslash$setthesisyear\{<year>\} to set year.
     \end{center}	
 		\vspace*{\fill}
 		
-		Supervisor 1: \thesis@supervisor 
+		Supervisor: \thesis@supervisor 
 		
-		Supervisor 2: \thesis@supervisorA
+		\if@supervisorA Co-Supervisor: \@supervisorA \fi
 
-		Supervisor 3: \thesis@supervisorB
+		\if@supervisorB Co-Supervisor: \@supervisorB \fi
 		
   \end{titlepage}
 
