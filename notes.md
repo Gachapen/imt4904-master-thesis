@@ -1,5 +1,32 @@
 # Master Thesis Notes
 
+## Supervisor meeting 2017-09-21
+- Maybe calculate ratio between bumps in distribution samples generated with GE, and if they are similar between runs we can exclude extreme points (0) and run normal statistics on it.
+- Can use current statistics as indication, not as proof.
+- If randomness is important, population size is important.
+- Population and generation size is kinda independent from selection.
+- Estimate GE sizes first and freeze them.
+- May bias towards size, because mutation is important.
+- Take longest GE run from multiple runs with different sizes, then freeze the size.
+- Since mutation is important, we can add more mutation methods.
+- Can try different crossovers and mutations.
+- Think of operators that retains the locality of the individual, but shakes it.
+- Needs some motivation, at least some best effort.
+- Make fair comparison of random vs GA, generate same amount of individuals.
+- Leaves are important, but how should it be implemented? Options are having them part of the grammar, or adding them afterwards as a heuristic.
+- Having them in the grammar may complicate the search.
+- Having them as a heuristic is not a 'proper' LSystem.
+- In any case, using the idea of leaves may be good for fitness evaluation.
+
+#### Short term plan
+What I should do is:
+1. Sample population size and number of generations from 100 and upwards with doubling steps (x*2) and 20 samples each until the best score does not improve. Keep the last parameters that improved the score.
+2. Experiment with other GA parameters with the sizes from the previous step. Maybe use a similar technique?
+3. Find and think of different mutation methods that may keep the locality of the chromosome. Implement them and compare.
+4. Look at the distribution of the GA runs to figure out if the statistics are applicable or not.
+5. Run a new comparison between random and GA, using a population size of the GA population size + half the GA selection size * generations, and ANOVA.
+6. Look at and plan how to deal with leaves and improved fitness.
+
 ## 2017-09-20
 
 ### Grammatical Evolution (GE)
