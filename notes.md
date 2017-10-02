@@ -1,5 +1,45 @@
 # Master Thesis Notes
 
+## 2017-09-30
+- Implemented and ran duplication-sampling program.
+- Found that gene duplication (with pruning) worsens the performance.
+  - Why is this? The GE paper recommends using them.
+  - Maybe the implementation is wrong.
+  - Does pruning by itself worsen the performance? It should not, as it only removes unused genes.
+  - Does pruning interact with crossover and mutation? If it does, maybe a different combination of the rates of all three is better.
+
+
+## 2017-09-29
+- Implemented ge-recombination-sampling to sample different crossover and mutation rates.
+- Found that the interaction between crossover and mutation have a significant effect on the performance (ANOVA), and that the best performances comes from a crossover rate of 0.5 and mutation rate of 1.0 (0.98 mean score and 0.04 SD).
+- It seems to benefit the most from mutation, and higher mutation rates improves performance. Thus exploration is a very important aspect.
+- It also benefits from crossover, but when the rate goes from 0.5 to 1, the performance decreases.
+- Implemented gene pruning and duplication as genetic operators. Not yet tested.
+- The fitness distributions of the populations seem to be approximately normally distributed with the addition of the bump at 0.
+
+## 2017-09-28
+- Re-implemented GA based on 1995Blickle with option to add custom genetic operators. This was to make sure that I could use the findings in their paper as a motivation for my choices.
+- Chose to use tournament selection because we prefer time. (could optionally ALSO test ranking selection, as it supposedly is better but slower).
+- Re-ran the ge-size-sampling for the new GA implementation and found new results.
+  - It generally performed better than the previous implementation, but also slower (much larger selection size).
+  - 800 population size and 200 generations performed the best and within a reasonable time. Bigger sizes do not improve performance, but are slower. Smaller sizes perform worse.
+- Implemented and ran ge-tournament-sampling to sample tournament sizes
+  - It stops at tournament size 8, after 2 and 4, and there is not statistically significant difference between them. Interestingly the duration is also very similar.
+  - Thus, tournament size 2 will be used.
+
+## 2017-09-26
+- Interesting note from 1995Blickle: Applying to tournaments sequentially is equal to applying one tournament with a tournament size equal to the multiplicative of the two tournament sizes.
+- Want to avoid premature convergence, so truncation selection is not good (why though? What's the benefit of premature convergence?).
+- Do we want high or low selection variance? Don't know, so use tournament selection because it is in the middle?
+- Tournament selection also has a low time complexity compared to the others.
+- Ranking selection better for big problems as others may converge too early.
+- Time vs quality, which do we prefer? Complex fitness calculation, so maybe time is important. Also it is meant for real-time applications, so time is actually quite important in the end...
+
+## 2017-09-25
+
+### GE
+- GE with 3200 generations and 400 population size reaches an high average score and uses a reasonable amount of time. There is barely any gain by increasing the parameters any further, while the time cost increases. See 'ge-size-sampling.png'.
+
 ## Supervisor meeting 2017-09-21
 - Maybe calculate ratio between bumps in distribution samples generated with GE, and if they are similar between runs we can exclude extreme points (0) and run normal statistics on it.
 - Can use current statistics as indication, not as proof.
