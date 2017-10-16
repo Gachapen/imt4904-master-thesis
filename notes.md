@@ -1,5 +1,45 @@
 # Master Thesis Notes
 
+## 2017-10-13
+- Generated several plants with GE to be used for analyzing the fitness evaluation.
+- Discovered that there was a fault in the parallel GE implementation, causing the GE to use a wrong cached fitness for an individual. Fixed this.
+
+## 2017-10-12
+- Implemented parallel GE
+  - Parallelized tournament selection, gene duplication, crossover and mutation.
+  - This was to more quickly find plant examples to use for analyzing the fitness evaluation.
+- Discovered that duration comparison of GE and Random is NOT VALID.
+  - GE duration is greatly underestimated (possibly 8 times faster than statistics show).
+  - This is because GE and Random were parallelized in different ways.
+    - GE measured the duration of one sample running on a single thread.
+    - Random measured the duration of one sample running on ALL threads.
+  - The new parallel GE (ge-par) implementation shows correct durations.
+    - Comparing the new measurements (ge-par) in 'ge-comparison-2.csv' (with SA distribution), the GE is not longer slower than random, but rather FASTER.
+
+## 2017-10-11
+- Implemented heuristic plant visualization.
+  - Brown branches and green leaves.
+  - Thicker branches closer to the root.
+  - Leaves at each segment with random rotation.
+  - Greatly improves aesthetics (IMO)
+
+## 2017-10-04
+- Compared performance of random generation with GE.
+  - Uniform grammar distribution.
+  - 11 samples per method (random and GE)
+  - Each random sample generated 160800 plants and extracted the best score.
+  - Each GE sample ran 200 generations of 800 population size, 2 tournament size, 1.0 mutation rate, 0.5 crossover rate, and extracted the best score from the final population.
+  - GE's performance is statistically different from random (both t and Wilcox tests, p < 0.05).
+  - GE's mean is ~0.98, while random's mean is ~0.85.
+  - Additionally GE runs faster than random. Most likely because GE doesn't have to evaluate all individuals, while random does.
+  - Data in `ge-comparison.csv`
+- Compared performance of random generation with GE using a non-uniform distribution.
+  - Same method as above, just with grammar distribution found by SA: `distribution-sa-2017-09-07T09:15:45+02:00`
+  - No difference between performance of GE and random.
+  - Both methods means are ~0.99.
+  - Random runs faster than GE. Most likely because the plants are faster to evaluate with this distribution, thus the extra work and bad parallelization shows in GE.
+  - Data in `ge-comparison-2.csv`
+
 ## 2017-09-30
 - Implemented and ran duplication-sampling program.
 - Found that gene duplication (with pruning) worsens the performance.
