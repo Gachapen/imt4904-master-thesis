@@ -1,5 +1,39 @@
 # Master Thesis Notes
 
+## 2017-10-30
+- Successfully ran experiment application with 8 >0.99 scored plants.
+- Results from ranking:
+  - Seems to be a correlation between realism and pleasure.
+  - The best plant is far apart from the remaining plants
+  - The 5th, 6th, 7th and 8th are the worst plants and are grouped close together.
+  - The second, third and fourth plants are far apart from the best and the remaining plants, kinda like a "medium".
+  - The second plant is significantly more realistic than pleasing, while the others have similar realism and pleasure.
+- Analysis of the plants:
+  - The worst plants seem to be shorter than the other plants,
+    - with max segments at 2, compared to 3-5, and
+    - growing more sideways.
+  - The best plant has more leaves than the medium plants (~20 compared to ~10).
+  - The best plant has two main branches, compared to only 1 in the medium plants (may cause more leaves).
+  - The best plant is more curvy than the medium plants, with two of the medium being particularly straight.
+    - The middle medium plant could be curvy, but does not have enough segments to show this.
+  - Compared to the third plant, the second plant's realism is much better than its pleasure.
+    - Subjectively I would say that the improvement in both metrics is caused by realistic-looking branching, but the straightness of the plant makes it less pleasing.
+  - The second plant has branches not only at the bottom like the fourth plant has. The best also has branches along the main branch.
+- Improving fitness:
+  1. Put only the eight plants into the `model` directory.
+  2. Print their initial scores.
+  3. Implement fitness measure for
+    - number of leaves (overall? When is it too much?),
+    - height (in segments?),
+    - proportions (grow more upwards),
+    - curviness (how?), and
+    - branching out from branches (could be improved by leaf metric?).
+  4. Print the new scores.
+  5. Iterate until technical ranking is similar to manual ranking.
+- Added foliage evaluation for fitness that rewards plants with more leaves. The order after this is much more similar to the manual evaluation, but the third is now behind the seventh, meaning it is missing some other reward (curviness?)
+
+
+
 ## 2017-10-13
 - Generated several plants with GE to be used for analyzing the fitness evaluation.
 - Discovered that there was a fault in the parallel GE implementation, causing the GE to use a wrong cached fitness for an individual. Fixed this.
@@ -31,7 +65,7 @@
   - Each GE sample ran 200 generations of 800 population size, 2 tournament size, 1.0 mutation rate, 0.5 crossover rate, and extracted the best score from the final population.
   - GE's performance is statistically different from random (both t and Wilcox tests, p < 0.05).
   - GE's mean is ~0.98, while random's mean is ~0.85.
-  - Additionally GE runs faster than random. Most likely because GE doesn't have to evaluate all individuals, while random does.
+  - Additionally GE runs faster than random. Most likely because GE doesn't have to evaluate all individuals (because of tournament selection), while random does.
   - Data in `ge-comparison.csv`
 - Compared performance of random generation with GE using a non-uniform distribution.
   - Same method as above, just with grammar distribution found by SA: `distribution-sa-2017-09-07T09:15:45+02:00`
