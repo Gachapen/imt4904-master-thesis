@@ -1,5 +1,8 @@
 # Master Thesis Notes
 
+## 2017-10-31
+- The pairwise experiment only gives us a relative ranking, and thus only tests if people and the fitness evaluation agree. How do we test that the generator generates good plants? An absolute evaluation by the users?
+
 ## 2017-10-30
 - Successfully ran experiment application with 8 >0.99 scored plants.
 - Results from ranking:
