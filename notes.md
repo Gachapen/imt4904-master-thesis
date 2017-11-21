@@ -9,8 +9,15 @@
 - 1998Basak: If pairwise comparison is only done one way, it is called "reciprocal"
 - https://link.springer.com/article/10.1007/s10726-015-9448-4#Sec11
 
+# 2017-11-15
+- Could not fix mpeg_encoder IE/Edge issues, so ended up encoding them lossless with mpeg_encoder, then using ffmpeg to compress them.
+  - webm: -quality best -crf 32 -b:v 0
+  - mp4: -preset veryslow -crf 18
+
 ## 2017-10-31
 - The pairwise experiment only gives us a relative ranking, and thus only tests if people and the fitness evaluation agree. How do we test that the generator generates good plants? An absolute evaluation by the users?
+- Add curvature measure to reward plants that are more groovy than others. Ranking is better, but one of the bad plants are ranked good because of its branching angles.
+- Add length measure to reward longer plants such that the previous mentioned plant is punished.
 
 ## 2017-10-30
 - Successfully ran experiment application with 8 >0.99 scored plants.
