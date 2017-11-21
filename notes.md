@@ -1,5 +1,14 @@
 # Master Thesis Notes
 
+# 2017-11-21
+- Found statistical significant positive correlation between human and technical ranking
+  - Used geometric mean aggregation (Group Aggregation Techniques for Analytic Hierarchy Process and Analytic Network Process: A Comparative Analysis)
+  - Then used Kendall's Tau (A Similarity Measure for Indefinite Rankings)
+
+# 2017-11-20
+- 1998Basak: If pairwise comparison is only done one way, it is called "reciprocal"
+- https://link.springer.com/article/10.1007/s10726-015-9448-4#Sec11
+
 ## 2017-10-31
 - The pairwise experiment only gives us a relative ranking, and thus only tests if people and the fitness evaluation agree. How do we test that the generator generates good plants? An absolute evaluation by the users?
 
