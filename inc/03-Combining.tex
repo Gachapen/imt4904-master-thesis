@@ -99,6 +99,87 @@ This process would then continue with the next gene, 0, on the $D$ rule.
     \label{fig:gene}
 \end{figure}
 
+\section{Interpreting L-systems Into Plant 3D Models}
+As seen in Figure~\ref{fig:dgel}, after an L-system has been generated, it needs to be interpreted into a 3D-model such that people may see the plant.
+Turtle interpretation is used to do this~\cite{2012Prusinkiewicz}, as it is a popular method used in the literature.
+A 3D version of the turtle interpretation is used, where the turtle can draw lines with \textit{F}, and rotate around three axes using \textit{-} and \textit{+} for yaw, \textit{\textasciicircum} and \textit{\&} for pitch, and \textit{<} and \textit{>} for roll.
+The bracket operators, \textit{[} and \textit{]}, are used to create branches.
+Table~\ref{tab:turtle-cmd} shows a complete overview of the characters and their operations, including extra operators used for more control and features like leaves (e.g.\ Listing~\ref{lst:grammar2}).
+
+\begin{table}
+    \centering
+    \begin{tabular}{| c | l |}
+    \hline
+    \textbf{Character} & \textbf{Operation} \\ \hline
+    F & Draw line forward \\ \hline
+    + & Yaw left \\ \hline
+    - & Yaw right \\ \hline
+    \textasciicircum & Pitch up \\ \hline
+    \& & Pitch down \\ \hline
+    < & Roll left \\ \hline
+    > & Roll right \\ \hline
+    | & Yaw 180° \\ \hline
+    [ & Push state \\ \hline
+    ] & Pop state \\ \hline
+    \{ & Begin surface \\ \hline
+    \} & End surface \\ \hline
+    ! & Decrease width \\ \hline
+    ` & Next color \\ \hline
+    f & Draw line forward \\
+    \hline
+    \end{tabular}
+    \caption[Turtle interpretation of L-system characters]{Turtle interpretation of L-system characters. \textit{f} does the same as \textit{F}, but is not allowed as a predecessor int the grammar such that it can not recurse.}
+    \label{tab:turtle-cmd}
+\end{table}
+
+The actual 3D model created from this interpretation is kept as simple as possible while still trying to look somewhat natural.
+The branches (created by the \textit{F} character) are brown stretched cubes.
+Leaves are green flat surfaces.
+An example can bee seen in Figure~\ref{fig:example-model}.
+
+As a discrete L-system is used, the turtle interpretation requires some parameters that control the drawing.
+While some evolutionary L-system techniques evolve the turtle interpretation parameters as well as the L-systems, to keep the process simple, DGEL does not.
+Additionally, if the discrete L-system is swapped with a parametric L-systems, these parameters are no longer required.
+The parameters used here were based on the 3D bush and 3D plant presented by Prusinkiewicz and Lindenmayer (s 1.25 and 1.26)~\cite{2012Prusinkiewicz}.
+They can be seen in Table~\ref{tab:turtle-param}.
+
+\begin{table}
+    \centering
+    \begin{tabular}{| l | l |}
+    \hline
+    \textbf{Parameter} & \textbf{Value} \\ \hline
+    Width & 0.05 \\ \hline
+    Angle & 22.5° \\ \hline
+    Iterations & 5 \\ \hline 
+    Step & 0.2 \\
+    \hline
+    \end{tabular}
+    \caption[]{Turtle interpretation parameters}
+    \label{tab:turtle-param}
+\end{table}
+
+As described earlier, leaves and branches with varying widths are not included.
+Without these, the plants may look ``dead'', and thus can not be very aesthetically pleasing.
+To work around this widths of branches were heuristically set and leaves were heuristically placed.
+These heuristics were based on observations of real plants and L-system based 3D models such as the aforementioned models presented by Prusinkiewicz and Lindenmayer (Figures 1.25 and 1.26)~\cite{2012Prusinkiewicz}.
+
+The branch widths are determined by their distance from the leaf node of the branches.
+From a leaf node, the branch width will increase by a fixed number towards the first branching point.
+In a branching point, the width will be set to the largest of the outgoing branches.
+Then, the width will continue to increase towards the root.
+Thus the plant will have natural-looking branches that are larger closer to the root.
+Bigger plants will naturally have thicker branches than smaller plants.
+
+Leaves are placed from the branch nodes towards the root on each branch segment in increasing sizes, until they become too big.
+Thus, the leaves a the edge of the branches are the smallest, and they get bigger towards the root.
+To prevent thick branches, e.g.\ the trunk of a tree, to have leaves directly placed on them, the leaves will no longer be placed when they reach a specific size.
+The leaves are always pitched upwards, with a random noise applied to the pitch to look more natural.
+They have a random rotation around the branch.
+
+This interpretation of the L-system can be swapped out with a different interpretation, while still using the DGEL algorithm.
+For example a more realistic interpretation with smoothed branches or branches bent by gravity could be used.
+Thus the DGEL algorithm is not dependent on this particular interpretation, but the results described later will be.
+
 \section{Using a Grammar Distribution to Limit Search Space}
 In DGEL, grammar distributions are used for three reasons: to guide the GE to more efficiently find good plants, to guide GE to search in a space with certain types of plants, and to prevent infinite recursion.
 
@@ -147,8 +228,218 @@ This is done by setting the remaining weights to $\frac{(1 - w)}{(n - 1)}$, wher
 Accepting a neighbour solution also follows the same approach as Onbaşoğlu and Özdamar describes~\cite{2001Onbasoglu}.
 To do this, an $f(x)$, where $x$ is a grammar distribution, has to be defined.
 The performance of a grammar distribution can not directly be measured, but it can be estimated by measuring the average performance of the L-systems it generates.
-As the performance of the L-systems generated may vary by a big degree, the average performance is only accepted after a specified amount of L-systems have been generated, and the standard error of the performance is below a threshold value.
+As the performance of the L-systems generated may vary by a big degree, the average performance, $mean$, is only accepted after a specified amount of L-systems, $n$, have been generated, and the standard error of the performance, $se$, is below a threshold value, $t$ (Algorithm~\ref{alg:eval-dist}).
+
+\begin{algorithm}
+\caption{Distribution evaluation}
+\label{alg:eval-dist}
+\begin{algorithmic}
+\Function{evaluate\_dist}{$dist$, $n$, $t$}
+    \State $samples\gets \Call{empty\_list}{}$
+    \State $mean\gets UNDEFINED$
+    \State $se\gets INFINITE$
+    \While {$se\geq t$}
+        \State $new\_samples\gets \Call{generate}{$n$, $dist$}$
+        \State $samples\gets \Call{concat}{$samples$, $new\_samples$}$
+        \State $mean\gets \Call{mean}{$samples$}$
+        \State $se\gets \Call{standard\_error}{$samples$}$
+    \EndWhile
+    \State \Return $mean$
+\EndFunction
+\end{algorithmic}
+\end{algorithm}
 
 \section{Using Grammar Evolution to Search the Space}
+The main component of DGEL is the Grammar Evolution (GE) of the L-systems, which is used to search the parameter space for the best L-system.
+The GE process takes a grammar description and a grammar distribution as the input, and produces a single L-system chromosome as the output.
+
+It follows the process as described by Ryan et al.~\cite{1998Ryan}, but with some modifications to the representation as described in Section~\ref{sec:grammar}.
+Ryan et al.\ do not describe the selection strategy they used, while Beaumont and Stepney use a simple selection strategy where a percentage of the best individuals are selected as parents~\cite{2009Beaumont}.
+Since GE is a specialization of GA, GE can use the same selection strategies as GA.
+Thus, tournament selection was selected for DGEL, based on Blickle and Thiele's structured comparison of selection strategies~\cite{1995Blickle}, and Razali and Geraghty's comparison of selection strategies applied to the traveling salesman problem~\cite{2011Razali}.
+Both tournament and ranking selection are recommended as good options, but tournament selection performs faster~\cite{1995Blickle}.
+Thus because it is assumed that DGEL may be used in real-time applications, tournament selection is preferred.
+
+To make the choice of tournament selection based on Blickle and Thiele's comparison to be valid, the GE algorithm is implemented as GA is described in the same paper.
 
 \section{Using a Fitness Function to Evaluate Plants}
+A crucial component of both the SA and GE process is the fitness function.
+The fitness function is used by SA to evaluate the grammar distributions, and by GE to evaluate individual L-systems.
+Its function is to evaluate how ``good'' the L-system plants are, or more specifically how ``aesthetically pleasing'' they are.
+The literature on evolutionary L-systems generally aim the fitness function at evaluating how realistic the plants are by using metrics such as its light gathering ability, positive phototropism and structural stability.
+
+It is assumed that a baseline for aesthetically pleasing plants is that they look at least somewhat realistic, otherwise they would not look like plants at all.
+Thus, the metrics used for the fitness function in DGEL uses metrics from the literature, or metrics inspired from the literature, where the metrics usually are targeted towards realistic plants.
+Additionally, the metrics were improved upon by generating a plants and looking for bad features in well-scored plants.
+Table~\ref{tab:fitness} lists all of the metrics.
+
+\begin{table}
+    \centering
+    \begin{tabularx}{\textwidth}{| l | X | l | l |}
+    \hline
+    \textbf{Metric} & \textbf{Description} & \textbf{Equation} & \textbf{Weight} \\
+    \hline
+    Nothing & Punish plants that have no branches (can not be seen) & \ref{eq:nothing} & 1 \\
+    \hline
+    Closeness & Punish plants with branches very close to each other & \ref{eq:closeness} & 1 \\
+    \hline
+    Drop & Punish plants based on how much the plant grows downwards & \ref{eq:drop} & 1 \\
+    \hline
+    Balance & Reward plants that have their center of gravity closer to their root & \ref{eq:balance} & 1 \\
+    \hline
+    Complexity & Reward plants with a balanced number of branches & \ref{eq:complexity} & 1 \\
+    \hline
+    Foliage & Reward plants with more leaves & \ref{eq:foliage} & 1.5 \\
+    \hline
+    Length & Reward longer plants & \ref{eq:length} & 1 \\
+    \hline
+    Curvature & Reward plants that have somewhat curving branches & \ref{eq:curvature} & 0.4 \\
+    \hline
+    \end{tabularx}
+    \caption[]{Turtle interpretation parameters}
+    \label{tab:turtle-param}
+\end{table}
+
+\textit{Nothing} is the simplest and most basic metric.
+It punishes plants that have no branches.
+This may happen if for example the L-system contains no drawing commands (the character \textit{F}).
+Equation~\ref{eq:nothing} demonstrates this by giving it a score of -1 if it does not have any branches.
+In this case no other metrics will make any difference.
+The $branches$ function returns the number of branches.
+
+\begin{equation}
+\label{eq:nothing}
+    nothing(x) = 
+    \begin{cases}
+        0,& \text{if } branches(x) > 0  \\
+        -1,& \text{otherwise}
+    \end{cases}
+\end{equation}
+
+\textit{Closeness} is another punishing metric that punishes plants that have branches from the same branching point too close to each other.
+The dot product between the direction of two branches is used for this metric.
+The dot product is larger the closer the direction vectors are, becoming 1 when they are parallel.
+If the largest dot product between branch directions in a branching point is below a threshold, $t$, there is no punishment.
+Otherwise, the plant is punished by a factor depending on how much above the threshold the dot product is.
+This factor is interpolated between 0 and 1 linearly from the threshold to 1.
+Equation~\ref{eq:closeness} shows how the closeness is calculated.
+The $closest$ function finds the closest dot product between branches in a branching point.
+The threshold was experimentally set to 0.9 to punish plants that have branches that look like they clip into each other.
+
+\begin{equation}
+\label{eq:closeness}
+    closeness(x) = 
+    \begin{cases}
+        0,& \text{if } closest(x) < t \\
+        -\frac{c - t}{(1 - t)},& \text{otherwise}
+    \end{cases} \\
+\end{equation}
+
+\textit{Drop} is a third punishing metric that punishes plants that grow downwards.
+It finds the lowest point on the plant, and punishes the plant if it is below 0.
+Equation~\ref{eq:drop} demonstrates this.
+The $lowestpoint$ function returns the smallest value of the y-component of all points on the plant.
+This value is then clamped in the range -1 and 1 and interpolated using a sine function to quickly increase the punishment.
+Thus plants where the lowest point is 0 or above will not be punished, while on plants where it is -1 or below will be punished by -1.
+
+\begin{equation}
+\label{eq:drop}
+drop(x) = sin(clamp(lowestpoint(x), -1, 0) * \frac{\pi}{2})
+\end{equation}
+
+\textit{Balance} is a measure of how well balanced the weight of the plant is.
+It is inspired by the Bilateral Symmetry measure by Ochoa where 2D plants that reach equally long both left and right are rewarded the most~\cite{1998Ochoa}.
+A different approach has to be taken in 3D where there are not only two horizontal directions, but rather an infinite number.
+The approach taken is to estimate where the center of gravity of the plant is, calculate the horizontal distance, $centerdistance$, to it, and compare it to how far the plant reaches, $centerspread$, in the horizontal direction of the center of gravity.
+This is done by Equation~\ref{eq:balance}.
+In the worst case, if both $centerdistance$ and $centerspread$ are the same, the plant will be punished by -1.
+In the best case, if the $centerdistance$ is 0, i.e.\ the gravitational center is in the center of the plant, the plant will be rewarded by 1.
+Since $centerdistance$ generally will increase with increasing $centerspread$, the plant will be more punished the more it spreads out in one direction.
+Though by having most of it branches close to the root, it may mitigate the punishment.
+Thus the fraction $\frac{centerdistance}{centerspread}$ is used.
+
+\begin{equation}
+\label{eq:balance}
+balance(x) = (0.5 - \frac{centerdistance(x)}{centerspread(x)}) * 2
+\end{equation}
+
+\textit{Complexity} measures how complex the branching of the plant is.
+It is inspired by the Structural Stability~\cite{1998Ochoa}, Plant Structural Stability~\cite{2009Corchado} and Proportion of Branching Points~\cite{1998Ochoa} measures.
+These measures assume that the plant becomes too unstable to survive if it has too many branches growing from a branching point.
+Corchado et al.\ additionally assume that plants with too few branches will have worse light gathering ability.
+Thus there will be a sweet spot in the branching proportion which is rewarded the most.
+If the proportion is too low or too high, the plant will be punished.
+This is shown in Equation~\ref{eq:complexity} where if the branching proportion is below 1.2 (1.2 branches from a branching point on average), or above 5, it will be punished in range $[-1, 0]$.
+While between 1.2 and 5, it will be rewarded in range $[0, 1]$.
+The sweet spot is 2, where it will be rewarded by 1.
+$icos$ interpolates the value from the first parameter, $a$, to the second parameter, $b$, using a cosine function.
+The third parameter, $t$, is in range $[0, 1]$ and controls where between $a$ and $b$ the interpolation is.
+This creates a smooth curve between the limits.
+
+\begin{equation}
+\label{eq:complexity}
+\begin{aligned}
+    complexity(x) =
+    \begin{cases}
+        -1, & b < 1 \\
+        icos(-1, 0, \frac{b - 1.0}{0.2}), & b < 1.2 \\
+        icos(0, 1, \frac{b - 1.2}{0.8}), & b < 2 \\
+        1, & b < 3 \\
+        icos(1, -1, \frac{b - 3}{5.8}), & b < 7 \\
+        -1, & \text{otherwise}
+    \end{cases}, \\
+    \text{where } b = \frac{branches(x)}{branchings(x)}
+\end{aligned}
+\end{equation}
+
+\textit{Foliage} measures how many leaves a plant has.
+It is the main metric for measuring the light gathering ability of the plant, and is inspired by Ochoa~\cite{1998Ochoa}, Ebner~\cite{2003Ebner}, and Corchado et al.'s~\cite{2009Corchado} light gathering ability metrics.
+The main point is that more leaves exposed to sunlight means that the plant has a better ability to survive.
+For simplicity, the metric used in DGEL is based on Corchado et al.'s metric which simply rewards plants with more leaves~\cite{2009Corchado}.
+It also counts leaves that are shadowed by other leaves, even though in reality these would gather only minimal amounts of light.
+This selection of method was due to time constraints, and a more complex method like Ebner's would be better.
+The metric used starts with a reward of 0 for 0 leaves and is asymptotic towards 1 when the leaf count, found by $leaves$, increases towards $\infty$.
+Equation~\ref{eq:foliage} demonstrates this.
+The $s$ constant controls how fast it should increase towards 1.
+
+\begin{equation}
+\label{eq:foliage}
+    foliage(x) = \frac{leaves(x) * s}{1 + leaves(x) * s}, \text{where } s = 0.1
+\end{equation}
+
+\textit{Length} rewards plants that are longer.
+It is inspired by Ochoa and Corchado et al.'s Positive Phototropism metrics where the assumption is that plants grow towards the sunlight and thus taller plants are better at surviving.
+While Positive Phototropism only cares about the height of the plant, Length cares about how long the plant is, not considering if it grows upwards or not.
+This change is made on the assumption that plants can gather more light both by growing upwards (cover more vertical area) and sideways (cover more horizontal area).
+Additionally it was found during an early experiment that short plants were generally found as displeasing.
+Like the Foliage metric, the Length metric is asymptotic towards 1 as the plant length increases towards $\infty$.
+This is shown in Equation~\ref{eq:length}.
+The length of the plant is found using $longest$, which finds the longest path in the branches of the plant from root to leaf and returns the number of segments in it.
+As with the Foliage metric, the $s$ constant controls how fast it should increase towards 1.
+
+\begin{equation}
+\label{eq:length}
+    length(x) = \frac{longest(x) * s}{1 + length(x) * s}, \text{where } s = 0.5
+\end{equation}
+    
+\textit{Curvature} is a metric that rewards plants with more curved branches.
+It was developed from the results of the first experiment where it was found that plants that looked ``static'' or ``stragith'' were not as pleasing as plants that looked more ``dynamic'' or ``curvy''.
+As Equation~\ref{eq:curvature} demonstrates, the plant is rewarded more if the branch segments are oriented with a small angle different from their parent.
+If the angle is too sharp, the plant is rewarded less, as the plant may look like ``doodles'' with such angles.
+A sweet spot of 0.24711092, which is rewarded by 1, was found to provide a good curvature in the plant.
+
+\begin{equation}
+\label{eq:curvature}
+\begin{aligned}
+     a = avg(minangles(x))  \\
+     min = 0  \\
+     opt = 0.24711092  \\
+     max = \frac{\pi}{4}  \\
+     f(x) =
+    \begin{cases}
+        icos(0, 1, \frac{a - min}{opt - min}), & a >= min \text{ and } a < opt \\
+        icos(1, 0, \frac{a - opt}{max - opt}), & a >= opt \text{ and } a < max \\
+        min, & \text{otherwise}
+    \end{cases}
+\end{aligned}
+\end{equation}
