@@ -1,3 +1,4 @@
+% !TEX root = ../Masters.tex
 \chapter{Plant Representation With L-system}
 
 \section{L-systems}
@@ -252,7 +253,7 @@ For GA when the genotype is represented as a string, the operation varies based 
 Mock and Corchado et al.\ exchange production substrings with equal number of of push and pop bracket operators to avoid invalid syntax~\cite{1998Mock,2009Corchado}.
 Ochoa uses an approach inspired by GP by considering the successor string as a tree where nodes are defined by branches, and these nodes are exchanged~\cite{1998Ochoa}.
 Hornby and Pollack create a copy of one parent, and replace either a complete successor or substring of a successor with an equivalent part from the other parent~\cite{2001Hornby}.
-Ebner et al.\ use two types of crossover operators: one-point crossover that exchanges rules and sub-tree crossover that exchanges sub-trees~\cite{2002Ebner,2003Ebner}. 
+Ebner et al.\ use two types of crossover operators: one-point crossover that exchanges rules and sub-tree crossover that exchanges sub-trees~\cite{2002Ebner,2003Ebner}.
 The latter is similar to Ochoa's method.
 
 For genotypes encoded as arrays of real parameters, Ashlock et al.\ use a one-point crossover on said array~\cite{2006Ashlock}.
@@ -275,7 +276,7 @@ A symbol may be replaced by a new symbol~\cite{2001Hornby, 2002Ebner, 2003Ebner,
 The content of a branch may be replaced by a new valid sub-string~\cite{1998Ochoa}.
 
 New content can be added by an addition operator or existing content can be removed by a removal operator.
-For example, a symbol, branch or complete rule may be added or removed~\cite{2002Ebner, 2003Ebner}, 
+For example, a symbol, branch or complete rule may be added or removed~\cite{2002Ebner, 2003Ebner},
 Hornby and Pollack also use the addition and removal operators, but on symbol blocks and symbol parameters~\cite{2001Hornby}.
 
 In addition to replacing, adding and removing, symbols may also be swapped, simply by swapping their positions~\cite{2002Ebner, 2003Ebner}

@@ -1,10 +1,11 @@
+% !TEX root = ../Masters.tex
 \chapter{Distribution-based Grammar Evolution of L-systems}
 
 \section{Overview}
 To generate L-system plants that are aesthetically pleasing, varied and could be used to create offspring similar to its parents (\textbf{RQ0}), an algorithm called Distribution-based Grammar Evolution of L-systems (DGEL) was developed.
 
 The DGEL name consists of two parts that are essential to solve the three sub research questions: \textit{Grammar Evolution (GE)} and \textit{Distribution-based}.
-It uses GE to evolve L-system plants because it allows the algorithm to use well-researched techniques for modifying or combining genes into new L-systems (\textbf{RQ1}). 
+It uses GE to evolve L-system plants because it allows the algorithm to use well-researched techniques for modifying or combining genes into new L-systems (\textbf{RQ1}).
 As part of the GE process, there is a fitness function that evaluates how aesthetically pleasing a plant is, thus pushing the evolution towards aesthetically pleasing plants (\textbf{RQ2}).
 It is distribution-based, meaning that different probability distributions for the L-system grammar can be used to generated varied plants (\textbf{RQ3}).
 
@@ -150,7 +151,7 @@ They can be seen in Table~\ref{tab:turtle-param}.
     \textbf{Parameter} & \textbf{Value} \\ \hline
     Width & 0.05 \\ \hline
     Angle & 22.5° \\ \hline
-    Iterations & 5 \\ \hline 
+    Iterations & 5 \\ \hline
     Step & 0.2 \\
     \hline
     \end{tabular}
@@ -309,7 +310,7 @@ The $branches$ function returns the number of branches.
 
 \begin{equation}
 \label{eq:nothing}
-    nothing(x) = 
+    nothing(x) =
     \begin{cases}
         0,& \text{if } branches(x) > 0  \\
         -1,& \text{otherwise}
@@ -328,7 +329,7 @@ The threshold was experimentally set to 0.9 to punish plants that have branches 
 
 \begin{equation}
 \label{eq:closeness}
-    closeness(x) = 
+    closeness(x) =
     \begin{cases}
         0,& \text{if } closest(x) < t \\
         -\frac{c - t}{(1 - t)},& \text{otherwise}
@@ -421,7 +422,7 @@ As with the Foliage metric, the $s$ constant controls how fast it should increas
 \label{eq:length}
     length(x) = \frac{longest(x) * s}{1 + length(x) * s}, \text{where } s = 0.5
 \end{equation}
-    
+
 \textit{Curvature} is a metric that rewards plants with more curved branches.
 It was developed from the results of the first experiment where it was found that plants that looked ``static'' or ``stragith'' were not as pleasing as plants that looked more ``dynamic'' or ``curvy''.
 As Equation~\ref{eq:curvature} demonstrates, the plant is rewarded more if the branch segments are oriented with a small angle different from their parent.

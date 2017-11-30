@@ -8,3 +8,8 @@
 *.out
 *.toc
 *.pdf
+*.fdb_latexmk
+*.fls
+*.lol
+*.synctex.gz
+*.spl
