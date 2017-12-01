@@ -11,24 +11,56 @@ The evaluation module will be evaluated using humans as to answer if the fitness
 \subsection{Method}
 As explained in Section~\ref{sec:overview} and shown in Figure~\ref{fig:dgel}, there are two main processes involved in generating the model for the L-system plants: \textit{SA} and \textit{GE}.
 The remaining steps are dependent on the model and do not create variations on the same model.
-Thus SA and GE are the two processes of interests to evaluate.
+Thus GE and SA are the two processes of interests to evaluate.
 
 % GE parameter tuning - have data
 % GE vs random - have data
 % SA parameter selection
 % SA progress - have data, though not structured
-% SA random vs random - need data, average of 160800 L-systems.
-% GE SA vs GE uniform - need data, how to measure? 
+% SA random vs random - need data, average of 100000 L-systems.
+% GE SA vs GE uniform - need data, how to measure?
 % Comparing plants from different SA.
 
-% talk about GE first...
-% This is actually for comparing GE to random...
-To make a fair comparison, the
-GE uses a fixed number of generations and population size, resulting into a fix number of chromosome generations and modifications.
-% Describe how this was found.
-200 generations was used with a population size of 800.
-The total number of chromosomes generated and modified combined is $population + population * generations = 800 + 800 * 200 = 160800$.
+\subsubsection{Grammar Evolution}
+GE, as with GA, depends on multiple parameter, and with tournament sampling there are even more.
+Thus, before evaluation the GE process, good parameters had to be found.
+Additionally, seeing what parameters are needed for a good performing GE may reveal additional properties of it.
+The parameters were found using a combined manual and automated approach by searching the parameter space in multiple steps.
+The idea was not to find the optimal parameters, but rather to find some parameters that made the GE produce an individual with good fitness within a reasonable time.
+It was assumed that the size parameters -- population size and number of generations -- are the baseline parameters for GE and thus should be found first.
+Then the tournament size for the tournament selection stategy should be found.
+Then good parameters for the recombination rates -- crossover rate and mutation rate -- should be found.
+Finally the parameter for the GE gene duplication operator should be found.
 
+To search for the GE parameters, a breadth-first graph search inspired approach was used.
+An example is shown in Figure~\ref{fig:paramter-search}.
+The approach tests a combination of parameters by doing 20 GE runs with those parameters and using the mean fitness score of the best individual from each run.
+If the score is an improvement of the previous score, the search will also tests the neighboring nodes in the graph by increasing the parameter values.
+Otherwise, the current parameter values will be considered as not improving the performance and thus be discarded.
+When there are no more improvements, the parameter values that produced the best score will be returned.
+% Not all of the samplings increases by multiplicative of 2!
+The parameter values will start at a small value and increase with a multiplicative of 2 for each new node.
+This is based on the assumption that the parameters are more sensitive when the values are small.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.6\textwidth]{figures/parameter-search}
+    \caption{Example of a GE parameter search}
+    \label{fig:parameter-search}
+\end{figure}
+
+To evaluate the GE process, it was compared to completely random set of L-systems.
+If the best individual from the GE process has a higher fitness score than the best individual from the random set of individuals, the GE process is an improvement.
+To make a fair comparison, the random set of individuals should contain as many individuals as the GE generates and modifies (through mutation or crossover)
+This way, both methods will ``generate'' the same amount of individuals, either being completely new individuals or modifications of existing individuals.
+GE uses a fixed number of generations and population size, resulting into a fixed number of chromosome generations and modifications: $individuals = population + population * generations$.
+Thus the random set method will generate $individuals$ individuals.
+
+Because both methods depend on a random seed, an average of multiple runs will have to be used.
+A sample size of 11 was selected as balanced choice between sample size and duration.
+Student's t-test was used to test the group mean difference.
+
+\subsubsection{Simulated Annealing}
 To evaluate the SA process, a list of questions were made:
 \begin{itemize}
 	\item Can SA and the grammar distribution be used to find portions of the paramter space that generate better L-system plants?
@@ -47,6 +79,40 @@ To answer the second question, the performance of GE with a uniform distribution
 Both GE processes were run 11 times, each time extracting the best L-system, before taking the mean of the best L-systems and using a t-test to test if the means were different.
 
 \subsection{Results}
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{figures/ge-size-sampling}
+    \caption{}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.7\textwidth]{figures/ge-tournament-sampling}
+    \caption{}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.7\textwidth]{figures/ge-recombination-sampling}
+    \caption{}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.5\textwidth]{figures/ge-recombination-sampling-variance}
+    \caption{}
+\end{figure}
+
+Figure~\ref{fig:ge-random} shows the comparison of GE against random samples.
+The difference in mean of best fitness is 0.13 (p < 0.01), where GE has a higher mean than random.
+Thus there is a statistically significant difference between their performances.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.4\textwidth]{figures/ge-random}
+    \caption{GE performance compared to random}
+    \label{fig:ge-random}
+\end{figure}
 
 \section{Evaluation of Evaluation Module}
 \subsection{Method}
