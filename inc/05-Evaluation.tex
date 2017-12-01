@@ -13,11 +13,8 @@ As explained in Section~\ref{sec:overview} and shown in Figure~\ref{fig:dgel}, t
 The remaining steps are dependent on the model and do not create variations on the same model.
 Thus GE and SA are the two processes of interests to evaluate.
 
-% GE parameter tuning - have data
-% GE vs random - have data
-% SA parameter selection
 % SA progress - have data, though not structured
-% SA random vs random - need data, average of 100000 L-systems.
+% SA random vs random - have data, need plot.
 % GE SA vs GE uniform - need data, how to measure?
 % Comparing plants from different SA.
 
@@ -79,33 +76,66 @@ To answer the second question, the performance of GE with a uniform distribution
 Both GE processes were run 11 times, each time extracting the best L-system, before taking the mean of the best L-systems and using a t-test to test if the means were different.
 
 \subsection{Results}
+Figure~\ref{fig:size-sampling} shows the search of the population size and number of generations to be used for the GE process.
+The search was prematurely stopped because at around either 1600 number of generations or population size the duration became unreasonable long.
+As seen, a minumum of either a population size of 200 or 200 generations is required for a reasonable performance.
+Additionally, for any number of generations, a population size of 200 makes a notable improvement.
+From this point, there is a steady improvement from around 0.8 to 0.9 with both parameters increasing towards 1600.
+Outside a line drawn through 800, 400 and 400, 800 there does not seem to be any notable improvement, while the duration increases by a large amount.
+The parameter values that yielded the best fitness was $generations = 200$ and $population size = 800$, and they did it within a reasonable duration.
+The duration of it is significantly smaller than other parameter values that yield approximately the same fitness.
+Thus, these parameter values were selected for use.
+
 \begin{figure}
     \centering
     \includegraphics[width=0.8\textwidth]{figures/ge-size-sampling}
-    \caption{}
+    \caption[Visualized search of GE population size and number of generations]{Visualized search of GE population size and number of generations. Numbers are the mean of best fitnesses, box sizes are a representation of that number, and colors represent the mean duration of the GE.}
+    \label{fig:size-sampling}
 \end{figure}
+
+Figure~\ref{fig:tournament-sampling} shows the search of the tournmane size.
+Contrasted to the other searches, this is a one-dimensional search.
+% Possibly do a significance test. Need to re-run to generate raw data...
+As seen in the figure, the search did not find any improvements at all.
+% A BIG LIMITATION IS THAT A LARGER TOURNAMENT SIZE MAY ENABLE SMALLER SIZE PARAMETERS.
+Thus the tournament size was kept at the lowest value, i.e.\ 2.
 
 \begin{figure}
     \centering
     \includegraphics[width=0.7\textwidth]{figures/ge-tournament-sampling}
-    \caption{}
+    \label{fig:tournament-sampling}
+    \caption{Visualized search of the GE tournament selection tournament size}
 \end{figure}
+
+Figure~\ref{fig:tournament-sampling} shows the search of the recombination parameters: mutation rate and crossover rate.
+There is a general improvement in fitness with both increasing mutation rate and crossover rate until the crossover rate reaches 1 where it suddenly turns for the worse.
+Thus the crossover rate should at least be below 1.
+Additionally, the crossover rate seems to be the parameter that contributes less to an improved fitness and increases the duration the most.
+Thus the mutation rate should be the most important parameter.
+The best fitness score is provided by a mutation rate of 1 and crossover rate of 0.5, further indicating this.
+
+Figure~\ref{fig:recombination-sampling-variance} Shows the same standard deviations in the same search.
+The pattern is similar to that of the mean fitness scores.
+The most stable performance is provided by a mutation rate of 1 and crossover rate of 0.5.
+Thus the recombination parameters will be using these values.
 
 \begin{figure}
     \centering
     \includegraphics[width=0.7\textwidth]{figures/ge-recombination-sampling}
-    \caption{}
+    \label{fig:recombination-sampling}
+    \caption[Visualized search of the GE recombination parameters]{Visualized search of the GE recombination parameter search. Numbers, sizes and colors mean the same as in Figure~\ref{fig:size-sampling}.}
 \end{figure}
 
 \begin{figure}
     \centering
     \includegraphics[width=0.5\textwidth]{figures/ge-recombination-sampling-variance}
-    \caption{}
+    \label{fig:recombination-sampling-variance}
+    \caption{Visualized standard deviation in the search of the GE recombination parameters}
 \end{figure}
 
 Figure~\ref{fig:ge-random} shows the comparison of GE against random samples.
 The difference in mean of best fitness is 0.13 (p < 0.01), where GE has a higher mean than random.
-Thus there is a statistically significant difference between their performances.
+Thus there is a statistically significant difference between their performances, indicating that GE is indeed an improvement of randomly generating samples.
 
 \begin{figure}
     \centering
