@@ -25,12 +25,12 @@ Additionally, seeing what parameters are needed for a good performing GE may rev
 The parameters were found using a combined manual and automated approach by searching the parameter space in multiple steps.
 The idea was not to find the optimal parameters, but rather to find some parameters that made the GE produce an individual with good fitness within a reasonable time.
 It was assumed that the size parameters -- population size and number of generations -- are the baseline parameters for GE and thus should be found first.
-Then the tournament size for the tournament selection stategy should be found.
+Then the tournament size for the tournament selection strategy should be found.
 Then good parameters for the recombination rates -- crossover rate and mutation rate -- should be found.
 Finally the parameter for the GE gene duplication operator should be found.
 
 To search for the GE parameters, a breadth-first graph search inspired approach was used.
-An example is shown in Figure~\ref{fig:paramter-search}.
+An example is shown in Figure~\ref{fig:parameter-search}.
 The approach tests a combination of parameters by doing 20 GE runs with those parameters and using the mean fitness score of the best individual from each run.
 If the score is an improvement of the previous score, the search will also tests the neighboring nodes in the graph by increasing the parameter values.
 Otherwise, the current parameter values will be considered as not improving the performance and thus be discarded.
@@ -60,7 +60,7 @@ Student's t-test was used to test the group mean difference.
 \subsubsection{Simulated Annealing}
 To evaluate the SA process, a list of questions were made:
 \begin{itemize}
-	\item Can SA and the grammar distribution be used to find portions of the paramter space that generate better L-system plants?
+	\item Can SA and the grammar distribution be used to find portions of the parameter space that generate better L-system plants?
 	\item Does SA enable GE to find better L-system plants?
 	\item Can SA find multiple portions of the parameter space that each generate unique-looking plants?
 \end{itemize}
@@ -78,7 +78,7 @@ Both GE processes were run 11 times, each time extracting the best L-system, bef
 \subsection{Results}
 Figure~\ref{fig:size-sampling} shows the search of the population size and number of generations to be used for the GE process.
 The search was prematurely stopped because at around either 1600 number of generations or population size the duration became unreasonable long.
-As seen, a minumum of either a population size of 200 or 200 generations is required for a reasonable performance.
+As seen, a minimum of either a population size of 200 or 200 generations is required for a reasonable performance.
 Additionally, for any number of generations, a population size of 200 makes a notable improvement.
 From this point, there is a steady improvement from around 0.8 to 0.9 with both parameters increasing towards 1600.
 Outside a line drawn through 800, 400 and 400, 800 there does not seem to be any notable improvement, while the duration increases by a large amount.
@@ -89,11 +89,11 @@ Thus, these parameter values were selected for use.
 \begin{figure}
     \centering
     \includegraphics[width=0.8\textwidth]{figures/ge-size-sampling}
-    \caption[Visualized search of GE population size and number of generations]{Visualized search of GE population size and number of generations. Numbers are the mean of best fitnesses, box sizes are a representation of that number, and colors represent the mean duration of the GE.}
+    \caption[Visualized search of GE population size and number of generations]{Visualized search of GE population size and number of generations. Numbers are the mean of best fitness scores, box sizes are a representation of that number, and colors represent the mean duration of the GE.}
     \label{fig:size-sampling}
 \end{figure}
 
-Figure~\ref{fig:tournament-sampling} shows the search of the tournmane size.
+Figure~\ref{fig:tournament-sampling} shows the search of the tournament size.
 Contrasted to the other searches, this is a one-dimensional search.
 % Possibly do a significance test. Need to re-run to generate raw data...
 As seen in the figure, the search did not find any improvements at all.
@@ -103,11 +103,11 @@ Thus the tournament size was kept at the lowest value, i.e.\ 2.
 \begin{figure}
     \centering
     \includegraphics[width=0.7\textwidth]{figures/ge-tournament-sampling}
-    \label{fig:tournament-sampling}
     \caption{Visualized search of the GE tournament selection tournament size}
+    \label{fig:tournament-sampling}
 \end{figure}
 
-Figure~\ref{fig:tournament-sampling} shows the search of the recombination parameters: mutation rate and crossover rate.
+Figure~\ref{fig:recombination-sampling} shows the search of the recombination parameters: mutation rate and crossover rate.
 There is a general improvement in fitness with both increasing mutation rate and crossover rate until the crossover rate reaches 1 where it suddenly turns for the worse.
 Thus the crossover rate should at least be below 1.
 Additionally, the crossover rate seems to be the parameter that contributes less to an improved fitness and increases the duration the most.
@@ -122,15 +122,15 @@ Thus the recombination parameters will be using these values.
 \begin{figure}
     \centering
     \includegraphics[width=0.7\textwidth]{figures/ge-recombination-sampling}
-    \label{fig:recombination-sampling}
     \caption[Visualized search of the GE recombination parameters]{Visualized search of the GE recombination parameter search. Numbers, sizes and colors mean the same as in Figure~\ref{fig:size-sampling}.}
+    \label{fig:recombination-sampling}
 \end{figure}
 
 \begin{figure}
     \centering
     \includegraphics[width=0.5\textwidth]{figures/ge-recombination-sampling-variance}
-    \label{fig:recombination-sampling-variance}
     \caption{Visualized standard deviation in the search of the GE recombination parameters}
+    \label{fig:recombination-sampling-variance}
 \end{figure}
 
 Figure~\ref{fig:ge-random} shows the comparison of GE against random samples.

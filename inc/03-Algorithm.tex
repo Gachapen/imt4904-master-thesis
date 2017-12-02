@@ -39,7 +39,7 @@ The chromosome describes the choices to be made in the grammar description, for 
 These choices are what creates the variations in the L-systems.
 If there were no choices, there would only exist one single L-system.
 
-This method of representing the L-systems was based on Beaumont and Stepneys's work on applying GE to plant L-systems~\cite{2009Beaumont}, in addition to Ortega et al.'s work on applying it to fractal L-systems~\cite{2003Ortega}, and Ryan et al.'s introduction of GE~\cite{1998Ryan}.
+This method of representing the L-systems was based on Beaumont and Stepney's work on applying GE to plant L-systems~\cite{2009Beaumont}, in addition to Ortega et al.'s work on applying it to fractal L-systems~\cite{2003Ortega}, and Ryan et al.'s introduction of GE~\cite{1998Ryan}.
 
 While Ortega et al.\ and Beaumont and Stepney make assumptions about the grammar to significantly simplify it and reduce the search space~\cite{2003Ortega, 2009Beaumont}, the DGEL method uses a grammar that covers the largest search space reasonably possible.
 To make the search space reasonable, there still have to be some limits.
@@ -219,7 +219,7 @@ This may in turn increase the rate of produced plants that have long or many bra
 In addition to the distribution weights shown in Figure~\ref{fig:distribution}, there is a default distribution that will be used if there does not exist a mapping for a rule and choice at a specific depth.
 This can be used to prevent infinite recursion with the \textit{stack} rule.
 For example, the distribution for the grammar in Listing~\ref{lst:grammar} may specify the weights $[0.5, 0.5]$ for the second choice (\textit{symbol / stack}) in the \textit{string} rule at depth 0, 1 and 2, such that there is an equal change to produce a string and a stack (branch base).
-To prevent any further branchings, the weights $[1.0, 0.0]$ may be specified for the default distribution, causing it to not produce a stack at depth 3 or deeper.
+To prevent any deeper branch bases, the weights $[1.0, 0.0]$ may be specified for the default distribution, causing it to not produce a stack at depth 3 or deeper.
 
 To find specialized distributions to more efficiently generate good plants or generate different types of plants, the weights in the distribution need to be optimized.
 As the distribution maps from depth, to rule, to choice, to alternative (weight), it is a four-dimensional parameter space to be optimized.
@@ -229,14 +229,14 @@ Specifically, DGEL implements the basic SA approach~\cite{2000Ozdamar}, as descr
 The only difference is that the initial solution is not initialized randomly, but initialized from a pre-optimized solution, such that it has a better starting point.
 In the DGEL SA, the \textit{solution} is the distribution itself, filled with weights for each of the alternatives in each of the choices in each of the rules in a limited set of depths.
 
-A neighbour solution is generated in the same manner as Onbaşoğlu and Özdamar describes~\cite{2001Onbasoglu}: selecting one single random weight and either increasing or decreasing the weight randomly, bounded to the range $[0.0, 1.0]$ in the case of DGEL.
+A neighbor solution is generated in the same manner as Onbaşoğlu and Özdamar describes~\cite{2001Onbasoglu}: selecting one single random weight and either increasing or decreasing the weight randomly, bounded to the range $[0.0, 1.0]$ in the case of DGEL.
 A key difference is that since these are \textit{weights}, the remaining weights in the same set of weights have to be modified such that the sum of all of the weights equal 1.
 If the sum of the remaining weights is greater than 0, they can be scaled by a normalization factor, calculated by $\frac{(1 - w)}{(1 - w_0)}$, where $w$ is the new value of the modified weight, and $w_0$ is the old value of the modified weight.
 If the sum of the remaining weights is exactly 0, scaling the weights will not work, as they would remain 0.
 The alternative solution is to divide the ``remaining weight'' over the remaining weights.
 This is done by setting the remaining weights to $\frac{(1 - w)}{(n - 1)}$, where $w$ is the new value of the modified weight, and $n$ is the number of weights.
 
-Accepting a neighbour solution also follows the same approach as Onbaşoğlu and Özdamar describes~\cite{2001Onbasoglu}.
+Accepting a neighbor solution also follows the same approach as Onbaşoğlu and Özdamar describes~\cite{2001Onbasoglu}.
 To do this, an $f(x)$, where $x$ is a grammar distribution, has to be defined.
 The performance of a grammar distribution can not directly be measured, but it can be estimated by measuring the average performance of the L-systems it generates.
 As the performance of the L-systems generated may vary by a big degree, the average performance, $mean$, is only accepted after a specified amount of L-systems, $n$, have been generated, and the standard error of the performance, $se$, is below a threshold value, $t$ (Algorithm~\ref{alg:eval-dist}).
@@ -330,7 +330,7 @@ The $branches$ function returns the number of branch segments.
 
 \textit{Closeness} is another punishing metric that punishes plants that have branch bases with child segments too close to each other.
 This metric helps avoid plants that have segments clipping into each other.
-This clipping may look bad, and if they are completely inside each other the complexity of the 3D model increases, which decreases the rendering preformance without improving visuals.
+This clipping may look bad, and if they are completely inside each other the complexity of the 3D model increases, which decreases the rendering performance without improving visuals.
 The dot product between the direction of two child segments is used for this metric.
 The dot product is larger the closer the direction vectors are, becoming 1 when they are parallel.
 If the largest dot product between segment directions in a branch base is below a threshold, $t$, there is no punishment.
@@ -437,11 +437,11 @@ As with the Foliage metric, the $s$ constant controls how fast it should increas
 \end{equation}
 
 \textit{Curvature} is a metric that rewards plants with more curved branches.
-It was developed from the results of the first experiment where it was found that plants that looked ``static'' or ``stragith'' were not as pleasing as plants that looked more ``dynamic'' or ``curvy''.
+It was developed from the results of the first experiment where it was found that plants that looked ``static'' or ``straight'' were not as pleasing as plants that looked more ``dynamic'' or ``curvy''.
 As Equation~\ref{eq:curvature} demonstrates, the plant is rewarded more if the branch segments are oriented with a small angle different from their parent.
 If the angle is too sharp, the plant is rewarded less, as the plant may look like ``doodles'' with such angles.
 The $minangles$ function returns a list of the smallest angle from an internode segment to its parent segments.
-Thus, if an internode segment only has one child (i.e.\ it does not branch), the smallest angle will be the angle btween it and that one child.
+Thus, if an internode segment only has one child (i.e.\ it does not branch), the smallest angle will be the angle between it and that one child.
 Otherwise, if an internode segment has multiple children (i.e.\ it is a branch base), all of the angles between it and the children are calculated and the smallest will be used.
 This is based on the assumption that the child segment with the smallest angle is the straight segment following a branch base.
 % This assumption only holds for apex trees? What if it branches into two equally angled branches?
