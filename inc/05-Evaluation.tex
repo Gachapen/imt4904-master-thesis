@@ -35,9 +35,10 @@ The approach tests a combination of parameters by doing 20 GE runs with those pa
 If the score is an improvement of the previous score, the search will also tests the neighboring nodes in the graph by increasing the parameter values.
 Otherwise, the current parameter values will be considered as not improving the performance and thus be discarded.
 When there are no more improvements, the parameter values that produced the best score will be returned.
-% Not all of the samplings increases by multiplicative of 2!
-The parameter values will start at a small value and increase with a multiplicative of 2 for each new node.
+The parameter values will start at a small value and increase in an exponential fashion.
 This is based on the assumption that the parameters are more sensitive when the values are small.
+All of the parameter searches, except for the reproduction parameter search, will increase with a multiplicative of 2.
+Because the reproduction rate parameters are bounded ($[0, 1]$) and to cover the whole range with a reasonable amount of steps, custom steps of 0.01, 0.1, 0.5 and 1 were used.
 
 \begin{figure}
     \centering
@@ -121,27 +122,40 @@ Thus the recombination parameters will be using these values.
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.7\textwidth]{figures/ge-recombination-sampling}
-    \caption[Visualized search of the GE recombination parameters]{Visualized search of the GE recombination parameter search. Numbers, sizes and colors mean the same as in Figure~\ref{fig:size-sampling}.}
-    \label{fig:recombination-sampling}
-\end{figure}
-
-\begin{figure}
-    \centering
-    \includegraphics[width=0.5\textwidth]{figures/ge-recombination-sampling-variance}
-    \caption{Visualized standard deviation in the search of the GE recombination parameters}
-    \label{fig:recombination-sampling-variance}
+    \begin{subfigure}{0.57\textwidth}
+        \includegraphics[width=\textwidth]{figures/ge-recombination-sampling}
+        \caption{Mean of best fitness scores as numbers and sizes, with duration as colors}
+        \label{fig:recombination-sampling}
+    \end{subfigure}
+    ~
+    \begin{subfigure}{0.4\textwidth}
+        \includegraphics[width=\textwidth]{figures/ge-recombination-sampling-variance}
+        \caption{Standard deviation}
+        \label{fig:recombination-sampling-variance}
+    \end{subfigure}
+    \caption{Visualized search of the GE recombination parameters}
 \end{figure}
 
 Figure~\ref{fig:ge-random} shows the comparison of GE against random samples.
 The difference in mean of best fitness is 0.13 (p < 0.01), where GE has a higher mean than random.
-Thus there is a statistically significant difference between their performances, indicating that GE is indeed an improvement of randomly generating samples.
+Thus there is a statistically significant difference between their performances.
+Additionally, Figure~\ref{fig:ge-random-duration} shows the mean duration of the methods where GE is 5 times faster than random.
+This indicates that GE is indeed an improvement of randomly generating samples.
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.4\textwidth]{figures/ge-random}
-    \caption{GE performance compared to random}
-    \label{fig:ge-random}
+    \begin{subfigure}{0.4\textwidth}
+        \includegraphics[width=\textwidth]{figures/ge-random}
+        \caption{Mean of best fitness}
+        \label{fig:ge-random}
+    \end{subfigure}
+    ~
+    \begin{subfigure}{0.4\textwidth}
+        \includegraphics[width=\textwidth]{figures/ge-random-duration}
+        \caption{Mean duration}
+        \label{fig:ge-random-duration}
+    \end{subfigure}
+    \caption{GE and random performance compared}
 \end{figure}
 
 \section{Evaluation of Evaluation Module}
