@@ -35,7 +35,23 @@
 \usepackage{tabularx}
 \usepackage{makecell}
 \usepackage{subcaption}
+\usepackage{listings}
+\usepackage{chngcntr}
+
 \setlength\extrarowheight{2pt}
+
+\lstset{
+    basicstyle=\ttfamily,                   % Code font, Examples: \footnotesize, \ttfamily
+    frame=none,                             % A frame around the code
+    tabsize=2,                              % Default tab size
+    captionpos=b,                           % Caption-position = bottom
+    breaklines=true,                        % Automatic line breaking?
+    breakatwhitespace=false,                % Automatic breaks only at whitespace?
+    showspaces=false,                       % Dont make spaces visible
+    showtabs=false,                         % Dont make tabls visible
+}
+\AtBeginDocument{\counterwithout{lstlisting}{chapter}}
+\renewcommand{\lstlistlistingname}{List of Listings}
 
 \begin{document}
 

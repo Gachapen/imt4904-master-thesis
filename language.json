@@ -57,6 +57,9 @@
 		"OpenGL",
 		"DGEL",
 		"recurse",
+		"AHP",
+		"dRank",
+		"pre",
 		"PDIL"
 	]
 }

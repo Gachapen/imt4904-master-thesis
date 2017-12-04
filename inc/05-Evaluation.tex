@@ -342,12 +342,9 @@ Additionally, part of the recursion is inside a stack, thus allowing for fractal
 
 \begin{lstlisting}[caption=L-system representation of plant in Figure~\ref{fig:sa-plant}, label=lst:sa-plant, float]
 axiom: NT[>>&&&&>&&&F[++++<<]]P[<<&^[>-+<+>]&><&&&&&O]P
-F -> Q[O&^&&&^&<>O[<<+++++^>++<++&][++++-]&>]NT
-     [^>R>&>[<<&<+&+&<+&+-<]<<>&&]P
-L -> [O&<<>&^&&&&>]S[^<[+++-<<>>++<<+<-]^>&<<&>&&>F^>]
-     T[<<&><^&&O&<>]
-N -> N[><&<^&<<&&^&&T][&>[+-<<>+++&+&<+][+++++&><++><<^-]
-     &&&>]PN[&&>&>T&&&&^&><<&]
+F -> Q[O&^&&&^&<>O[<<+++++^>++<++&][++++-]&>]NT[^>R>&>[<<&<+&+&<+&+-<]<<>&&]P
+L -> [O&<<>&^&&&&>]S[^<[+++-<<>>++<<+<-]^>&<<&>&&>F^>]T[<<&><^&&O&<>]
+N -> N[><&<^&<<&&^&&T][&>[+-<<>+++&+&<+][+++++&><++><<^-]&&&>]PN[&&>&>T&&&&^&><<&]
 P -> [&&&O>&>&&>>&&F]F[<&&&&&&>&&&&]TF
 S -> [><&<&&>&]TSQS[&T<<<>[>++-+]<<&&>]T
 T -> PT[>&^>&&&>&&R&&<>>]
@@ -355,5 +352,123 @@ T -> PT[>&^>&&&>&&R&&<>>]
 
 \section{Evaluation of Evaluation Module}
 \subsection{Method}
+\textbf{RQ2} asks ``how aesthetically pleasing plants can be generated''.
+DGEL was the developed solution to this question, but to know if it can actually generate aesthetically pleasing plants or not, the evaluation module has to be analyzed and compared to how humans rank the plants.
+If the ranking made by the humans agree with the ranking made by the fitness component in the evaluation module, it would mean that the generator know how to distinguish good plants from bad plants, and can thus apply its evolutionary algorithms to generate aesthetically pleasing plants.
+Thus the hypothesis is: Humans agree with the ranking made by the DGEL fitness component.
+
+Both a quantitative method and a qualitative method will be used for this purpose.
+The quantitative method aims to answer if the humans agree with the DGEL ranking.
+If they do not completely agree, the qualitative method will be used to analyze why they do not agree and what the important features of a plant that makes it aesthetically pleasing are.
+
+A pairwise comparison of a set of DGEL-generated plants will be performed by human participants.
+The analytical hierarchy process (AHP) will be used to take the pairwise comparison data for a participant and create a ranking of all of the plants~\cite{2008Saaty}.
+% Write about AHP, and why I used it?
+Finally, all of the rankings will be aggregated and compared to the ranking made by DGEL using Kendall's Tau~\cite{1938Kendall}, and dRank~\cite{2009Carterette}.
+Kendall's Tau will test the ranking correlation and its requirement of the rankings fit the requirements of Kendall's Tau~\cite{2010Webber}: they are unweighted, conjoint and have a definite range.
+It will also give an indication of how correlated they are in range $[-1, 1]$, where 1 is perfectly positively correlated, 0 is not correlated and -1 is perfectly negatively correlated.
+But there are two problems with it: it does not consider the relative distances between the ranks~\cite{2010Webber}, and the different participant's rankings will have to be aggregated beforehand, meaning Kendall's Tau does not consider the variance between these rankings.
+Thus, dRank will be used as an alternative statistic, as it considers the distances between ranks and that there are multiple rankings aggregated together~\cite{2010Webber,2009Carterette}.
+
+As many plants as possible were desired, but humans have a limited patience and the number of comparisons to rate is $\frac{n * (n - 1)}{2}$, where $n$ is the number of plants.
+Thus a limited set of plants had to be used.
+The final number of plants used is based on the estimated time used on a comparison and the estimated time a participant is patient.
+The plants should also be spread over the range of the fitness score, so that the rank comparison will be valid for the complete range.
+They should also always be \textit{something} (have at least one branch), otherwise there is nothing to rate.
+The ideal score range would be $[0, 1]$, but it was found difficult to generate plants perfect 0 (with the plant being \textit{something}) and 1 scores.
+Thus GE was used to generate the worst possible plant with score above 0, and the best possible plant.
+Then, $n - 2$ plants were generated uniformly between these two extremes.
+
+% Actually, I was the very first pilot run.
+
+To find a good estimate for the number of plants, and to test the quality of the overall survey, two pilot runs were performed.
+The first pilot run was based on an estimate made by the researcher's own experience in taking the survey.
+One participant participated and was observed through the whole survey.
+They were asked to complete the survey as described in it, think aloud, tell us when they get tired and answer some questions at the end.
+% Exactly which questions?
+Based on this, the amount of plants were changed, the fitness metric was modified, and the overall survey was improved.
+The second pilot run were with the same participant, where they were asked to retake the survey and provide feedback on the changes.
+Based on this feedback, the final survey was formed.
+
+Participants were sampled using convenience sampling and snowball sampling.
+As such, the results may not be generalizable to the whole population, but they may be used as an indication to what is important in an aesthetically pleasing plant.
+Convenience sampling was selected because of time and resource restrictions.
+In addition, snowball sampling was added as a means to gather more samples.
+Participants were found by asking friends, family and acquaintances either by direct conversation or by posting publicly on social networks including Facebook, Google+ and Twitter.
+The participants were asked to share the survey to others, and a sharing link was shown at the end of the survey, thus allowing for a snowballing effect.
+
+% plants are video recordings
+% four observations
+
+\subsection{Survey Design}
+% link to consent?
+% link to survey?
+The survey consists of a consent that they need to agree with, a pre-questionnaire, a description, the pairwise comparison, a post-questionnaire with the results, and finally a thank-you page with the sharing link.
+The pre-questionnaire is intended to map the demographic and what relation they have to plants and games.
+The description describes the pairwise comparison task, what they should do in it, and what to expect at the end.
+The post-questionnaire is intended to find how much the participant agree with the ranking calculated by AHP or why they do not agree, and what they find important in plants.
+Finally, the thank-you page is used to assure the participant that they have completed the survey, give them the option to see or share their results, and share the survey to others.
+
+In the pre-questionnaire the participants are first asked about their age, gender, education and occupation.
+They are then asked ``how often do you work with plants?'' and ``how much do you like plants in general?''
+Their purpose is to see if their relation to plants affects how they rank the plants.
+Finally, they are asked ``how often do you play video games?''
+This is to see if their relation to video games affects how they rank the plants.
+A person that regularly works with plants or enjoys looking at plants in nature may expect something different in a plant than a person who regularly see plants in video games.
+
+During the description of the task, they are recommended to enter fullscreen such that they do not have distractions and that the plants can be viewed as big as possible.
+They are also asked to try a different browser or withdraw if the plant visualization is not working as expected.
+This is because the quality of the visualization may affect their ratings.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=1.0\textwidth]{figures/pairwise}
+    \caption{Pairwise comparison task as viewed on a small screen}
+    \label{fig:pairwise}
+\end{figure}
+
+Figure~\ref{fig:pairwise} shows the comparison task.
+It is kept as simple as possible to avoid distractions, and a neutral gray background color is used to avoid the percieved hue or brightness of the plants to be shifted.
+Two plants are visualized side by side as looping videos of a camera rotating around the plant such that all sides of the plant is seen.
+In addition, the camera adjusts its height and distance from the plant so that all of the plant can be viewed.
+The rotation happens at a balanced speed that lets the user view all of the plant in a short amount of time, while being slow enough to let them study it.
+% The pilot confirmed that the speed was good.
+The video runs at 60 frames per second (FPS) to give a smooth experience, to match the monitor refresh rate and to match what is commonly used in games.
+
+The participant is presented with three categories to choose between: left is more pleasing, they are equally (dis)pleasing, and right is more pleasing.
+If they find one more pleasing they need to rate how much pleasing it is on a scale of 1 to 3.
+The original AHP method uses a 8-point scale, but this is too detailed for a ``normal human'', and thus it was reduced to 3 points which allows for a low, medium and high rating.
+Based on feedback from the pilot run, the ``equally (dis)pleasing'' option was labeled \textit{=} instead of 0 because 0 seemed like it meant that the plants were bad.
+``(dis)'' was also added based on the feedback because without it it seemed like it meant that the plants were good.
+With the changes, the participant should be less reluctant to select ``equal''.
+
+By pressing the ``next'' button, the participant will be presented with new pairs until all have been rated.
+The pairs are presented in random order and with random placement (left or right), as to not make the order create a bias.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=1.0\textwidth]{figures/rank}
+    \caption{Example rank resulting from human rating of plant pairs}
+    \label{fig:rank}
+\end{figure}
+
+The post-questionnaire asks some questions and displays the resulting order of the plants.
+Figure~\ref{fig:rank} shows an example of the resulting order.
+The dots on the white line represents the relative distance between the plants, and the plants them selves are shown in order below.
+% Explain how this is done.
+In this example, the plant ranked as the best is much more better than the second than the second is to the third.
+The participants are asked if they ``agree with the ranking of the plants shown below'', and if they do not strongly agree, they are asked ``why do you not strongly agree with the ranking?''
+This can help determine if the method of ranking the plants with AHP is valid.
+Next they are asked the most important question: ``What would you say separates good plants from bad plants in the ranking?''
+This is useful to be able to do a qualitative analysis of why the human ranking does not match the fitness ranking, if they do not match.
+Finally, they are asked for ``other comments'' in case they have something useful to add that do not fit the other questions.
+
+The final thank-you page contains a congratulation, a link to revisit their results, and a link to share the survey.
+This share link contains a token that indicates who it was shared from.
+With this data the snowball effect can be tracked.
+Though, there is nothing preventing them from sharing the original link, thus losing this information.
+
 \subsection{Implementation}
+% GAAAAH
 \subsection{Results}
+% BAAAAAAAAH
