@@ -469,6 +469,36 @@ With this data the snowball effect can be tracked.
 Though, there is nothing preventing them from sharing the original link, thus losing this information.
 
 \subsection{Implementation}
-% GAAAAH
+No web-based application the matches the design of the survey was found.
+Thus as single-page web-application was created using the Vue JavaScript framework for in the front end, the Rocket web framework for Rust in the back end, and MongoDB to store the data.
+Multiple other libraries were used both in the front end and back end, but the aforementioned are the most central.
+As the application is a on-off application, only meant to be used for the survey, and fairly simple, the choices of technology and architecture were based on experience, convenience and preferences.
+Most of the technology used had recently been used in another project by the researcher, and thus allowed for code re-use and rapid development.
+
+The application uses a client--server architecture, as shown in Figure~\ref{fig:pairwise-architecture}, where the server consists of two layers: API and DB.
+The client uses a Vue Component for each page described in the Survey Design, and URL routing is handled by Vue Router.
+The Components communicated directly to the API layer using a custom REST API, to for example register a participant or get the pairs of plants to evaluate.
+
+The API layer is written in Rust and uses the Rocket framework to implement the API.
+Multiple routes are defined based on the requirements of the client.
+It communicates directly to the MongoDB database using the \textit{mongodb} Rust library.
+
+When a participant registers, they receive a private token that is kept in the URL in the client throughout the whole survey.
+This token access to submit and retrieve their data.
+They also receive a public token that represents the participant, but does not grant access to their data.
+Thus, this public token is used in the share link to identify who shared it.
+
+The paricipant participates only in a specific \textit{task}.
+A task is a set of plants that are to be evaluated, and the system may contain multiple tasks.
+While only one task is used during the survey, allowing multiple tasks lets the researcher experiment with the application without affecting the real data while developing or during the survey.
+
+The database contains three collections: \textit{user}, \textit{sample} and \textit{weight}.
+\textit{user} stores all data relating to the user and is uniquely identified by the private and public tokens individually.
+\textit{sample} stores data about one of the plants, such as its name and the task it is part of.
+Finally, \textit{weight} stores the rating submitted by one user for one pair of plants and is uniquely identified by the user and the two plants together.
+
+Finally there is a command-line interface (CLI) available to extract the data either as raw data or as calculated priority weights using AHP.
+Because of this, a separate module \textit{stats} in the API layer containe the common functionality used by both the API and the CLI.
+
 \subsection{Results}
 % BAAAAAAAAH
