@@ -403,6 +403,7 @@ The participants were asked to share the survey to others, and a sharing link wa
 \subsection{Survey Design}
 % link to consent?
 % link to survey?
+% video compression
 The survey consists of a consent that they need to agree with, a pre-questionnaire, a description, the pairwise comparison, a post-questionnaire with the results, and finally a thank-you page with the sharing link.
 The pre-questionnaire is intended to map the demographic and what relation they have to plants and games.
 The description describes the pairwise comparison task, what they should do in it, and what to expect at the end.
@@ -498,7 +499,220 @@ The database contains three collections: \textit{user}, \textit{sample} and \tex
 Finally, \textit{weight} stores the rating submitted by one user for one pair of plants and is uniquely identified by the user and the two plants together.
 
 Finally there is a command-line interface (CLI) available to extract the data either as raw data or as calculated priority weights using AHP.
-Because of this, a separate module \textit{stats} in the API layer containe the common functionality used by both the API and the CLI.
+Because of this, a separate module \textit{stats} in the API layer contains the common functionality used by both the API and the CLI.
 
 \subsection{Results}
-% BAAAAAAAAH
+% STATS
+% Num samples: 12
+% Num participants: 37
+%
+% 	Kendall's rank correlation tau
+%
+% data:  ranking_human and ranking_code
+% T = 51, p-value = 0.006885
+% alternative hypothesis: true tau is greater than 0
+% sample estimates:
+%       tau
+% 0.5454545
+%
+% $dist
+% [1] 16.67053
+%
+% $p
+% [1] 0
+
+% Describe how occupations and educations were selected.
+
+There were 56 people that registered.
+Of those, 37 completed ranking the plants.
+This means that 34\% of the 56 participants did not rank the plant, of which many likely are people that unintentionally registered multiple times.
+Those who did not complete the ranking of the plants will be excluded from the analysis.
+Finally, one of the 37 did not submit the post questionnaire.
+
+The demographic of the participant is mainly 20--30 year old (65\%) males (78\%) with a bachelor or higher degree (76\%) in information and communication technologies (49\%).
+The age ranges from 21 to 69.
+Science \& engineering and service \& sales were also strongly represented with 16\% and 14\% respectively.
+
+There were only 1 participant that received the share link from another participant.
+Still, only around 25 people were directly asked to participate, and only 15 confirmed that they participated.
+Additionally, it is not expected that all of the people contacted directly did participate.
+Thus, at least 12 participants, and likely more, must have received the link from another person.
+
+% Analyse plant plant like/work and video game.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=1.0\textwidth]{figures/weights}
+    \caption[Fitness score plus geometric mean and arithmetic mean of priority weights]{Normalized fitness score (f) plus geometric mean (gm) of priority weights, with standard error}
+    \label{fig:weights}
+\end{figure}
+
+The fitness ranking and the human aggregated ranking are shown together in Figure~\ref{fig:weights}.
+From this it can be observed that both agree on the three worst and the two best rankings, while in-between these there are big differences.
+For example, 0.65, 0.72, 0.78 and 0.84 are ordered in the reverse order, and are far from the fitness ranking.
+0.53 and 0.84 is also ranked as bad as the three worst by the humans, while the fitness ranks them higher.
+Finally, humans prefer 0.91 much more over 0.97, which is reverse of the fitness.
+Still they do somewhat agree with the ranking of 0.49 and 0.59, while they are reversed.
+
+dRank calculates a ranking distance of 16.67, and a p-value of 0, meaning that the human rankings are significantly different from the fitness ranking, and we reject the hypothesis that they are the same.
+This does still not mean that there is no positive correlation between the rankings, only that they are not equal.
+Kendall's tau is 0.55 (p < 0.01), indicating a positive correlation, though only at about 55\%.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=1.0\textwidth]{figures/weights_bar}
+    \caption[Priority weights from human plant ranking]{Priority weights from human plant ranking, with standard error}
+    \label{fig:weights-bar}
+\end{figure}
+
+Figure~\ref{fig:weights-bar} shows the ordered human ranking.
+From this it can be argued that they agree that 0.27 is the worst plant.
+0.34, 0.40, 0.53 and 0.84 seems to be ranked as equally bad, just above 0.27.
+0.78, 0.72, 0.59 and 0.49 seem to be slightly climbing in score, but their standard errors are big, making it difficult to say for sure.
+0.91 is clearly in first place, while 0.97 and 0.65 are possibly on a shared second place.
+The standard errors are smaller on the bad plants than on the good plants, indicating that it is more likely that humans agree on what looks bad compared to what looks good.
+% Thus maybe plants above a certain threshold should be used?
+
+Both 0.84 and 0.46 are interesting cases as they were moved 5 places down and up respectively, almost swapping places.
+0.84 is the worst, having a difference in weight between its neighbor of 0.12 compared to 0.05 for the 0.46 plant.
+Clearly, there is a big disagreement between the humans and the fitness on these two, which should be studied.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.7\textwidth]{figures/agree}
+    \caption{Human agreement with the AHP ranking}
+    \label{fig:agree}
+\end{figure}
+
+As seen in Figure~\ref{fig:agree}, the participants always agree with the ranking made by AHP.
+73\% strongly agree, while the rest agree.
+The ones that did not strongly agree have to explain why.
+These explanations were categorized into four categories based on the content: null, invalid, position and distance, as shown in Table~\ref{tab:agree-why}.
+While the participants were forced to write a reason, one participant was able to not write anything and is thus categorized as \textit{null}.
+Some explanations contained comments that were not answering the question, which could be because of misunderstanding the question, misinterpretation of the scale, or laziness.
+For example, the comment ``I never agree strongly with online tests'', indicates that they use the scale differently, and actually completely agree with the ranking.
+Therefore, these comments were categorized as ``invalid''.
+Finally, two categories were actual reasons to why they did not strongly agree: \textit{position} and \textit{distance}.
+A plant being positioned in a wrong rank was the most common reason, as it was commented by 5 of the participants.
+In all cases they only wanted to move one plant.
+Only one commented on the distance between the ranks.
+Based on this, one may argue that the AHP ranking was accurate.
+
+\begin{table}
+    \centering
+    \begin{tabularx}{\textwidth}{| l | X | l |}
+    \hline
+    \textbf{Category} & \textbf{Description} & \textbf{Occurrences} \\ \hline
+    null & No comment & 1 \\
+    \hline
+    invalid & The participant did not answer the question, but commented something irrelevant & 3 \\
+    \hline
+    position & Feels that plant is in wrong position and wants to change its rank & 5 \\
+    \hline
+    distance & Feels that the distances between some ranks are either too short or too long & 1 \\
+    \hline
+    \end{tabularx}
+    \caption{Reasons as to why 10 of the participants did not strongly agree with AHP ranking}
+    \label{tab:agree-why}
+\end{table}
+
+\begin{table}
+    \centering
+    \begin{tabularx}{\textwidth}{| l | X | l |}
+    \hline
+    \textbf{Category} & \textbf{Description} & \textbf{Occurrences} \\
+    \hline
+    natural+ & Looking natural is better than artificial & 8 \\
+    \hline
+    natural- & Looking more artificial is interesting & 1 \\
+    \hline
+    symmetry+ & Symmetry is interesting & 1 \\
+    \hline
+    symmetry- & Symmetry makes plants look bad & 1 \\
+    \hline
+    chaos & Chaotic plants look bad (look busy) & 5 \\
+    \hline
+    more leaves & More leaves is better & 5 \\
+    \hline
+    balanced leaves & Balanced amount of leaves is better & 2 \\
+    \hline
+    leaf pitch & Leaves pointing is better than down & 1 \\
+    \hline
+    level of detail & Higher level of detail is more appealing & 4 \\
+    \hline
+    even spread & Branches and leaves spread out evenly to accord for moving sun & 3 \\
+    \hline
+    environment & Plants that look like they are affected by the environment are more immersive & 3 \\
+    \hline
+    size & Small plants look worse (need higher level of detail) & 3 \\
+    \hline
+    curves & More and soft curves is better, sharp angles look bad & 3 \\
+    \hline
+    upwards & Growing upwards is better, horizontal or down is bad & 2 \\
+    \hline
+    healthy & Looking healthy = better & 2 \\
+    \hline
+    lush & Plants that are lush look good (bush-like), while leafless plants look bad (weed-like) & 2 \\
+    \hline
+    complexity & Complex branches are better (simple could work with many in a field) & 2 \\
+    \hline
+    drop & Branches or leaves growing inside the ``pyramid'' look bad & 2 \\
+    \hline
+    patterns & Recognizable patterns are better & 1 \\
+    \hline
+    obstructions & Real plants have obstructions & 1 \\
+    \hline
+    straight & When plants have few leaves they look better if they grow straight up & 1 \\
+    \hline
+    dynamic & Simple plants are better when dynamic & 1 \\
+    \hline
+    arrangement & Simple plants are better when well arranged & 1 \\
+    \hline
+    visible branches & Many visible branches look bad in a chaotic plant (should be covered by leaves) & 1 \\
+    \hline
+    organic & Organic look and shape & 1 \\
+    \hline
+    balanced & Mass center close to trunk & 1 \\
+    \hline
+    uniform bend & All branches should be bent in a similar way & 1 \\
+    \hline
+    \end{tabularx}
+    \caption{Improving or deterioating features}
+    \label{tab:distinguish}
+\end{table}
+
+\begin{table}
+    \centering
+    \begin{tabular}{| l | l |}
+    \hline
+    \textbf{Category} & \textbf{Occurrences} \\
+    \hline
+    leaf amount & 3 \\
+    \hline
+    leaf distribution & 2 \\
+    \hline
+    form & 2 \\
+    \hline
+    symmetry & 1 \\
+    \hline
+    growth & 1 \\
+    \hline
+    shape & 1 \\
+    \hline
+    branch amount & 1 \\
+    \hline
+    branch placement & 1 \\
+    \hline
+    leaf density & 1 \\
+    \hline
+    leaf size & 1 \\
+    \hline
+    character & 1 \\
+    \hline
+    \end{tabular}
+    \caption{Distinguishing features}
+    \label{tab:distinguish2}
+\end{table}
+
+% "clean" interpreted as not chaotic.
+% "foliage coverage" interpreted as "leaf distribution"
