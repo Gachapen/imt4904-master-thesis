@@ -44,13 +44,13 @@ Because the reproduction rate parameters are bounded ($[0, 1]$) and to cover the
     \label{fig:parameter-search}
 \end{figure}
 
-% Formulate this as a hypothesis?
-To evaluate the GE process, it was compared to completely random set of L-systems.
-If the best individual from the GE process has a higher fitness score than the best individual from the random set of individuals, the GE process is an improvement.
-To make a fair comparison, the random set of individuals should contain as many individuals as the GE generates and modifies (through mutation or crossover)
+The reason for using GE is to search the space in an efficient way.
+To see if it is doing this, it needs to be compared to a brute-force approach that finds completely random samples in the sapce and picks the best of them.
+Thus, the hypothesis is that DGEL GE finds plants with better fitness scores than brute-force does.
+To make a fair comparison, the brute-force should generate as many individuals as the GE generates and modifies (through mutation or crossover)
 This way, both methods will ``generate'' the same amount of individuals, either being completely new individuals or modifications of existing individuals.
 GE uses a fixed number of generations and population size, resulting into a fixed number of chromosome generations and modifications: $individuals = population + population * generations$.
-Thus the random set method will generate $individuals$ individuals.
+Thus the brute-force method will generate $individuals$ individuals.
 
 Because both methods depend on a random seed, an average of multiple runs will have to be used.
 A sample size of 11 was selected as balanced choice between sample size and duration.
@@ -329,7 +329,7 @@ An example of a generated plant can be seen in Figure~\ref{fig:sa-plant}, and it
 This plant is very tall and straight, has few branches and few fractal patterns.
 All of this is likely caused by the depth 3 not being relevant, depth 2 being practically not relevant, and depth 1 being nearly not relevant.
 The L-system goes to depth 2, but depth 2 never includes any symbols, thus not being relevant.
-Depth 1 is mostly producing operatiors, but also an occational variable, thus being useful and producing the lateral branches seen on the plant.
+Depth 1 is mostly producing operators, but also an ooccasionalvariable, thus being useful and producing the lateral branches seen on the plant.
 There is recursion in the segment drawing as \textit{F} produces \textit{P} and \textit{T} which in turn produce \textit{F}.
 Additionally, part of the recursion is inside a stack, thus allowing for fractal patterns.
 
@@ -357,6 +357,10 @@ DGEL was the developed solution to this question, but to know if it can actually
 If the ranking made by the humans agree with the ranking made by the fitness component in the evaluation module, it would mean that the generator know how to distinguish good plants from bad plants, and can thus apply its evolutionary algorithms to generate aesthetically pleasing plants.
 Thus the hypothesis is: Humans agree with the ranking made by the DGEL fitness component.
 
+% This is mixed-method research.
+% Embedded design, with qualitative data as supplementary.
+% Phenomenological study? Fits somewhat...
+% Grounded theory study? Ehh...
 Both a quantitative method and a qualitative method will be used for this purpose.
 The quantitative method aims to answer if the humans agree with the DGEL ranking.
 If they do not completely agree, the qualitative method will be used to analyze why they do not agree and what the important features of a plant that makes it aesthetically pleasing are.
@@ -429,7 +433,7 @@ This is because the quality of the visualization may affect their ratings.
 \end{figure}
 
 Figure~\ref{fig:pairwise} shows the comparison task.
-It is kept as simple as possible to avoid distractions, and a neutral gray background color is used to avoid the percieved hue or brightness of the plants to be shifted.
+It is kept as simple as possible to avoid distractions, and a neutral gray background color is used to avoid the perceived hue or brightness of the plants to be shifted.
 Two plants are visualized side by side as looping videos of a camera rotating around the plant such that all sides of the plant is seen.
 In addition, the camera adjusts its height and distance from the plant so that all of the plant can be viewed.
 The rotation happens at a balanced speed that lets the user view all of the plant in a short amount of time, while being slow enough to let them study it.
@@ -489,7 +493,7 @@ This token access to submit and retrieve their data.
 They also receive a public token that represents the participant, but does not grant access to their data.
 Thus, this public token is used in the share link to identify who shared it.
 
-The paricipant participates only in a specific \textit{task}.
+The participant participates only in a specific \textit{task}.
 A task is a set of plants that are to be evaluated, and the system may contain multiple tasks.
 While only one task is used during the survey, allowing multiple tasks lets the researcher experiment with the application without affecting the real data while developing or during the survey.
 
@@ -502,27 +506,7 @@ Finally there is a command-line interface (CLI) available to extract the data ei
 Because of this, a separate module \textit{stats} in the API layer contains the common functionality used by both the API and the CLI.
 
 \subsection{Results}
-% STATS
-% Num samples: 12
-% Num participants: 37
-%
-% 	Kendall's rank correlation tau
-%
-% data:  ranking_human and ranking_code
-% T = 51, p-value = 0.006885
-% alternative hypothesis: true tau is greater than 0
-% sample estimates:
-%       tau
-% 0.5454545
-%
-% $dist
-% [1] 16.67053
-%
-% $p
-% [1] 0
-
-% Describe how occupations and educations were selected.
-
+\subsubsection{Demographics}
 There were 56 people that registered.
 Of those, 37 completed ranking the plants.
 This means that 34\% of the 56 participants did not rank the plant, of which many likely are people that unintentionally registered multiple times.
@@ -538,45 +522,9 @@ Still, only around 25 people were directly asked to participate, and only 15 con
 Additionally, it is not expected that all of the people contacted directly did participate.
 Thus, at least 12 participants, and likely more, must have received the link from another person.
 
-% Analyse plant plant like/work and video game.
+% Analyze plant plant like/work and video game.
 
-\begin{figure}
-    \centering
-    \includegraphics[width=1.0\textwidth]{figures/weights}
-    \caption[Fitness score plus geometric mean and arithmetic mean of priority weights]{Normalized fitness score (f) plus geometric mean (gm) of priority weights, with standard error}
-    \label{fig:weights}
-\end{figure}
-
-The fitness ranking and the human aggregated ranking are shown together in Figure~\ref{fig:weights}.
-From this it can be observed that both agree on the three worst and the two best rankings, while in-between these there are big differences.
-For example, 0.65, 0.72, 0.78 and 0.84 are ordered in the reverse order, and are far from the fitness ranking.
-0.53 and 0.84 is also ranked as bad as the three worst by the humans, while the fitness ranks them higher.
-Finally, humans prefer 0.91 much more over 0.97, which is reverse of the fitness.
-Still they do somewhat agree with the ranking of 0.49 and 0.59, while they are reversed.
-
-dRank calculates a ranking distance of 16.67, and a p-value of 0, meaning that the human rankings are significantly different from the fitness ranking, and we reject the hypothesis that they are the same.
-This does still not mean that there is no positive correlation between the rankings, only that they are not equal.
-Kendall's tau is 0.55 (p < 0.01), indicating a positive correlation, though only at about 55\%.
-
-\begin{figure}
-    \centering
-    \includegraphics[width=1.0\textwidth]{figures/weights_bar}
-    \caption[Priority weights from human plant ranking]{Priority weights from human plant ranking, with standard error}
-    \label{fig:weights-bar}
-\end{figure}
-
-Figure~\ref{fig:weights-bar} shows the ordered human ranking.
-From this it can be argued that they agree that 0.27 is the worst plant.
-0.34, 0.40, 0.53 and 0.84 seems to be ranked as equally bad, just above 0.27.
-0.78, 0.72, 0.59 and 0.49 seem to be slightly climbing in score, but their standard errors are big, making it difficult to say for sure.
-0.91 is clearly in first place, while 0.97 and 0.65 are possibly on a shared second place.
-The standard errors are smaller on the bad plants than on the good plants, indicating that it is more likely that humans agree on what looks bad compared to what looks good.
-% Thus maybe plants above a certain threshold should be used?
-
-Both 0.84 and 0.46 are interesting cases as they were moved 5 places down and up respectively, almost swapping places.
-0.84 is the worst, having a difference in weight between its neighbor of 0.12 compared to 0.05 for the 0.46 plant.
-Clearly, there is a big disagreement between the humans and the fitness on these two, which should be studied.
-
+\subsubsection{Ranking Agreement}
 \begin{figure}
     \centering
     \includegraphics[width=0.7\textwidth]{figures/agree}
@@ -616,6 +564,114 @@ Based on this, one may argue that the AHP ranking was accurate.
     \label{tab:agree-why}
 \end{table}
 
+\subsubsection{Correlation Between Human and Fitness Ranking}
+\begin{figure}
+    \centering
+    \includegraphics[width=1.0\textwidth]{figures/weights}
+    \caption[Fitness score plus geometric mean and arithmetic mean of priority weights]{Normalized fitness score (f) plus geometric mean (gm) of priority weights, with standard error}
+    \label{fig:weights}
+\end{figure}
+
+The fitness ranking and the human aggregated ranking are shown together in Figure~\ref{fig:weights}.
+From this it can be observed that both agree on the three worst and the two best rankings, while in-between these there are big differences.
+For example, 0.65, 0.72, 0.78 and 0.84 are ordered in the reverse order, and are far from the fitness ranking.
+0.53 and 0.84 is also ranked as bad as the three worst by the humans, while the fitness ranks them higher.
+Finally, humans prefer 0.91 much more over 0.97, which is reverse of the fitness.
+Still they do somewhat agree with the ranking of 0.49 and 0.59, while they are reversed.
+
+dRank calculates a ranking distance of 16.67, and a p-value of 0, meaning that the human rankings are significantly different from the fitness ranking, and we reject the hypothesis that they are the same.
+This does still not mean that there is no positive correlation between the rankings, only that they are not equal.
+Kendall's tau is 0.55 (p < 0.01), indicating a positive correlation, though only at about 55\%.
+Based on the rank correlation numbers and the visual analysis, the hypothesis that the rankings are the same can be rejected.
+Still, there is clearly a certain degree of positive correlation, thus we can support the hypothesis that the rankings are correlated.
+
+\subsubsection{Analysis of Bad Correlation}
+\begin{figure}
+    \centering
+    \includegraphics[width=1.0\textwidth]{figures/weights_bar}
+    \caption[Priority weights from human plant ranking]{Priority weights from human plant ranking, with standard error}
+    \label{fig:weights-bar}
+\end{figure}
+
+Figure~\ref{fig:weights-bar} shows the ordered human ranking.
+From this it can be argued that they agree that 0.27 is the worst plant.
+0.34, 0.40, 0.53 and 0.84 seems to be ranked as equally bad, just above 0.27.
+0.78, 0.72, 0.59 and 0.49 seem to be slightly climbing in score, but their standard errors are big, making it difficult to say for sure.
+0.91 is clearly in first place, while 0.97 and 0.65 are possibly on a shared second place.
+The standard errors are smaller on the bad plants than on the good plants, indicating that it is more likely that humans agree on what looks bad compared to what looks good.
+% Thus maybe plants above a certain threshold should be used?
+
+Both 0.84 and 0.46 are interesting cases as they were moved 5 places down and up respectively, almost swapping places.
+0.84 is the worst, having a difference in weight between its neighbor of 0.12 compared to 0.05 for the 0.46 plant.
+Clearly, there is a big disagreement between the humans and the fitness on these two.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=1.0\textwidth]{figures/fitcmp-only}
+    \caption[Human ranking compared to fitness ranking and its components]{Human ranking compared to fitness ranking (\textit{default}) and its components. The ranking on the x-axis is the human ranking.}
+    \label{fig:fitcmp-only}
+\end{figure}
+
+\begin{table}
+    \centering
+    \begin{tabular}{| l | l | l |}
+    \hline
+    \textbf{Ranking} & \textbf{Kendall's Tau} & \textbf{dRank} \\
+    \hline
+            default & 0.55 (p = 0.01) & 16.67 (p = 0) \\
+        only-length & 0.75 (p = 0.00) & 20.99 (p = 0) \\
+       only-foliage & 0.57 (p = 0.01) & 17.01 (p = 0) \\
+       only-balance & 0.49 (p = 0.02) & 16.67 (p = 0) \\
+     only-curvature & 0.45 (p = 0.02) & 16.63 (p = 0) \\
+     only-branching & 0.36 (p = 0.07) & 25.43 (p = 0) \\
+     only-closeness & 0.14 (p = 0.27) & 16.63 (p = 0) \\
+          only-drop & 0.13 (p = 0.30) & 21.67 (p = 0) \\
+            removal & 0.79 (p = 0.00) & 16.67 (p = 0) \\
+    \hline
+    \end{tabular}
+    \caption{}
+    \label{tab:rankstats}
+\end{table}
+
+Figure~\ref{fig:fitcmp-only} compares the human ranking against fitness ranking and each individual fitness metric.
+The fitness ranking has a clear problem of scoring the ranks $[5, 9]$ too high, which creates a ``bump'' in the curve.
+Two metrics that stand out -- closeness and branching -- look like may be a major cause of this bump, as they themselves have an even larger bump.
+Additionally, the drop metric seems to be in a disagreement with the human ranking.
+This inferences are also supported by Kendall's Tau and to some degree dRank, as seen in Table~\ref{tab:rankstats}.
+Kendall's Tau indicates that both closeness and drop are almost not correlated, and there is a high probability that the correlation is by chance.
+Branching also has a low correlation, but relatively higher than the other two.
+dRank supports that drop and branching have a low correlation, but disagrees with Kendall's Tau on the closeness ranking.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=1.0\textwidth]{figures/fitcmp-removal}
+    \caption{}
+    \label{fig:fitcmp-removal}
+\end{figure}
+
+These findings together suggest that these three metric may have a bad affect on the correlation of the human and fitness rankings.
+This is supported by the plot of the \textit{removal} evaluation in Figure~\ref{fig:fitcmp-removal} and its rank correlation in Table~\ref{tab:rankstats}.
+The ``bump'' has been removed, but there are instead some ``waves'' in the center part that disrupts the ranking.
+Additionally, there is less distance between the two best plants and the third best plant, and a larger distance between the worst and second worst plants.
+The Kendall's Tau is 0.79 (p < 0.01), which is an improvement of 0.24, while dRank indicates no difference, possibly because of a less steep slope increasing the amounts of acceptable rank swaps.
+
+% Conclude...
+% Closeness not an aesthetic metric, and can actually be inverse (more leaves from same segment may look good).
+% Drop not relevant as the plant is on top of a ``pyramid''.
+% Branching metric is not well designed.. should use median at least.
+% more?
+
+\subsubsection{Human Perception of Aesthetically Pleasing Plants}
+All participants were asked openly what they would say ``separates good plants from bad plants in the ranking''.
+These comments were categorized into factors and the number of participants who mentioned them was counted.
+The factors were split into two: directional factors and directionless factors.
+Directional factors have a clear understanding of what is better and what is worse, while directionless factors only understand what is important without knowing which direction is better or worse.
+They can be found in Table~\ref{tab:factors-dir} and Table~\ref{tab:factors-nodir} respectively.
+
+Directional factors are useful since they can be used to change a fitness metric's direction or create new metrics.
+Directionless factors are less useful on their own, but they indicate the importance of the factor, and thus can either be used to adjust the weight of a metric or a directional factor.
+For example, ``leaf amount'' is a directionless factor that can be used to strengthen the directional factors ``more leaves'' and ``balanced leaves''.
+
 \begin{table}
     \centering
     \begin{tabularx}{\textwidth}{| l | X | l |}
@@ -636,6 +692,8 @@ Based on this, one may argue that the AHP ranking was accurate.
     \hline
     balanced leaves & Balanced amount of leaves is better & 2 \\
     \hline
+    lush & Plants that are lush look good (bush-like), while leafless plants look bad (weed-like) & 2 \\
+    \hline
     leaf pitch & Leaves pointing is better than down & 1 \\
     \hline
     level of detail & Higher level of detail is more appealing & 4 \\
@@ -651,8 +709,6 @@ Based on this, one may argue that the AHP ranking was accurate.
     upwards & Growing upwards is better, horizontal or down is bad & 2 \\
     \hline
     healthy & Looking healthy = better & 2 \\
-    \hline
-    lush & Plants that are lush look good (bush-like), while leafless plants look bad (weed-like) & 2 \\
     \hline
     complexity & Complex branches are better (simple could work with many in a field) & 2 \\
     \hline
@@ -677,8 +733,8 @@ Based on this, one may argue that the AHP ranking was accurate.
     uniform bend & All branches should be bent in a similar way & 1 \\
     \hline
     \end{tabularx}
-    \caption{Improving or deterioating features}
-    \label{tab:distinguish}
+    \caption{Improving or deteriorating factors}
+    \label{tab:factors-dir}
 \end{table}
 
 \begin{table}
@@ -710,9 +766,33 @@ Based on this, one may argue that the AHP ranking was accurate.
     character & 1 \\
     \hline
     \end{tabular}
-    \caption{Distinguishing features}
-    \label{tab:distinguish2}
+    \caption{Distinguishing factors}
+    \label{tab:factors-nodir}
 \end{table}
+
+% Turning off specific metrics mostly results in little change.
+% Turning off branching improves the first valley and a little bit the bump, though it skews the bump to the right.
+% Analyzing 0.53 and 0.84 indicates that the curvature may be rewarding plants that do not look curvy.
+% Analyzing 0.46 it looks very lush, which may not be rewarded enough.
+% Branching uses mean, but should use median.
+% Curvature uses mean, but should use median.
+% Length should be more cosine-like.
+% Curvature should assume that the longest branch, not the ``straightest'', is the straight edge.
+% Shorter segments and improved leaf heuristic could help with level of detail on small plants.
 
 % "clean" interpreted as not chaotic.
 % "foliage coverage" interpreted as "leaf distribution"
+%
+% Plant ranked 8 (0.84)
+% - Looks artificial.
+% - Few leaves
+% - Not lush
+% - Low level of detail?
+% - Not growing upwards
+% - Not complete
+% - Center far from trunk
+% - Metric says supurb curvature, but this is not visible
+%
+% Plant ranked 4 (0.46)
+% - lush+
+% - chaotic-
