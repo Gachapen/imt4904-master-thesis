@@ -482,7 +482,7 @@ According to Mozilla Developer Network (MDN), H.264 is supported in most browser
 Therefore the videos are encoded in both formats and VP9 is the preferred one if both are supported.
 
 They are compressed as much as possible to reduce load times, while still keeping a near lossless visual quality as to not bias the comparisons.
-Both are encoded with the FFmpeg tools~\footnote{FFmpeg website: \url{http://ffmpeg.org/}}.
+Both are encoded with the FFmpeg tools\footnote{FFmpeg website: \url{http://ffmpeg.org/}}.
 Both the FFmpeg Wiki and Google Developers recommend using Constant Quality for WebM~\cite{ffmpeg-vp9,google-vp9}.
 They recommend CRF values from 15 to 35, and based on the resolution and Google Developers's resolution and CRF value matrix, a CRF of 32 is used~\cite{ffmpeg-vp9,google-vp9}.
 For H.264, according FFMpeg Wiki a CRF value of 17--18 can be considered ``visually lossless''~\cite{ffmpeg-h264}.
@@ -527,7 +527,7 @@ Though, there is nothing preventing them from sharing the original link, thus lo
 
 \subsection{Implementation}
 No web-based application the matches the design of the survey was found.
-Thus as single-page web-application was created using the Vue JavaScript framework for in the front end, the Rocket web framework for Rust in the back end, and MongoDB to store the data.
+Thus as single-page web-application was created using the Vue.js JavaScript framework in the front end\footnote{Vue website: \url{https://vuejs.org/}}, the Rocket web framework for Rust in the back end\footnote{Rocket website: \url{https://rocket.rs/}}\footnote{Rust website: \url{https://www.rust-lang.org/}}, and MongoDB to store the data\footnote{MongoDB website: \url{https://www.mongodb.com/}}.
 Multiple other libraries were used both in the front end and back end, but the aforementioned are the most central.
 As the application is a on-off application, only meant to be used for the survey, and fairly simple, the choices of technology and architecture were based on experience, convenience and preferences.
 Most of the technology used had recently been used in another project by the researcher, and thus allowed for code re-use and rapid development.
@@ -652,12 +652,12 @@ From this it can be argued that they agree that 0.27 is the worst plant.
 %, but their standard errors are big, making it difficult to say for sure.
 % Discussion?
 0.91 is clearly in first place, while 0.97 and 0.65 are possibly on a shared second place.
-The standard errors are smaller on the bad plants than on the good plants, indicating that it is more likely that humans agree on what looks bad compared to what looks good.
+The standard errors are smaller on the bad plants than on the good plants.
+%, indicating that it is more likely that humans agree on what looks bad compared to what looks good.
 % Thus maybe plants above a certain threshold should be used?
-
-Both 0.84 and 0.46 are interesting cases as they were moved 5 places down and up respectively, almost swapping places.
+Both 0.84 and 0.46 were moved 5 ranks down and up respectively, almost swapping places.
 0.84 is the worst, having a difference in weight between its neighbor of 0.12 compared to 0.05 for the 0.46 plant.
-Clearly, there is a big disagreement between the humans and the fitness on these two.
+% Clearly, there is a big disagreement between the humans and the fitness on these two.
 
 \begin{figure}
     \centering
@@ -687,13 +687,14 @@ Clearly, there is a big disagreement between the humans and the fitness on these
     \label{tab:rankstats}
 \end{table}
 
+% Should be in discussion?
 Figure~\ref{fig:fitcmp-only} compares the human ranking against fitness ranking and each individual fitness metric.
-The fitness ranking has a clear problem of scoring the ranks $[5, 9]$ too high, which creates a ``bump'' in the curve.
+The fitness ranking has a clear problem of scoring the ranks 5--9 too high, which creates a ``bump'' in the curve.
 Two metrics that stand out --- closeness and branching --- look like may be a major cause of this bump, as they themselves have an even larger bump.
 Additionally, the drop metric seems to be in a disagreement with the human ranking.
 This inferences are also supported by Kendall's Tau and to some degree dRank, as seen in Table~\ref{tab:rankstats}.
 Kendall's Tau indicates that both closeness and drop are almost not correlated, and there is a high probability that the correlation is by chance.
-Branching also has a low correlation, but relatively higher than the other two.
+Branching also has a low correlation compared to the other metrics, but relatively higher than the other two.
 dRank supports that drop and branching have a low correlation, but disagrees with Kendall's Tau on the closeness ranking.
 
 \begin{figure}
@@ -704,10 +705,11 @@ dRank supports that drop and branching have a low correlation, but disagrees wit
 \end{figure}
 
 These findings together suggest that these three metric may have a bad affect on the correlation of the human and fitness rankings.
-This is supported by the plot of the \textit{removal} evaluation in Figure~\ref{fig:fitcmp-removal} and its rank correlation in Table~\ref{tab:rankstats}.
+This is supported by the plot of the \textit{removal} evaluation in Figure~\ref{fig:fitcmp-removal} and its rank correlation in Table~\ref{tab:rankstats} (\textit{removal}).
 The ``bump'' has been removed, but there are instead some ``waves'' in the center part that disrupts the ranking.
 Additionally, there is less distance between the two best plants and the third best plant, and a larger distance between the worst and second worst plants.
-The Kendall's Tau is 0.79 (p < 0.01), which is an improvement of 0.24, while dRank indicates no difference, possibly because of a less steep slope increasing the amounts of acceptable rank swaps.
+The Kendall's Tau is 0.79 (p < 0.01), which is an improvement of 0.24, while dRank indicates no difference.
+%, possibly because of a less steep slope increasing the amounts of acceptable rank swaps.
 
 % Conclude...
 % Closeness not an aesthetic metric, and can actually be inverse (more leaves from same segment may look good).
@@ -722,6 +724,7 @@ The factors were split into two: directional factors and directionless factors.
 Directional factors have a clear understanding of what is better and what is worse, while directionless factors only understand what is important without knowing which direction is better or worse.
 They can be found in Table~\ref{tab:factors-dir} and Table~\ref{tab:factors-nodir} respectively.
 
+% Discussion
 Directional factors are useful since they can be used to change a fitness metric's direction or create new metrics.
 Directionless factors are less useful on their own, but they indicate the importance of the factor, and thus can either be used to adjust the weight of a metric or a directional factor.
 For example, ``leaf amount'' is a directionless factor that can be used to strengthen the directional factors ``more leaves'' and ``balanced leaves''.
@@ -732,45 +735,47 @@ For example, ``leaf amount'' is a directionless factor that can be used to stren
     \hline
     \textbf{Category} & \textbf{Description} & \textbf{Occurrences} \\
     \hline
-    natural+ & Looking natural is better than artificial & 8 \\
+    natural & Looking ``natural'' is positive & 8 \\
     \hline
-    natural- & Looking more artificial is interesting & 1 \\
+    artificial & Looking ``artificial'' is positive & 1 \\
     \hline
-    symmetry+ & Symmetry is interesting & 1 \\
+    healthy & Looking ``healthy'' is positive & 2 \\
     \hline
-    symmetry- & Symmetry makes plants look bad & 1 \\
+    details & Higher level of detail is positive & 4 \\
     \hline
-    chaos & Chaotic plants look bad (look busy) & 5 \\
+    environment & Environmental effects on plants is positive & 3 \\
     \hline
-    more leaves & More leaves is better & 5 \\
+    chaos & Chaos is negative & 5 \\
     \hline
-    balanced leaves & Balanced amount of leaves is better & 2 \\
+    symmetry & Symmetry is positive & 1 \\
     \hline
-    lush & Plants that are lush look good (bush-like), while leafless plants look bad (weed-like) & 2 \\
+    asymmetry & Symmetry is negative & 1 \\
     \hline
-    leaf pitch & Leaves pointing is better than down & 1 \\
+    patterns & Recognizable patterns is positive & 1 \\
     \hline
-    level of detail & Higher level of detail is more appealing & 4 \\
+    more leaves & More leaves is postive & 5 \\
     \hline
-    even spread & Branches and leaves spread out evenly to accord for moving sun & 3 \\
+    balanced leaves & Balanced amount of leaves is postive & 2 \\
     \hline
-    environment & Plants that look like they are affected by the environment are more immersive & 3 \\
+    lush & Higher leaf density is positive & 2 \\
     \hline
-    size & Small plants look worse (need higher level of detail) & 3 \\
+    leaf pitch & Leaves pointing up is positive & 1 \\
     \hline
-    curves & More and soft curves is better, sharp angles look bad & 3 \\
+    even spread & Branches and leaves spread out evenly is positive & 3 \\
     \hline
-    upwards & Growing upwards is better, horizontal or down is bad & 2 \\
+    small & Small plant size is negative & 3 \\
     \hline
-    healthy & Looking healthy = better & 2 \\
+    curves & More and soft curves is positive & 3 \\
     \hline
-    complexity & Complex branches are better (simple could work with many in a field) & 2 \\
+    upwards & Growing upwards is positive & 3 \\
     \hline
-    drop & Branches or leaves growing inside the ``pyramid'' look bad & 2 \\
+    sideways & Growing sideways is positive & 1 \\
     \hline
-    patterns & Recognizable patterns are better & 1 \\
+    complexity & Complex branches is positive & 2 \\
     \hline
-    obstructions & Real plants have obstructions & 1 \\
+    clipping & Branches or leaves growing inside the ground is negative & 2 \\
+    \hline
+    obstructions & Obstructions is positive & 1 \\
     \hline
     straight & When plants have few leaves they look better if they grow straight up & 1 \\
     \hline
@@ -778,16 +783,14 @@ For example, ``leaf amount'' is a directionless factor that can be used to stren
     \hline
     arrangement & Simple plants are better when well arranged & 1 \\
     \hline
-    visible branches & Many visible branches look bad in a chaotic plant (should be covered by leaves) & 1 \\
+    visible branches & Dense amounts of visible branches is negative & 1 \\
     \hline
-    organic & Organic look and shape & 1 \\
+    balanced & Center of mass close to trunk is positive & 1 \\
     \hline
-    balanced & Mass center close to trunk & 1 \\
-    \hline
-    uniform bend & All branches should be bent in a similar way & 1 \\
+    uniform bend & A uniform bend of the branches is positive & 1 \\
     \hline
     \end{tabularx}
-    \caption{Improving or deteriorating factors}
+    \caption{Directional factors}
     \label{tab:factors-dir}
 \end{table}
 
@@ -801,28 +804,65 @@ For example, ``leaf amount'' is a directionless factor that can be used to stren
     \hline
     leaf distribution & 2 \\
     \hline
-    form & 2 \\
+    leaf density & 1 \\
+    \hline
+    leaf size & 1 \\
+    \hline
+    form & 3 \\
     \hline
     symmetry & 1 \\
     \hline
     growth & 1 \\
     \hline
-    shape & 1 \\
-    \hline
     branch amount & 1 \\
     \hline
     branch placement & 1 \\
     \hline
-    leaf density & 1 \\
-    \hline
-    leaf size & 1 \\
-    \hline
     character & 1 \\
     \hline
     \end{tabular}
-    \caption{Distinguishing factors}
+    \caption{Directionless factors}
     \label{tab:factors-nodir}
 \end{table}
+
+The abstract category ``natural'' was mentioned the most (8 times).
+Many participants said that plants looking ``natural'' looked better, sometimes contrasted to ``artificial'' plants.
+The word ``natural'' was often used as a dependent factor of other independent factors.
+For example a comment said ``[...]the stems seemed to be perfect (angles), hence not natural'', which implies that ``natural'' is an important factor and the angles of the stems is a factor that affects the ``natural'' factor.
+There was only one participant who suggested the oppisite, i.e. that artificial-looking plants looked good, or more specifically ``interesting [...] as I do not expect to see a lot of symmetry in plants''.
+
+``more leaves'' was the second most occuring category (5 comments).
+Comments that fit into this category either suggest that the plants with more leaves look better, or that plants with less leaves look worse.
+There were also comments that said that a balanced amount of leaves is positive (2 comments).
+
+The third most occuring category is ``detail'', which says that a higher level of detail in the plants is a positive factor.
+Simple or small plants were often commented as having too little detail and thus not looking natural.
+There are three categories that are specifically for these types of plants: straight, dynamic and arrangement.
+They suggest that simple plants look better when growing straight upwards, being more dynamic or well arranged.
+
+\begin{table}
+    \centering
+    \begin{tabularx}{\textwidth}{| X | X | X | X |}
+    \hline
+    Abstract & Structure & Foliage & Other \\
+    \hline
+    natural, artificial, healthy, character, chaos, dynamic, growth, arrangement &
+    symmetry, assymetry, patterns, even spread, form, small, curves, upwards, sideways, complexity, visible branches, balanced, uniform bend, branch amount, straight, branch placement &
+    more leaves, balanced leaves, lush, leaf pitch, leaf amount, leaf distribution, leaf density, leaf size &
+    clipping, obstructions, details, environment \\
+    \hline
+    \end{tabularx}
+    \caption{Grouping of factors}
+    \label{tab:factor-groups}
+\end{table}
+
+The factors were grouped into four groups: abstract, structure, foliage and other.
+The abstract group contains factors that are not quantifiable and thus more abstract in nautre.
+For example it is not straight forward to quantify how ``natural'' a plant looks.
+Structure contains factors that consider the structure of the plant, i.e. the features of the branches and their patterns.
+Foliage contains factors that consider the leaves on the plant and their individual properties or the foliage as a whole.
+Other are factors that do not fit in the other groups.
+The grouping of the factors is shown in Table~\ref{tab:factor-groups}.
 
 % Turning off specific metrics mostly results in little change.
 % Turning off branching improves the first valley and a little bit the bump, though it skews the bump to the right.
@@ -833,6 +873,7 @@ For example, ``leaf amount'' is a directionless factor that can be used to stren
 % Length should be more cosine-like.
 % Curvature should assume that the longest branch, not the ``straightest'', is the straight edge.
 % Shorter segments and improved leaf heuristic could help with level of detail on small plants.
+% Organic = natural
 
 % "clean" interpreted as not chaotic.
 % "foliage coverage" interpreted as "leaf distribution"
