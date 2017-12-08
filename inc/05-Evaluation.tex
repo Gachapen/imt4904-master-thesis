@@ -15,27 +15,28 @@ Thus GE and SA are the two processes of interests to evaluate.
 
 % GE SA vs GE uniform - need data, how to measure?
 
-\subsubsection{Grammar Evolution}
-GE, as with GA, depends on multiple parameter, and with tournament sampling there are even more.
-Thus, before evaluation the GE process, good parameters had to be found.
+\subsubsection{Grammar Evolution Parameters}
+GE, as with GA, depends on multiple parameters, and with tournament sampling there are even more.
+Thus, before evaluation the GE process, good parameters should be found.
 Additionally, seeing what parameters are needed for a good performing GE may reveal additional properties of it.
 The parameters were found using a combined manual and automated approach by searching the parameter space in multiple steps.
 The idea was not to find the optimal parameters, but rather to find some parameters that made the GE produce an individual with good fitness within a reasonable time.
-It was assumed that the size parameters -- population size and number of generations -- are the baseline parameters for GE and thus should be found first.
+It was assumed that the size parameters --- population size and number of generations --- are the baseline parameters for GE and thus should be found first.
 Then the tournament size for the tournament selection strategy should be found.
-Then good parameters for the recombination rates -- crossover rate and mutation rate -- should be found.
+Then good parameters for the recombination rates --- crossover rate and mutation rate --- should be found.
 Finally the parameter for the GE gene duplication operator should be found.
+% Reason for these assumptions?
 
 To search for the GE parameters, a breadth-first graph search inspired approach was used.
 An example is shown in Figure~\ref{fig:parameter-search}.
 The approach tests a combination of parameters by doing 20 GE runs with those parameters and using the mean fitness score of the best individual from each run.
-If the score is an improvement of the previous score, the search will also tests the neighboring nodes in the graph by increasing the parameter values.
+If the score is an improvement of the previous score, the node will be considered an improvement and it will consider the neighboring nodes in the graph by increasing the parameter values.
 Otherwise, the current parameter values will be considered as not improving the performance and thus be discarded.
 When there are no more improvements, the parameter values that produced the best score will be returned.
 The parameter values will start at a small value and increase in an exponential fashion.
 This is based on the assumption that the parameters are more sensitive when the values are small.
 All of the parameter searches, except for the reproduction parameter search, will increase with a multiplicative of 2.
-Because the reproduction rate parameters are bounded ($[0, 1]$) and to cover the whole range with a reasonable amount of steps, custom steps of 0.01, 0.1, 0.5 and 1 were used.
+Because the reproduction rate parameters are bounded ($[0, 1]$) and to cover the whole range with a reasonable amount of steps, custom steps of 0.01, 0.1, 0.5 and 1 are used.
 
 \begin{figure}
     \centering
@@ -44,43 +45,49 @@ Because the reproduction rate parameters are bounded ($[0, 1]$) and to cover the
     \label{fig:parameter-search}
 \end{figure}
 
+\subsubsection{Grammar Evolution Test}
 The reason for using GE is to search the space in an efficient way.
-To see if it is doing this, it needs to be compared to a brute-force approach that finds completely random samples in the sapce and picks the best of them.
-Thus, the hypothesis is that DGEL GE finds plants with better fitness scores than brute-force does.
+To see if it is doing this, it needs to be compared to a brute-force approach that finds completely random samples in the space and picks the best of them.
+Thus, the hypothesis is that DGEL GE finds plants with better fitness scores than brute-force does (\textbf{H1}).
+
 To make a fair comparison, the brute-force should generate as many individuals as the GE generates and modifies (through mutation or crossover)
 This way, both methods will ``generate'' the same amount of individuals, either being completely new individuals or modifications of existing individuals.
-GE uses a fixed number of generations and population size, resulting into a fixed number of chromosome generations and modifications: $individuals = population + population * generations$.
+GE uses a fixed number of generations and population size, resulting into a fixed number of total individuals: $individuals = population + population * generations$.
 Thus the brute-force method will generate $individuals$ individuals.
 
 Because both methods depend on a random seed, an average of multiple runs will have to be used.
 A sample size of 11 was selected as balanced choice between sample size and duration.
-Student's t-test was used to test the group mean difference.
 
 \subsubsection{Simulated Annealing}
-To evaluate the SA process, a list of questions were made:
-\begin{itemize}
-	\item Can SA and the grammar distribution be used to find portions of the parameter space that generate better L-system plants?
-	\item Does SA enable GE to find better L-system plants?
-	\item Can SA find multiple portions of the parameter space that each generate unique-looking plants?
-\end{itemize}
-To answer the first question, two methods were used.
-First, SA was used as described in previous sections to find an optimized grammar distribution, and the progress of it was plotted.
-The progress plot was analyzed to see if SA made any meaningful progress.
-Secondly, a comparison was made between the average fitness of L-systems randomly generated by a uniform grammar distribution and L-systems randomly generated by an SA-optimized grammar distribution.
-The L-systems were generated in a completely random manner, not using any evolutionary approach such as GE.
-% I need to actually run this experiment....
-While this may answer if it is possible for an SA-optimized grammar distribution to generate better plants, it does not answer if this always will be the case.
+% \begin{itemize}
+% 	\item Can SA and the grammar distribution be used to find portions of the parameter space that generate better L-system plants?
+% 	\item Does SA enable GE to find better L-system plants?
+% 	\item Can SA find multiple portions of the parameter space that each generate unique-looking plants?
+% \end{itemize}
+The main purpose of using SA with a grammar distribution is to improve the efficiency of the remaining components of DGEL by focusing the search space on a good area.
+Based on this a hypothesis can be formulated: An SA-optiomized grammar distribution can find better individuals than a uniform grammar distribution (\textbf{H2}).
+An important word in the hypothesis is \textit{can}, because this means that the hypothesis does not imply that \textit{all} SA-optimized grammar distributions will find better individuals.
 
-To answer the second question, the performance of GE with a uniform grammar distribution was compared to the performance of GE with an SA-optimized grammar distribution.
-Both GE processes were run 11 times, each time extracting the best L-system, before taking the mean of the best L-systems and using a t-test to test if the means were different.
+SA is used as described in previous sections to find an optimized grammar distribution, and the progress of it is plotted to see if it makes any meaningful progress.
+Then, to test the hypothesis a comparison is made between the average fitness of L-systems randomly generated by a uniform grammar distribution and L-systems randomly generated by an SA-optimized grammar distribution.
+The L-systems are generated in a brute-force manner, not using any evolutionary approach such as GE.
+
+If \textbf{H2} is supported, we can further hypothesize that \textit{GE} with an SA-optimized grammar distribution can find better individuals than with a uniform grammar distribution (\textbf{H3}).
+% Have run tests with 160800 individuals, but GE with uniform is already so good that it isn't comparable.
+% Thus we need a better comparison (fewer individuals? Time to convergence?)
+%To test this hypothesis, the performance of GE with a uniform grammar distribution is compared to the performance of GE with an SA-optimized grammar distribution.
+%Both GE processes were run 11 times, each time extracting the best L-system, before taking the mean of the best L-systems and using a t-test to test if the means were different.
+
+% Finally,check variation of SA. How to? Right now I can only manually check some examples.
 
 \subsection{Results}
-\subsubsection{Grammar Evolution}
+\subsubsection{Grammar Evolution Parameters}
 Figure~\ref{fig:size-sampling} shows the search of the population size and number of generations to be used for the GE process.
 The search was prematurely stopped because at around either 1600 number of generations or population size the duration became unreasonable long.
 As seen, a minimum of either a population size of 200 or 200 generations is required for a reasonable performance.
 Additionally, for any number of generations, a population size of 200 makes a notable improvement.
-From this point, there is a steady improvement from around 0.8 to 0.9 with both parameters increasing towards 1600.
+From this point on, there is a steady improvement from scores around 0.8 to 0.9 with both parameters increasing towards 1600.
+% Actually draw this line?
 Outside a line drawn through 800, 400 and 400, 800 there does not seem to be any notable improvement, while the duration increases by a large amount.
 The parameter values that yielded the best fitness was $generations = 200$ and $population size = 800$, and they did it within a reasonable duration.
 The duration of it is significantly smaller than other parameter values that yield approximately the same fitness.
@@ -103,7 +110,7 @@ Thus the tournament size was kept at the lowest value, i.e.\ 2.
 \begin{figure}
     \centering
     \includegraphics[width=0.7\textwidth]{figures/ge-tournament-sampling}
-    \caption{Visualized search of the GE tournament selection tournament size}
+    \caption[Visualized search of the GE tournament selection tournament size]{Visualized search of the GE tournament selection tournament size with standard error}
     \label{fig:tournament-sampling}
 \end{figure}
 
@@ -114,7 +121,8 @@ Additionally, the crossover rate seems to be the parameter that contributes less
 Thus the mutation rate should be the most important parameter.
 The best fitness score is provided by a mutation rate of 1 and crossover rate of 0.5, further indicating this.
 
-Figure~\ref{fig:recombination-sampling-variance} Shows the same standard deviations in the same search.
+% Also did an ANOVA on this, could mention.
+Figure~\ref{fig:recombination-sampling-variance} shows the standard deviations in the same search.
 The pattern is similar to that of the mean fitness scores.
 The most stable performance is provided by a mutation rate of 1 and crossover rate of 0.5.
 Thus the recombination parameters will be using these values.
@@ -160,50 +168,56 @@ All of the GE parameters are summarized in Table~\ref{tab:ge-parameters}.
     \label{tab:ge-parameters}
 \end{table}
 
-Figure~\ref{fig:ge-random} shows the comparison of GE against random samples.
-The difference in mean of best fitness is 0.13 (p < 0.01), where GE has a higher mean than random.
-Thus there is a statistically significant difference between their performances.
-Additionally, Figure~\ref{fig:ge-random-duration} shows the mean duration of the methods where GE is 5 times faster than random.
-This indicates that GE is indeed an improvement of randomly generating samples.
-
+\subsubsection{Grammar Evolution Test}
 \begin{figure}
     \centering
     \begin{subfigure}{0.4\textwidth}
         \includegraphics[width=\textwidth]{figures/ge-random}
-        \caption{Mean of best fitness}
+        \caption{Median of best fitness with MAD}
         \label{fig:ge-random}
     \end{subfigure}
     ~
     \begin{subfigure}{0.4\textwidth}
         \includegraphics[width=\textwidth]{figures/ge-random-duration}
-        \caption{Mean duration}
+        \caption{Mean duration with SE}
         \label{fig:ge-random-duration}
     \end{subfigure}
     \caption{GE and random performance compared}
 \end{figure}
 
+Figure~\ref{fig:ge-random} shows the comparison of GE against random samples.
+A Shapiro-Wilk normality test suggests that the brute-force sample distribution can be assumed to be normally distributed (p >= 0.05, W = 0.97), while the GE sample distribution can not (p < 0.05, W = 0.46).
+A robust Brown-Forsythe Levene-type test suggests that the variances of the distributions can be considered equal (p >= 0.05, statistic = 0.09).
+Because there are non-normal distributions and different variances, the Mann-Whitney U test will be used.
+GE has a median score of 1.00, while random has 0.85 (difference of 0.15).
+The Mann–Whitney U test suggests that the true location shift of the distributions is greater than 0 (p < 0.05, U = 117).
+% Could run test on this as well, but necessary??
+
+% Caused by tournament sampling.
+Additionally, Figure~\ref{fig:ge-random-duration} shows the mean duration of the methods where GE is about 5 times faster than random.
+A Shapiro-Wilk normality test suggests that both the brute-force and GE samples can be assumed to be normally distributed (p >= 0.05, W = 0.89 and p >= 0.05, W = 0.93 respectively).
+A robust Brown-Forsythe Levene-type test suggests that the variances of the distributions can be considered unequal (p < 0.05, statistic = 17.13).
+Because the distributions can be assumed to be normally distributed and the variances can be assumed to be unequal, the Welch's t-test will be used.
+GE has a mean duration of 9.51, while random has 49.33 (difference of -39.82).
+The Welch's two-sample t-test suggests that the true difference in means are not 0 (p < 0.05, t = -35.90, df = 10.02)
+
 \subsubsection{Simulated Annealing}
-
-Figure~\ref{fig:sa-progress} shows the progress of one SA run, and Figure~\ref{fig:sa-progress-close} shows a close-up of the first annealing.
-The run had a maximum of 2000 moves per dimension and a cooldown rate of 0.002.
-The grammar distribution evaluation had a minimum 32 samples and an error threshold of 0.004.
-In total this resulted into 436000 moves over 9 annealings.
-As seen in the figure, for each annealing there is a general improvement from a fitness score of 0 to around 0.6.
-As expected, the SA process explores the space in the beginning, moving both up and down in score, and then gradually focuses more on hill climbing towards the end.
-Each annealing generally reach a plateau before being halfway through the annealing process, from when nearly all mutations are worse and thus it chooses to stay, though the second annealing is slower to reach the plateau.
-The fourth annealing found one exceptionally good grammar distribution with a score of almost 0.75, but when the same grammar distribution was measured over 100000 samples its score was 0.61, as seen in Figure~\ref{fig:sa-uniform}.
-Thus the score measured in the SA process may have been inaccurate.
-
 \begin{figure}
     \includegraphics[width=\textwidth]{figures/sa-progress}
     \caption{The complete SA process with multiple re-annealings}
     \label{fig:sa-progress}
 \end{figure}
 
-Seen in Figure~\ref{fig:sa-progress-close} the points cluster around the same score, indicating that the locality of the grammar distribution mutations is good, or at least not bad.
-A the same time there is some points spread fairly uniformly between the clustering and 0, meaning that there are some mutations that have bad locality.
-Additionally there is a clustering at exactly 0, indicating a discontinuity in the fitness metric, which is most likely caused by the ``nothing'' metric that sets the score to 0 if there are no branches in the plant.
-This may happen if the L-system does not contain any drawing instruction (\textit{F}), or if the number of instructions hits the maximum limit.
+Figure~\ref{fig:sa-progress} shows the progress of one SA run, and Figure~\ref{fig:sa-progress-close} shows a close-up of the first annealing.
+The run had a maximum of 2000 moves per dimension and a cooldown rate of 0.002.
+The grammar distribution evaluation had a minimum 32 samples and an error threshold of 0.004.
+In total this resulted into 436000 moves over 9 annealings.
+As seen in the figure, for each annealing there is a general improvement from a fitness score of 0 to around 0.6.
+The SA process explores the space in the beginning, moving both up and down in score, and then gradually focuses more on hill climbing towards the end.
+Each annealing generally reach a plateau before being halfway through the annealing process, from when nearly all mutations are worse and thus it chooses to stay, though the second annealing is slower to reach the plateau.
+The fourth annealing found one exceptionally good grammar distribution with a score of almost 0.75, but when the same grammar distribution was measured over 100000 samples its score was 0.61 (SD = 0.25).
+Thus the score measured in the SA process may have been inaccurate.
+As this distribution was the one with the best score during the SA process, it will be the one used for further analysis.
 
 \begin{figure}
     \includegraphics[width=\textwidth]{figures/sa-progress-close}
@@ -211,28 +225,24 @@ This may happen if the L-system does not contain any drawing instruction (\texti
     \label{fig:sa-progress-close}
 \end{figure}
 
-% Is it OK to use a Mann-Whitney U test here? Are the distributions similar? Not really...
-Figure~\ref{fig:sa-uniform} shows a comparison of L-system populations generated by the grammar distribution found by SA in Figure~\ref{fig:sa-progress} and a uniform grammar distribution.
-The uniform grammar distribution has a mean fitness score of 0.00, while the SA-optimized grammar distribution's mean is 0.61.
-A Mann–Whitney U test indicates that the groups are statistically significant different (p < 0.01).
-
-Figure~\ref{fig:uniform-population} reflects the uniform grammar distribution's fitness score, where practically the whole population has a score of 0.
-When removing all 0-scored individuals, another distribution presents itself in Figure~\ref{fig:uniform-population-no0}.
-Here, a somewhat bell-shaped distribution around the score 0.5 is revealed for the remaining 121 individuals (0.121\% of the total).
-
-Figure~\ref{fig:sa-population} shows the SA grammar distribution's distribution of fineness scores.
-87.87\% of the SA sample population have a score larger than 0, compared to 0.121\% in the uniform sample population.
-Thus the SA grammar distribution helps avoid most of the worst L-systems.
-As the distribution is skewed to the left, the median may be a better estimate of the population average.
-The SA grammar distribution has a median of 0.71, compared to 0.00 for the uniform grammar distribution.
-Even with all individuals with score 0 removed, the SA grammar distribution leads with a median of 0.72 compared to 0.47, though the difference is smaller.
+Seen in Figure~\ref{fig:sa-progress-close} the points cluster around the same score, indicating that the locality of the grammar distribution mutations is good.
+At the same time there are some points spread fairly uniformly between the clustering and 0.
+%, meaning that there are some mutations that have bad locality.
+Additionally there is a clustering at exactly 0.
+%, indicating a discontinuity in the fitness metric.
+%, which is most likely caused by the ``nothing'' metric that sets the score to 0 if there are no branches in the plant.
+%This may happen if the L-system does not contain any drawing instruction (\textit{F}), or if the number of instructions hits the maximum limit.
 
 \begin{figure}
-    \centering
-    \includegraphics[width=0.4\textwidth]{figures/sa-uniform}
-    \caption{Random population with uniform grammar distribution compared to SA-optimized grammar distribution}
-    \label{fig:sa-uniform}
+    \includegraphics[width=\textwidth]{figures/sa-qq}
+    \caption{Q-Q plot of SA and uniform sample populations}
+    \label{fig:sa-qq}
 \end{figure}
+
+As the sample size (n = 100000) is too large for a Shapiro-Wilk normality test, a Q-Q plot is used.
+It can be seen in Figure~\ref{fig:sa-qq}, and it is clear that the distributions are not normally distributed.
+Even with all 0 scores removed, the data does not appear normally distributed.
+A robust Brown-Forsythe Levene-type test shows that the variances of the distributions can not be considered equal (p < 0.05).
 
 \begin{figure}
     \centering
@@ -257,27 +267,26 @@ Even with all individuals with score 0 removed, the SA grammar distribution lead
     \label{fig:sa-population}
 \end{figure}
 
-The grammar distribution found in the SA process is shown in Figure~\ref{fig:sa-dist}.
-As seen in Figure~\ref{fig:sa-dist-prod}, this grammar distribution favors around 10 production rules in the L-system, though 20 productions is also a strong contender.
-Figure~\ref{fig:sa-dist-stack} shows that it always favors symbols over stacks, starting at around 60\% symbols in the top depth, then around 90\% symbols in the next depth, and 100\% symbols in the final depth.
-% PROBABLY CAUSED BY THE INSTRUCTION LIMIT, WHICH IS A LIMITATION.
-This indicates that restricting the number of depths to 4 was not too restricting as it chose to restrict itself to 3 depths.
-Additionally, this makes all of the distributions at depth 3 irrelevant as they will never be used.
-It favors shorter strings in depth 0, but not too short strings, as seen in Figure~\ref{fig:sa-dist-strlen}.
-% WHY NOT MEDIUM STRING LENGTHS? WHY A VALLEY BETWEEN THESE?
-While in depth 1 and 2 it favors medium short and medium long strings.
+Figure~\ref{fig:uniform-population} shows the uniform grammar distribution' sample distribution, where practically the whole population has a score of 0.
+When removing all zero-scored individuals, another distribution presents itself in Figure~\ref{fig:uniform-population-no0}.
+Here, a somewhat double bell-shaped distribution around the score 0.5 with a high concentration at around 0.4 is revealed for the remaining 121 individuals (0.12\% of the total).
+Figure~\ref{fig:sa-population} shows the SA grammar distribution's distribution of fineness scores.
+87.87\% of the SA sample population have a score larger than 0, compared to 0.121\% in the uniform sample population.
+%Thus the SA grammar distribution helps avoid most of the worst L-systems.
+%As the distribution is skewed to the left, the median may be a better estimate of the population average.
 
-Figure~\ref{fig:sa-dist-sym} shows that it only allows variables in depth 0, while its nearly the inverse in depth 1 and 2.
-This is interesting as an operation has no effect if it is not followed by a variable.
-Thus depth 2, along with depth 3, is not contributing anything to the plant, but depth 2 is still wasting instructions.
-Depth 1 also has only about 10\% chance of a variable, meaning that most of the drawing will happen in depth 0, which in turn means less branching.
-% THE ABOVE CAN BE SEEN IN THE PLANTS GENERATED FROM THIS DISTRIBUTION.
+\begin{figure}
+    \centering
+    \includegraphics[width=0.4\textwidth]{figures/sa-uniform}
+    \caption{Random population with uniform grammar distribution compared to SA-optimized grammar distribution}
+    \label{fig:sa-uniform}
+\end{figure}
 
-The operation distribution in Figure~\ref{fig:sa-dist-op} is difficult to understand, but the strong "-" in depth 0 should make the branches have a tendency to bend towards one side.
-Among all of the 20 variables available, \textit{F} is the only variable that is an instruction, the draw line instruction.
-As expected, Figure~\ref{fig:sa-dist-var} shows that it is included and is one of the stronger variables in the distribution.
-Without the \textit{F} variable, the L-systems would have no branches and thus get score 0.
-Only 3--4 of the variables have a strong weight in each of the depths, indicating that it understands that focusing on a fewer set of variables may lead to less ``nothing'' plants.
+Figure~\ref{fig:sa-uniform} shows a comparison of L-system populations generated by the grammar distribution found by SA in Figure~\ref{fig:sa-progress} and a uniform grammar distribution.
+The SA grammar distribution has a median of 0.71 (MAD: 0.12), compared to 0.00 (MAD: 0.00) for the uniform grammar distribution.
+A Mann–Whitney U test on the full sample suggests that the true location shift is not zero (p < 0.05, U = 608550000).
+Even with all individuals with score 0 removed, the SA grammar distribution's median score is higher with a median of 0.72 (MAD: 0.10) compared to 0.47 (MAD: 0.08), though the difference of 0.25 is smaller.
+A Mann–Whitney U test on the sample without zero scores suggests that the true location shift is still not zero (p < 0.05, U = 1318100).
 
 % might split these into separate figures and put them inbetween the above paragraphs
 \begin{figure}
@@ -323,15 +332,31 @@ Only 3--4 of the variables have a strong weight in each of the depths, indicatin
     \label{fig:sa-dist}
 \end{figure}
 
-% Try to connect this to the above even more.
-The above analysis of the grammar distribution is reflected in the produced L-system and 3D plant models.
-An example of a generated plant can be seen in Figure~\ref{fig:sa-plant}, and its L-system in Listing~\ref{lst:sa-plant}.
-This plant is very tall and straight, has few branches and few fractal patterns.
-All of this is likely caused by the depth 3 not being relevant, depth 2 being practically not relevant, and depth 1 being nearly not relevant.
-The L-system goes to depth 2, but depth 2 never includes any symbols, thus not being relevant.
-Depth 1 is mostly producing operators, but also an ooccasionalvariable, thus being useful and producing the lateral branches seen on the plant.
-There is recursion in the segment drawing as \textit{F} produces \textit{P} and \textit{T} which in turn produce \textit{F}.
-Additionally, part of the recursion is inside a stack, thus allowing for fractal patterns.
+The grammar distribution found in the SA process is shown in Figure~\ref{fig:sa-dist}.
+As seen in Figure~\ref{fig:sa-dist-prod}, this grammar distribution favors around 10 production rules in the L-system, though 20 productions is also a strong contender.
+Figure~\ref{fig:sa-dist-stack} shows that it always favors symbols over stacks, starting at around 60\% symbols in the top depth, then around 90\% symbols in the next depth, and 100\% symbols in the final depth.
+% PROBABLY CAUSED BY THE INSTRUCTION LIMIT, WHICH IS A LIMITATION.
+%This indicates that restricting the number of depths to 4 was not too restricting as it chose to restrict itself to 3 depths.
+This makes all of the distributions at depth 3 irrelevant as they will never be used.
+It favors shorter strings in depth 0, but not too short strings, as seen in Figure~\ref{fig:sa-dist-strlen}.
+% WHY NOT MEDIUM STRING LENGTHS? WHY A VALLEY BETWEEN THESE?
+While in depth 1 and 2 it favors medium short and medium long strings.
+
+Figure~\ref{fig:sa-dist-sym} shows that it only allows variables in depth 0, while its nearly the inverse in depth 1 and 2.
+This is interesting as an operation has no effect if it is not followed by a variable.
+Thus depth 2, along with depth 3, is not contributing anything to the plant, but depth 2 is still wasting instructions.
+Depth 1 also has only about 10\% chance of a variable, meaning that most of the drawing will happen in depth 0, which in turn means less branching.
+% THE ABOVE CAN BE SEEN IN THE PLANTS GENERATED FROM THIS DISTRIBUTION.
+
+The operation distribution in Figure~\ref{fig:sa-dist-op} has a strong tendency of yawing to the right (\textit{-}) than the left (\textit{+}) in depth 0.
+% should make the branches have a tendency to bend towards one side.
+In depth 1 it barely allows yawing at all, while in depth 2 it is the opposite with a strong focus on \textit{+}.
+The other rotations (pitch and roll) also have one-sided tendencies, but not as strong.
+Among all of the 20 variables available, \textit{F} is the only variable that is an instruction, the draw line instruction.
+Figure~\ref{fig:sa-dist-var} shows that it is included and is in fact one of the stronger variables in the distribution.
+%Without the \textit{F} variable, the L-systems would have no branches and thus get score 0.
+Only 3--4 of the variables have a strong weight in each of the depths.
+%indicating that it understands that focusing on a fewer set of variables may lead to less ``nothing'' plants.
 
 \begin{figure}
     \centering
@@ -349,6 +374,17 @@ P -> [&&&O>&>&&>>&&F]F[<&&&&&&>&&&&]TF
 S -> [><&<&&>&]TSQS[&T<<<>[>++-+]<<&&>]T
 T -> PT[>&^>&&&>&&R&&<>>]
 \end{lstlisting}
+
+% Try to connect this to the above even more.
+% The above analysis of the grammar distribution is reflected in the produced L-system and 3D plant models.
+An example of a plant generated with the SA-optimized distribution can be seen in Figure~\ref{fig:sa-plant}, and its L-system is found in in Listing~\ref{lst:sa-plant}.
+This plant is very tall and straight, has few branches and few fractal patterns.
+% All of this is likely caused by the depth 3 not being relevant, depth 2 being practically not relevant, and depth 1 being nearly not relevant.
+The L-system goes to depth 2, but depth 2 never includes any symbols, thus not being relevant.
+Depth 1 is mostly producing operators, but also an ooccasional variable.
+%, thus being useful and producing the lateral branches seen on the plant.
+There is recursion in the segment drawing as \textit{F} produces \textit{P} and \textit{T} which in turn produce \textit{F}.
+Additionally, part of the recursion is inside a stack, thus allowing for fractal patterns.
 
 \section{Evaluation of Evaluation Module}
 \subsection{Method}
@@ -635,7 +671,7 @@ Clearly, there is a big disagreement between the humans and the fitness on these
 
 Figure~\ref{fig:fitcmp-only} compares the human ranking against fitness ranking and each individual fitness metric.
 The fitness ranking has a clear problem of scoring the ranks $[5, 9]$ too high, which creates a ``bump'' in the curve.
-Two metrics that stand out -- closeness and branching -- look like may be a major cause of this bump, as they themselves have an even larger bump.
+Two metrics that stand out --- closeness and branching --- look like may be a major cause of this bump, as they themselves have an even larger bump.
 Additionally, the drop metric seems to be in a disagreement with the human ranking.
 This inferences are also supported by Kendall's Tau and to some degree dRank, as seen in Table~\ref{tab:rankstats}.
 Kendall's Tau indicates that both closeness and drop are almost not correlated, and there is a high probability that the correlation is by chance.
