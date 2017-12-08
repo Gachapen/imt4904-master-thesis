@@ -286,7 +286,7 @@ Figure~\ref{fig:sa-uniform} shows a comparison of L-system populations generated
 The SA grammar distribution has a median of 0.71 (MAD: 0.12), compared to 0.00 (MAD: 0.00) for the uniform grammar distribution.
 A Mann–Whitney U test on the full sample suggests that the true location shift is not zero (p < 0.05, U = 608550000).
 Even with all individuals with score 0 removed, the SA grammar distribution's median score is higher with a median of 0.72 (MAD: 0.10) compared to 0.47 (MAD: 0.08), though the difference of 0.25 is smaller.
-A Mann–Whitney U test on the sample without zero scores suggests that the true location shift is still not zero (p < 0.05, U = 1318100).
+A Mann–Whitney U test on the sample without zero scores still suggests that the true location shift is not zero (p < 0.05, U = 1318100).
 
 % might split these into separate figures and put them inbetween the above paragraphs
 \begin{figure}
@@ -390,55 +390,56 @@ Additionally, part of the recursion is inside a stack, thus allowing for fractal
 \subsection{Method}
 \textbf{RQ2} asks ``how aesthetically pleasing plants can be generated''.
 DGEL was the developed solution to this question, but to know if it can actually generate aesthetically pleasing plants or not, the evaluation module has to be analyzed and compared to how humans rank the plants.
-If the ranking made by the humans agree with the ranking made by the fitness component in the evaluation module, it would mean that the generator know how to distinguish good plants from bad plants, and can thus apply its evolutionary algorithms to generate aesthetically pleasing plants.
-Thus the hypothesis is: Humans agree with the ranking made by the DGEL fitness component.
+If the ranking made by the humans agree with the ranking made by the fitness component in the evaluation module, it would suggest that the generator know how to distinguish good plants from bad plants, and can thus apply its evolutionary algorithms to generate aesthetically pleasing plants.
+Thus the hypothesis (\textbf{H4}) is: Humans agree with the ranking made by the DGEL fitness component.
+If the humans do not completely agree with the DGEL ranking, the next quesion is why this is the case and what can be done to improve the rank correlation?
 
 % This is mixed-method research.
 % Embedded design, with qualitative data as supplementary.
 % Phenomenological study? Fits somewhat...
 % Grounded theory study? Ehh...
-Both a quantitative method and a qualitative method will be used for this purpose.
-The quantitative method aims to answer if the humans agree with the DGEL ranking.
-If they do not completely agree, the qualitative method will be used to analyze why they do not agree and what the important features of a plant that makes it aesthetically pleasing are.
+While the first question can be answered by quantitative methods, the second question requires support from a qualitative analysis to understand what factors are important to distinguish good generated plants from bad.
+Thus an embedded design mixed-method with qualitative data as a supplementary will be used.
+% Cite research book...
 
-A pairwise comparison of a set of DGEL-generated plants will be performed by human participants.
-The analytical hierarchy process (AHP) will be used to take the pairwise comparison data for a participant and create a ranking of all of the plants~\cite{2008Saaty}.
-% Write about AHP, and why I used it?
+% Write about AHP?
+A pairwise comparison of a set of DGEL-generated plants will be performed by human participants and the analytical hierarchy process (AHP) will be used to create a ranking of all of the plants~\cite{2008Saaty}.
+By using AHP, we will not only get a ranking of the plants, but also distances between the ranks.
+This is useful because humans may consider some of the plants equally pleasing, or some plants much more pleasing than others.
 Finally, all of the rankings will be aggregated and compared to the ranking made by DGEL using Kendall's Tau~\cite{1938Kendall}, and dRank~\cite{2009Carterette}.
-Kendall's Tau will test the ranking correlation and its requirement of the rankings fit the requirements of Kendall's Tau~\cite{2010Webber}: they are unweighted, conjoint and have a definite range.
+Kendall's Tau will test the ranking correlation and the data fit the requirements of Kendall's Tau~\cite{2010Webber}: they are unweighted, conjoint and have a definite range.
 It will also give an indication of how correlated they are in range $[-1, 1]$, where 1 is perfectly positively correlated, 0 is not correlated and -1 is perfectly negatively correlated.
-But there are two problems with it: it does not consider the relative distances between the ranks~\cite{2010Webber}, and the different participant's rankings will have to be aggregated beforehand, meaning Kendall's Tau does not consider the variance between these rankings.
-Thus, dRank will be used as an alternative statistic, as it considers the distances between ranks and that there are multiple rankings aggregated together~\cite{2010Webber,2009Carterette}.
+But there are two problems with it: it does not consider the relative distances between the ranks~\cite{2010Webber}, and the different participant's rankings will have to be aggregated beforehand, meaning Kendall's Tau does not consider the variance between the different human rankings rankings.
+Thus, dRank will be used as an additional statistic, as it considers the distances between ranks and that there are multiple rankings aggregated together~\cite{2010Webber,2009Carterette}.
 
-As many plants as possible were desired, but humans have a limited patience and the number of comparisons to rate is $\frac{n * (n - 1)}{2}$, where $n$ is the number of plants.
-Thus a limited set of plants had to be used.
+As many plants as possible is desired, but humans have a limited patience and the number of comparisons to rate is $\frac{n * (n - 1)}{2}$, where $n$ is the number of plants.
+Thus a limited set of plants has to be used.
 The final number of plants used is based on the estimated time used on a comparison and the estimated time a participant is patient.
-The plants should also be spread over the range of the fitness score, so that the rank comparison will be valid for the complete range.
+The plants should also be spread over the whole range of the fitness score, so that the rank comparison will be valid for the complete range.
 They should also always be \textit{something} (have at least one branch), otherwise there is nothing to rate.
-The ideal score range would be $[0, 1]$, but it was found difficult to generate plants perfect 0 (with the plant being \textit{something}) and 1 scores.
-Thus GE was used to generate the worst possible plant with score above 0, and the best possible plant.
-Then, $n - 2$ plants were generated uniformly between these two extremes.
+The ideal score range would be $[0, 1]$, but it was found difficult to generate plants with perfect 0 (with the plant being \textit{something}) and 1 scores.
+Thus GE is used to generate the worst possible plant with score above 0, and the best possible plant.
+Then, $n - 2$ additional plants are generated uniformly between these two extremes.
 
 % Actually, I was the very first pilot run.
 
-To find a good estimate for the number of plants, and to test the quality of the overall survey, two pilot runs were performed.
-The first pilot run was based on an estimate made by the researcher's own experience in taking the survey.
-One participant participated and was observed through the whole survey.
-They were asked to complete the survey as described in it, think aloud, tell us when they get tired and answer some questions at the end.
-% Exactly which questions?
-Based on this, the amount of plants were changed, the fitness metric was modified, and the overall survey was improved.
-The second pilot run were with the same participant, where they were asked to retake the survey and provide feedback on the changes.
-Based on this feedback, the final survey was formed.
+To estimate the number of plants to rank, and to assess the quality of the survey, a three-step process is used.
+First, a rough estimate is made based on researchers intuition and an assumed patience of 10 minutes.
+Then, in the second step the researcher performs the pairwise comparison while measuring the time used.
+Based on this and the bias of the researcher, a new estimate is created.
+The third and final step is to run two or more pilot runs on another person with the previous estimates.
+The time used is measured, their actions are observed and they are asked some questions at the end.
+They were asked to complete the survey as described in its introduction, think aloud, tell us when they get tired and answer some questions at the end.
+% Exactly which questions? Necessary?
+Based on this, the number of plants is re-estimated with a margin in case of bias, a new set of plants is generated, quality issues are fixed, and the pilot is run once more to confirm the new estimate.
 
 Participants were sampled using convenience sampling and snowball sampling.
 As such, the results may not be generalizable to the whole population, but they may be used as an indication to what is important in an aesthetically pleasing plant.
-Convenience sampling was selected because of time and resource restrictions.
-In addition, snowball sampling was added as a means to gather more samples.
+Convenience sampling was selected because of time and resource restrictions, and snowball sampling was added as a means to gather further samples.
 Participants were found by asking friends, family and acquaintances either by direct conversation or by posting publicly on social networks including Facebook, Google+ and Twitter.
 The participants were asked to share the survey to others, and a sharing link was shown at the end of the survey, thus allowing for a snowballing effect.
-
-% plants are video recordings
-% four observations
+Before the survey link was shared with others, four people were observed diretly while taking the survey, with a method similar to that of the pilot runs.
+This both allowed for deeper qualitative data and final adjustments to the survey.
 
 \subsection{Survey Design}
 % link to consent?
@@ -474,14 +475,29 @@ Two plants are visualized side by side as looping videos of a camera rotating ar
 In addition, the camera adjusts its height and distance from the plant so that all of the plant can be viewed.
 The rotation happens at a balanced speed that lets the user view all of the plant in a short amount of time, while being slow enough to let them study it.
 % The pilot confirmed that the speed was good.
+
 The video runs at 60 frames per second (FPS) to give a smooth experience, to match the monitor refresh rate and to match what is commonly used in games.
+They are encoded as both VP9 WebM and H.264 MPEG-4 to support a wide range of browsers.
+According to Mozilla Developer Network (MDN), H.264 is supported in most browsers, but depends on platform support, and their support may be removed as the format has patents make them ``unfit for the open web platform''~\cite{mdn-video}.
+Therefore the videos are encoded in both formats and VP9 is the preferred one if both are supported.
+
+They are compressed as much as possible to reduce load times, while still keeping a near lossless visual quality as to not bias the comparisons.
+Both are encoded with the FFmpeg tools~\footnote{FFmpeg website: \url{http://ffmpeg.org/}}.
+Both the FFmpeg Wiki and Google Developers recommend using Constant Quality for WebM~\cite{ffmpeg-vp9,google-vp9}.
+They recommend CRF values from 15 to 35, and based on the resolution and Google Developers's resolution and CRF value matrix, a CRF of 32 is used~\cite{ffmpeg-vp9,google-vp9}.
+For H.264, according FFMpeg Wiki a CRF value of 17--18 can be considered ``visually lossless''~\cite{ffmpeg-h264}.
+Thus, 18 was selected as it allows the files to be smaller than 17.
+Based on this, WebM is encoded with the parameters \texttt{-quality best -crf 32 -b:v 0}, while MPEG-4 is encoded with \texttt{-preset veryslow -crf 18}.
+\texttt{-quality best} and \texttt{-preset veryslow} will enable better quality per file size at the cost of slower encoding~\cite{ffmpeg-h264}, but as the videos are encoded offline, the encoding time cost is not important.
 
 The participant is presented with three categories to choose between: left is more pleasing, they are equally (dis)pleasing, and right is more pleasing.
 If they find one more pleasing they need to rate how much pleasing it is on a scale of 1 to 3.
-The original AHP method uses a 8-point scale, but this is too detailed for a ``normal human'', and thus it was reduced to 3 points which allows for a low, medium and high rating.
-Based on feedback from the pilot run, the ``equally (dis)pleasing'' option was labeled \textit{=} instead of 0 because 0 seemed like it meant that the plants were bad.
+The original AHP method uses an 8-point scale,% cite
+but this is too detailed for a ``normal human'',% cite or argue
+and thus it was reduced to 3 points which allows for a low, medium and high rating.
+Based on feedback from the pilot run, the ``equally (dis)pleasing'' option was labeled ``='' instead of ``0'' because ``0'' seemed like it meant that the plants were bad.
 ``(dis)'' was also added based on the feedback because without it it seemed like it meant that the plants were good.
-With the changes, the participant should be less reluctant to select ``equal''.
+With these changes, the participant should be less reluctant to select ``equal''.
 
 By pressing the ``next'' button, the participant will be presented with new pairs until all have been rated.
 The pairs are presented in random order and with random placement (left or right), as to not make the order create a bias.
@@ -498,7 +514,7 @@ Figure~\ref{fig:rank} shows an example of the resulting order.
 The dots on the white line represents the relative distance between the plants, and the plants them selves are shown in order below.
 % Explain how this is done.
 In this example, the plant ranked as the best is much more better than the second than the second is to the third.
-The participants are asked if they ``agree with the ranking of the plants shown below'', and if they do not strongly agree, they are asked ``why do you not strongly agree with the ranking?''
+The participants are asked if they ``agree with the ranking of the plants shown below'', and if they do not ``strongly agree'', they are asked ``why do you not strongly agree with the ranking?''
 This can help determine if the method of ranking the plants with AHP is valid.
 Next they are asked the most important question: ``What would you say separates good plants from bad plants in the ranking?''
 This is useful to be able to do a qualitative analysis of why the human ranking does not match the fitness ranking, if they do not match.
@@ -542,18 +558,18 @@ Finally there is a command-line interface (CLI) available to extract the data ei
 Because of this, a separate module \textit{stats} in the API layer contains the common functionality used by both the API and the CLI.
 
 \subsection{Results}
-\subsubsection{Demographics}
+\subsubsection{Participants}
 There were 56 people that registered.
 Of those, 37 completed ranking the plants.
 This means that 34\% of the 56 participants did not rank the plant, of which many likely are people that unintentionally registered multiple times.
 Those who did not complete the ranking of the plants will be excluded from the analysis.
 Finally, one of the 37 did not submit the post questionnaire.
 
-The demographic of the participant is mainly 20--30 year old (65\%) males (78\%) with a bachelor or higher degree (76\%) in information and communication technologies (49\%).
+The demographic of the participants is mainly 20--30 year old (65\%) males (78\%) with a bachelor or higher degree (76\%) in information and communication technologies (49\%).
 The age ranges from 21 to 69.
 Science \& engineering and service \& sales were also strongly represented with 16\% and 14\% respectively.
 
-There were only 1 participant that received the share link from another participant.
+There was only 1 participant that received the share link from another participant.
 Still, only around 25 people were directly asked to participate, and only 15 confirmed that they participated.
 Additionally, it is not expected that all of the people contacted directly did participate.
 Thus, at least 12 participants, and likely more, must have received the link from another person.
@@ -580,7 +596,7 @@ Finally, two categories were actual reasons to why they did not strongly agree: 
 A plant being positioned in a wrong rank was the most common reason, as it was commented by 5 of the participants.
 In all cases they only wanted to move one plant.
 Only one commented on the distance between the ranks.
-Based on this, one may argue that the AHP ranking was accurate.
+%Based on this, one may argue that the AHP ranking was accurate.
 
 \begin{table}
     \centering
@@ -604,7 +620,7 @@ Based on this, one may argue that the AHP ranking was accurate.
 \begin{figure}
     \centering
     \includegraphics[width=1.0\textwidth]{figures/weights}
-    \caption[Fitness score plus geometric mean and arithmetic mean of priority weights]{Normalized fitness score (f) plus geometric mean (gm) of priority weights, with standard error}
+    \caption[Fitness score plus geometric mean and arithmetic mean of priority weights]{Normalized fitness score (f) plus geometric mean (gm) of human priority weights, with standard error}
     \label{fig:weights}
 \end{figure}
 
@@ -618,8 +634,8 @@ Still they do somewhat agree with the ranking of 0.49 and 0.59, while they are r
 dRank calculates a ranking distance of 16.67, and a p-value of 0, meaning that the human rankings are significantly different from the fitness ranking, and we reject the hypothesis that they are the same.
 This does still not mean that there is no positive correlation between the rankings, only that they are not equal.
 Kendall's tau is 0.55 (p < 0.01), indicating a positive correlation, though only at about 55\%.
-Based on the rank correlation numbers and the visual analysis, the hypothesis that the rankings are the same can be rejected.
-Still, there is clearly a certain degree of positive correlation, thus we can support the hypothesis that the rankings are correlated.
+%Based on the rank correlation numbers and the visual analysis, the hypothesis that the rankings are the same can be rejected.
+%Still, there is clearly a certain degree of positive correlation, thus we can support the hypothesis that the rankings are correlated.
 
 \subsubsection{Analysis of Bad Correlation}
 \begin{figure}
@@ -632,7 +648,9 @@ Still, there is clearly a certain degree of positive correlation, thus we can su
 Figure~\ref{fig:weights-bar} shows the ordered human ranking.
 From this it can be argued that they agree that 0.27 is the worst plant.
 0.34, 0.40, 0.53 and 0.84 seems to be ranked as equally bad, just above 0.27.
-0.78, 0.72, 0.59 and 0.49 seem to be slightly climbing in score, but their standard errors are big, making it difficult to say for sure.
+0.78, 0.72, 0.59 and 0.49 seem to be slightly climbing in score.
+%, but their standard errors are big, making it difficult to say for sure.
+% Discussion?
 0.91 is clearly in first place, while 0.97 and 0.65 are possibly on a shared second place.
 The standard errors are smaller on the bad plants than on the good plants, indicating that it is more likely that humans agree on what looks bad compared to what looks good.
 % Thus maybe plants above a certain threshold should be used?
