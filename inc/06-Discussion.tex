@@ -1,2 +1,148 @@
 % !TEX root = ../Masters.tex
 \chapter{Discussion}
+%DGEL GE finds plants with better fitness scores than brute-force does (H1)
+\section{Grammar Evolution}
+As evident from the results, the DGEL GE process has the upper hand on the brute-force approach, and the significantly different medians of their scores makes a strong support for \textbf{H1}.
+Additionally, the fact that GE was five times faster than brute-force means that even if both methods produce just as good individuals, GE should be faster at doing so.
+
+The difference in duration is an interesting case because both GE and brute-force generate the same amount of individuals, and while brute-force only fills a vector of random numbers, GE must both do a crossover and mutation which are more complex functions.
+It is likely that this is caused by the tournament sampling that GE uses.
+Because this sampling method is stochastic, it does not necessarily evaluate each of the chromosomes, and this evaluation process is expensive.
+Thus, the GE process can save time by not evaluation certain individuals.
+% What is the average percentage of evaluated individuals? Does this correlate with the difference in duration?
+
+\section{Simulated Annealing}
+%An SA-optiomized grammar distribution can find better individuals than a uniform grammar distribution (H2)
+The clustering of the movements around the current score in the SA process (Figure~\ref{fig:sa-progress-close}) indicates that the mutation function used has a good locality, i.e. that the neighbouring grammar distributions are fairly close in terms of score.
+At the same time, with the somewhat uniform spread of scores between the current score and 0 indicates that there are some mutations that have bad locality.
+Additionally the clustering at exactly zero indicatest that there are some mutations with the worst possible locality.
+This bad locality mutations could be caused by some parameters in the grammar distribtion having cascading effect.
+For example if the \texttt{symbol / stack} distribution in depth 0 suddenly changes from 0.5/0.5 to 1.0/0.0, all depths below will be excluded and thus most of the parameters in the distribution will be irrelevant.
+The clustering at exactly 0 is more likely to be caused by the fitness measure, because it has a limit on the amount of L-system instructions and when that limit is reached the plant is in all cases scored 0.
+It could also happen if the distribution does not allow for any \textit{F} symbols as without it no branches will be drawn in the 3D model.
+%, indicating a discontinuity in the fitness metric.
+
+Because brute-force with the SA-optimized distribution has a higher percentage of non-zero fitness scores than with a uniform distribution, one of the benefits of using an optimized distribution is that it avoids many the problamtic ``nothning'' plants that are scored 0.
+This is good because even though the non-zero scores in majorly zero-scored grammar distributions may have good scores (as evident from Figure~\ref{fig:uniform-population-no0}), a large amount of zero-scored plants will lead to a slow search process.
+
+Because of the large amounts of zero-scored plants, as evident from Figure~\ref{fig:sa-population} and~\ref{fig:uniform-population}, the median is a better measure for central tencency.
+Based on this, it may be argued that the median should be used in stead of the mean when measuring the grammar distributions
+But since a large amount of zero-scored plants is bad, the mean may also could also be argued as beeing a good measurement.
+Additionally, by using the median, it will suddenly jump from a good score to zero if the amount of zero-scored plants goes below 50\%.
+Thus comparing distributions that are at around this limit by the median may be unfair.
+
+Based on the observation that the SA-optimized distribution restricts itself to three depths, setting a hard limit of maximum four depths may not have been too limiting.
+At the same time, other SA-optimized distributions may want to allow four depths, and there may be a point above four depths where very good plants are found.
+
+Comparing the SA-optimized grammar distribution in Figure~\ref{fig:sa-dist} with the generated 3D model in Figure~\ref{fig:sa-plant}, similarities can be drawn, thus indicating that the grammar distribution has an effect on the resulting plants.
+For example, the fact that depth 1 only has variables, and deeper depths barely has any variables, is reflected in the tall and straight tree with few branches.
+It is impossible for the generator to produce L-systems with operators in depth 0, and thus only straight lines are possible in that depth.
+While there is a possibility of drawing angled lines though the lower depths, because of the low rate of variables in them, it is less likely.
+The only reason that there are branches coming out of the trunk is of the string \texttt{[\&\&\&O>\&>\&\&>{}>\&\&F]} in rule \texttt{P}.
+This string pitches down and rolls before drawing a line such that the branch will actually stick out from the trunk rather than grown inside it.
+% WHY NOT MEDIUM STRING LENGTHS? WHY A VALLEY BETWEEN THESE?
+% random? impossible to say without more tests...
+
+The strong weight of \texttt{F} in the grammar distribution indicates that the SA process understood the importance of \texttt{F}.
+Without the \textit{F} variable, the L-systems would have no branches and thus get score 0.
+Additionally the fact that only a small amount of the other variables are strongly weighted could be explained by the fact that a large amount of variables decreases the likeliness of the same variable appearing multiple times and thus not being useful (e.g. only in successors).
+
+With a significant difference in the medians by a large amount, it is clear that ``an SA-optimized grammar distribution can find better individuals than a uniform grammar distribution'' (\textbf{H2})
+The additional fact that the SA-optimized grammar distribution produced a significantly smaller proportion of zero-scored individuals further supports this hypothesis.
+This may also not be restricted to only SA, but any parameter optimization technique.
+Additionally, since the GE method is not specific to L-systems, other systems using grammar descriptions, such as programming languages, could benefit from the same method.
+The important fact is that the novel grammar distribution method used by DGEL helps focus the grammar at desired regions in the grammar space.
+
+%GE with an SA-optimized grammar distribution can find better individuals than with a uniform grammar distribution (H3)
+
+\section{Fitness}
+%Humans agree with the ranking made by the DGEL fitness component (H4)
+The designed or adapted metrics used in the fitness function were clearly not perfect measures for how aesthetically pleasing plants are.
+Still, as both humans and the fitness function both agreed on the two best plants and three worst plants, the metric may have the baseline of how to measure the ``pleasingness'' of plants.
+It is only in the middle region where the fitness metric gets confused and disagrees with the humans.
+With Kendall's tau indicating no correlation in the middle region, it is a strong indication that this region has the biggest potential for improvement.
+Interestingly, dRank indicates that the distance between the rrankingsin the middle region (5.21) is smaller than the complete ranks (16.67). % I don't know how to interpret this...
+Based on this, \textbf{H4} is rejected, and the next question should be why they do not agree and what could be done to improve the agreement.
+
+Drop, closeness and branching were found as the metrics that had the worst correlations, and the correlation statistic on the rankings with these metrics removed supports this.
+It is thus clear that these metrics either incorrectly measure pleasingness or does not at all measure it.
+
+Closeness is most likely not a good metric for how aesthetically pleasing a plant is, because its purpose is to prevent a the physically impossible phenomenon of branches clipping into each other, something that the human in most cases does not notice.
+It could in fact have a negative effect on the fitness function, because one of its artifacts is that multiple leaves will appear on the same branch segment when multiple branches clip into each other.
+This artifact was indicated by one participant in the survey as ``creating an interesting symmetry'' that they liked.
+A possible solution could be to remove this metric and use a heuristic or physical simulation to make the branches collide with each other and thus bend away from each other.
+Other metrics, such as \textit{branching}, could then reward or punish the branching point like in other cases.
+The artifact of multiple leaves at the same segment could be added as a heuristic, or it would be allowed with an L-system grammar such as the one in Listing~\ref{lst:grammar2}.
+
+The drop metric is a similary type of metric in that it also aims to prevent physically impossible situations.
+It was originally designed to prevent plants from growing down through the ground, but as the plants viewed in the survey were placed on a pyrimad-shaped hill, this was not an issue.
+Thus the reason it had a bad correlation is most likely similar to that of the closeness metric.
+This could also be solved with a heuristic or physical simulation, like with the other metric.
+
+The branching metric is a more interesting case as it is more aimed at measuring the realism of the plant, but still has a bad effect on the overall fitness function.
+From the plot in Figure~\ref{fig:fitcmp-only}, it seems to work well in distriguishing the good from the bad plants, but it creates a bump in the middle region from rank 5 to 8.
+Looking at the specific plants in this region, there could be multiple reasons to this bump.
+% Show plants in figures? appendix?
+% 0.84: actually poor branching.
+The plant at rank 5, when counting the branches coming out from the bases, looks like to have an OK amount of branches, but is generally simplistic and small, which are negative factors that could be overshadowing the other factors such as the branching.
+% 0.78: proper branching, but very ''artificial''.
+The next plant, when looking at it, has a large amount of branches coming out of a single point, indicating that either the metric is not correctly measuring the branching or the branches are clipping into each other.
+The latter is a likely cause because the closeness metric is punishing it with the maximum possible value.
+%It is likely that it triggers negatively on factors such as chaos, visible branches and even spread, that could overshadow other factors.
+% 0.72: very many branches from one point, and few from others.
+% 0.59: OK branching, just very simplistic.
+
+Directional factors are useful since they can be used to change a fitness metric's direction or create new metrics.
+Directionless factors are less useful on their own, but they indicate the importance of the factor, and thus can either be used to adjust the weight of a metric or a directional factor.
+For example, ``leaf amount'' is a directionless factor that can be used to strengthen the directional factors ``more leaves'' and ``balanced leaves''.
+
+\section{Research Questions}
+%RQ1 What models are appropriate to represent plants both found in nature and not found in nature, and that could be combined into new plants?
+As parametric S2L-systems are the most flexible L-system variations, one can argue that they should be the best choice for plant models that ``are appropriate to represent plants both found in nature and not found in nature'' (\textbf{RQ1}).
+While these L-systems were not used in this research and other literature because of their complexity, based on the results simple D0L-systems, specifically represented by the grammar in Listing~\ref{lst:grammar}, seems to be able to model both natural and artificial plants.
+This is because based on the human comments, both ``natural'' and ``artificial'' was found as important factors either describing bad or good plants, thus indicating that the generated plants was able to look both natural and artificial.
+An important factor to consider is that the L-system grammar used only enabled branches, and added branch widths and leaves as simple heuristics.
+Thus, these results are only applicable if these heuristics or L-system grammar that replace these heuristics are used.
+
+That the GE performance improved with increasing crossover rates indicates that the crossover operation has a positive effect on the evolution.
+This could suggest that the DGEL chromosome representation could be a good choice for ``[combining different L-systems] into new plants'' (\textbf{RQ1}).
+It does not directly indicate that one crossover will retain or improve the fitness of the plant, but using it in a GE process either targeting a good fitness or the same fitness as the parents could work.
+For example, the initial population could consist of 50\% of each parent, the mutation rate could be set to 0.1 and crossover rate to 0.5.
+These recombination rates focuses more on crossover than mutation, thus being more likely to keep some of the features in the chromosome, but are still able to reach a fitness of 0.92.
+Alternatively, since the DGEL generation process is able to produce fit individuals, it could be used together with a fitness measure of how similar the offspring is to its parents.
+
+%RQ2 How can aesthetically pleasing plants be generated?
+%RQ3 How can varied plants be generated?
+%RQ0 How can plants be generated that are aesthetically pleasing, varied and could be used to create offspring similar to its parents?
+
+
+%Based on this, one may argue that the AHP ranking was accurate.
+
+%Based on the rank correlation numbers and the visual analysis, the hypothesis that the rankings are the same can be rejected.
+%Still, there is clearly a certain degree of positive correlation, thus we can support the hypothesis that the rankings are correlated.
+
+%, but their standard errors are big, making it difficult to say for sure.
+% Discussion?
+%0.91 is clearly in first place, while 0.97 and 0.65 are possibly on a shared second place.
+%The standard errors are smaller on the bad plants than on the good plants.
+%, indicating that it is more likely that humans agree on what looks bad compared to what looks good.
+% Thus maybe plants above a certain threshold should be used?
+%Both 0.84 and 0.46 were moved 5 ranks down and up respectively, almost swapping places.
+%0.84 is the worst, having a difference in weight between its neighbor of 0.12 compared to 0.05 for the 0.46 plant.
+% Clearly, there is a big disagreement between the humans and the fitness on these two.
+
+%The Kendall's Tau is 0.79 (p < 0.01), which is an improvement of 0.24, while dRank indicates no difference.
+%, possibly because of a less steep slope increasing the amounts of acceptable rank swaps.
+
+% Conclude...
+% Closeness not an aesthetic metric, and can actually be inverse (more leaves from same segment may look good).
+% Drop not relevant as the plant is on top of a ``pyramid''.
+% Branching metric is not well designed.. should use median at least.
+% more?
+
+\section{Limitations}
+% A BIG LIMITATION IS THAT A LARGER TOURNAMENT SIZE MAY ENABLE SMALLER SIZE PARAMETERS.
+% symbols over stacks: PROBABLY CAUSED BY THE INSTRUCTION LIMIT, WHICH IS A LIMITATION.
+% Instruction/skeleton limits.
+% leaf heursitics
+% parametric, etc.

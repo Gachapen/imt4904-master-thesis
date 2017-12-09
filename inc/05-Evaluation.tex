@@ -104,7 +104,6 @@ Figure~\ref{fig:tournament-sampling} shows the search of the tournament size.
 Contrasted to the other searches, this is a one-dimensional search.
 % Possibly do a significance test. Need to re-run to generate raw data...
 As seen in the figure, the search did not find any improvements at all.
-% A BIG LIMITATION IS THAT A LARGER TOURNAMENT SIZE MAY ENABLE SMALLER SIZE PARAMETERS.
 Thus the tournament size was kept at the lowest value, i.e.\ 2.
 
 \begin{figure}
@@ -225,13 +224,9 @@ As this distribution was the one with the best score during the SA process, it w
     \label{fig:sa-progress-close}
 \end{figure}
 
-Seen in Figure~\ref{fig:sa-progress-close} the points cluster around the same score, indicating that the locality of the grammar distribution mutations is good.
+Seen in Figure~\ref{fig:sa-progress-close} the points cluster around the same score.
 At the same time there are some points spread fairly uniformly between the clustering and 0.
-%, meaning that there are some mutations that have bad locality.
 Additionally there is a clustering at exactly 0.
-%, indicating a discontinuity in the fitness metric.
-%, which is most likely caused by the ``nothing'' metric that sets the score to 0 if there are no branches in the plant.
-%This may happen if the L-system does not contain any drawing instruction (\textit{F}), or if the number of instructions hits the maximum limit.
 
 \begin{figure}
     \includegraphics[width=\textwidth]{figures/sa-qq}
@@ -335,28 +330,21 @@ A Mann–Whitney U test on the sample without zero scores still suggests that th
 The grammar distribution found in the SA process is shown in Figure~\ref{fig:sa-dist}.
 As seen in Figure~\ref{fig:sa-dist-prod}, this grammar distribution favors around 10 production rules in the L-system, though 20 productions is also a strong contender.
 Figure~\ref{fig:sa-dist-stack} shows that it always favors symbols over stacks, starting at around 60\% symbols in the top depth, then around 90\% symbols in the next depth, and 100\% symbols in the final depth.
-% PROBABLY CAUSED BY THE INSTRUCTION LIMIT, WHICH IS A LIMITATION.
-%This indicates that restricting the number of depths to 4 was not too restricting as it chose to restrict itself to 3 depths.
 This makes all of the distributions at depth 3 irrelevant as they will never be used.
 It favors shorter strings in depth 0, but not too short strings, as seen in Figure~\ref{fig:sa-dist-strlen}.
-% WHY NOT MEDIUM STRING LENGTHS? WHY A VALLEY BETWEEN THESE?
 While in depth 1 and 2 it favors medium short and medium long strings.
 
 Figure~\ref{fig:sa-dist-sym} shows that it only allows variables in depth 0, while its nearly the inverse in depth 1 and 2.
 This is interesting as an operation has no effect if it is not followed by a variable.
 Thus depth 2, along with depth 3, is not contributing anything to the plant, but depth 2 is still wasting instructions.
 Depth 1 also has only about 10\% chance of a variable, meaning that most of the drawing will happen in depth 0, which in turn means less branching.
-% THE ABOVE CAN BE SEEN IN THE PLANTS GENERATED FROM THIS DISTRIBUTION.
 
 The operation distribution in Figure~\ref{fig:sa-dist-op} has a strong tendency of yawing to the right (\textit{-}) than the left (\textit{+}) in depth 0.
-% should make the branches have a tendency to bend towards one side.
 In depth 1 it barely allows yawing at all, while in depth 2 it is the opposite with a strong focus on \textit{+}.
 The other rotations (pitch and roll) also have one-sided tendencies, but not as strong.
 Among all of the 20 variables available, \textit{F} is the only variable that is an instruction, the draw line instruction.
 Figure~\ref{fig:sa-dist-var} shows that it is included and is in fact one of the stronger variables in the distribution.
-%Without the \textit{F} variable, the L-systems would have no branches and thus get score 0.
 Only 3--4 of the variables have a strong weight in each of the depths.
-%indicating that it understands that focusing on a fewer set of variables may lead to less ``nothing'' plants.
 
 \begin{figure}
     \centering
@@ -376,13 +364,10 @@ T -> PT[>&^>&&&>&&R&&<>>]
 \end{lstlisting}
 
 % Try to connect this to the above even more.
-% The above analysis of the grammar distribution is reflected in the produced L-system and 3D plant models.
 An example of a plant generated with the SA-optimized distribution can be seen in Figure~\ref{fig:sa-plant}, and its L-system is found in in Listing~\ref{lst:sa-plant}.
 This plant is very tall and straight, has few branches and few fractal patterns.
-% All of this is likely caused by the depth 3 not being relevant, depth 2 being practically not relevant, and depth 1 being nearly not relevant.
 The L-system goes to depth 2, but depth 2 never includes any symbols, thus not being relevant.
-Depth 1 is mostly producing operators, but also an ooccasional variable.
-%, thus being useful and producing the lateral branches seen on the plant.
+Depth 1 is mostly producing operators, but also an occasional variable.
 There is recursion in the segment drawing as \textit{F} produces \textit{P} and \textit{T} which in turn produce \textit{F}.
 Additionally, part of the recursion is inside a stack, thus allowing for fractal patterns.
 
@@ -392,15 +377,10 @@ Additionally, part of the recursion is inside a stack, thus allowing for fractal
 DGEL was the developed solution to this question, but to know if it can actually generate aesthetically pleasing plants or not, the evaluation module has to be analyzed and compared to how humans rank the plants.
 If the ranking made by the humans agree with the ranking made by the fitness component in the evaluation module, it would suggest that the generator know how to distinguish good plants from bad plants, and can thus apply its evolutionary algorithms to generate aesthetically pleasing plants.
 Thus the hypothesis (\textbf{H4}) is: Humans agree with the ranking made by the DGEL fitness component.
-If the humans do not completely agree with the DGEL ranking, the next quesion is why this is the case and what can be done to improve the rank correlation?
+If the humans do not completely agree with the DGEL ranking, the next question is why this is the case and what can be done to improve the rank correlation?
 
-% This is mixed-method research.
-% Embedded design, with qualitative data as supplementary.
-% Phenomenological study? Fits somewhat...
-% Grounded theory study? Ehh...
 While the first question can be answered by quantitative methods, the second question requires support from a qualitative analysis to understand what factors are important to distinguish good generated plants from bad.
-Thus an embedded design mixed-method with qualitative data as a supplementary will be used.
-% Cite research book...
+Thus an embedded design mixed-method with qualitative data as a supplementary will be used~\cite{PracticalResearch}.
 
 % Write about AHP?
 A pairwise comparison of a set of DGEL-generated plants will be performed by human participants and the analytical hierarchy process (AHP) will be used to create a ranking of all of the plants~\cite{2008Saaty}.
@@ -444,7 +424,6 @@ This both allowed for deeper qualitative data and final adjustments to the surve
 \subsection{Survey Design}
 % link to consent?
 % link to survey?
-% video compression
 The survey consists of a consent that they need to agree with, a pre-questionnaire, a description, the pairwise comparison, a post-questionnaire with the results, and finally a thank-you page with the sharing link.
 The pre-questionnaire is intended to map the demographic and what relation they have to plants and games.
 The description describes the pairwise comparison task, what they should do in it, and what to expect at the end.
@@ -596,7 +575,6 @@ Finally, two categories were actual reasons to why they did not strongly agree: 
 A plant being positioned in a wrong rank was the most common reason, as it was commented by 5 of the participants.
 In all cases they only wanted to move one plant.
 Only one commented on the distance between the ranks.
-%Based on this, one may argue that the AHP ranking was accurate.
 
 \begin{table}
     \centering
@@ -633,9 +611,11 @@ Still they do somewhat agree with the ranking of 0.49 and 0.59, while they are r
 
 dRank calculates a ranking distance of 16.67, and a p-value of 0, meaning that the human rankings are significantly different from the fitness ranking, and we reject the hypothesis that they are the same.
 This does still not mean that there is no positive correlation between the rankings, only that they are not equal.
-Kendall's tau is 0.55 (p < 0.01), indicating a positive correlation, though only at about 55\%.
-%Based on the rank correlation numbers and the visual analysis, the hypothesis that the rankings are the same can be rejected.
-%Still, there is clearly a certain degree of positive correlation, thus we can support the hypothesis that the rankings are correlated.
+Kendall's tau is 0.55 (p < 0.05), indicating a positive correlation, though only at about 55\%.
+
+With the two best ranks (0.97 and 0.91) and three worst ranks (0.27, 0.34, 0.40) removed, thus looking only at the ``middle'' part, the dRank distance is 5.21, still with a p-value of 0, and Kendall's tau is -0.33 (p >= 0.05), indicating no correlation in either direction.
+
+% EXPLAIN HOW SCORES WERE TRANSLATED TO WEIGHTS FOR COMPARISON.
 
 \subsubsection{Analysis of Bad Correlation}
 \begin{figure}
@@ -646,18 +626,13 @@ Kendall's tau is 0.55 (p < 0.01), indicating a positive correlation, though only
 \end{figure}
 
 Figure~\ref{fig:weights-bar} shows the ordered human ranking.
-From this it can be argued that they agree that 0.27 is the worst plant.
+Both agree that 0.27 is the worst plant.
 0.34, 0.40, 0.53 and 0.84 seems to be ranked as equally bad, just above 0.27.
 0.78, 0.72, 0.59 and 0.49 seem to be slightly climbing in score.
-%, but their standard errors are big, making it difficult to say for sure.
-% Discussion?
 0.91 is clearly in first place, while 0.97 and 0.65 are possibly on a shared second place.
 The standard errors are smaller on the bad plants than on the good plants.
-%, indicating that it is more likely that humans agree on what looks bad compared to what looks good.
-% Thus maybe plants above a certain threshold should be used?
 Both 0.84 and 0.46 were moved 5 ranks down and up respectively, almost swapping places.
 0.84 is the worst, having a difference in weight between its neighbor of 0.12 compared to 0.05 for the 0.46 plant.
-% Clearly, there is a big disagreement between the humans and the fitness on these two.
 
 \begin{figure}
     \centering
@@ -673,6 +648,7 @@ Both 0.84 and 0.46 were moved 5 ranks down and up respectively, almost swapping 
     \textbf{Ranking} & \textbf{Kendall's Tau} & \textbf{dRank} \\
     \hline
             default & 0.55 (p = 0.01) & 16.67 (p = 0) \\
+           excluded & -0.33 (p = 0.88) & 5.21 (p = 0) \\
         only-length & 0.75 (p = 0.00) & 20.99 (p = 0) \\
        only-foliage & 0.57 (p = 0.01) & 17.01 (p = 0) \\
        only-balance & 0.49 (p = 0.02) & 16.67 (p = 0) \\
@@ -692,7 +668,7 @@ Figure~\ref{fig:fitcmp-only} compares the human ranking against fitness ranking 
 The fitness ranking has a clear problem of scoring the ranks 5--9 too high, which creates a ``bump'' in the curve.
 Two metrics that stand out --- closeness and branching --- look like may be a major cause of this bump, as they themselves have an even larger bump.
 Additionally, the drop metric seems to be in a disagreement with the human ranking.
-This inferences are also supported by Kendall's Tau and to some degree dRank, as seen in Table~\ref{tab:rankstats}.
+These observations are also supported by Kendall's Tau and to some degree dRank, as seen in Table~\ref{tab:rankstats}.
 Kendall's Tau indicates that both closeness and drop are almost not correlated, and there is a high probability that the correlation is by chance.
 Branching also has a low correlation compared to the other metrics, but relatively higher than the other two.
 dRank supports that drop and branching have a low correlation, but disagrees with Kendall's Tau on the closeness ranking.
@@ -709,13 +685,6 @@ This is supported by the plot of the \textit{removal} evaluation in Figure~\ref{
 The ``bump'' has been removed, but there are instead some ``waves'' in the center part that disrupts the ranking.
 Additionally, there is less distance between the two best plants and the third best plant, and a larger distance between the worst and second worst plants.
 The Kendall's Tau is 0.79 (p < 0.01), which is an improvement of 0.24, while dRank indicates no difference.
-%, possibly because of a less steep slope increasing the amounts of acceptable rank swaps.
-
-% Conclude...
-% Closeness not an aesthetic metric, and can actually be inverse (more leaves from same segment may look good).
-% Drop not relevant as the plant is on top of a ``pyramid''.
-% Branching metric is not well designed.. should use median at least.
-% more?
 
 \subsubsection{Human Perception of Aesthetically Pleasing Plants}
 All participants were asked openly what they would say ``separates good plants from bad plants in the ranking''.
@@ -723,11 +692,6 @@ These comments were categorized into factors and the number of participants who 
 The factors were split into two: directional factors and directionless factors.
 Directional factors have a clear understanding of what is better and what is worse, while directionless factors only understand what is important without knowing which direction is better or worse.
 They can be found in Table~\ref{tab:factors-dir} and Table~\ref{tab:factors-nodir} respectively.
-
-% Discussion
-Directional factors are useful since they can be used to change a fitness metric's direction or create new metrics.
-Directionless factors are less useful on their own, but they indicate the importance of the factor, and thus can either be used to adjust the weight of a metric or a directional factor.
-For example, ``leaf amount'' is a directionless factor that can be used to strengthen the directional factors ``more leaves'' and ``balanced leaves''.
 
 \begin{table}
     \centering
@@ -753,9 +717,9 @@ For example, ``leaf amount'' is a directionless factor that can be used to stren
     \hline
     patterns & Recognizable patterns is positive & 1 \\
     \hline
-    more leaves & More leaves is postive & 5 \\
+    more leaves & More leaves is positive & 5 \\
     \hline
-    balanced leaves & Balanced amount of leaves is postive & 2 \\
+    balanced leaves & Balanced amount of leaves is positive & 2 \\
     \hline
     lush & Higher leaf density is positive & 2 \\
     \hline
@@ -829,13 +793,13 @@ The abstract category ``natural'' was mentioned the most (8 times).
 Many participants said that plants looking ``natural'' looked better, sometimes contrasted to ``artificial'' plants.
 The word ``natural'' was often used as a dependent factor of other independent factors.
 For example a comment said ``[...]the stems seemed to be perfect (angles), hence not natural'', which implies that ``natural'' is an important factor and the angles of the stems is a factor that affects the ``natural'' factor.
-There was only one participant who suggested the oppisite, i.e. that artificial-looking plants looked good, or more specifically ``interesting [...] as I do not expect to see a lot of symmetry in plants''.
+There was only one participant who suggested the opposite, i.e. that artificial-looking plants looked good, or more specifically ``interesting [...] as I do not expect to see a lot of symmetry in plants''.
 
-``more leaves'' was the second most occuring category (5 comments).
+``more leaves'' was the second most occurring category (5 comments).
 Comments that fit into this category either suggest that the plants with more leaves look better, or that plants with less leaves look worse.
 There were also comments that said that a balanced amount of leaves is positive (2 comments).
 
-The third most occuring category is ``detail'', which says that a higher level of detail in the plants is a positive factor.
+The third most occurring category is ``detail'', which says that a higher level of detail in the plants is a positive factor.
 Simple or small plants were often commented as having too little detail and thus not looking natural.
 There are three categories that are specifically for these types of plants: straight, dynamic and arrangement.
 They suggest that simple plants look better when growing straight upwards, being more dynamic or well arranged.
@@ -847,7 +811,7 @@ They suggest that simple plants look better when growing straight upwards, being
     Abstract & Structure & Foliage & Other \\
     \hline
     natural, artificial, healthy, character, chaos, dynamic, growth, arrangement &
-    symmetry, assymetry, patterns, even spread, form, small, curves, upwards, sideways, complexity, visible branches, balanced, uniform bend, branch amount, straight, branch placement &
+    symmetry, asymmetry, patterns, even spread, form, small, curves, upwards, sideways, complexity, visible branches, balanced, uniform bend, branch amount, straight, branch placement &
     more leaves, balanced leaves, lush, leaf pitch, leaf amount, leaf distribution, leaf density, leaf size &
     clipping, obstructions, details, environment \\
     \hline
@@ -857,7 +821,7 @@ They suggest that simple plants look better when growing straight upwards, being
 \end{table}
 
 The factors were grouped into four groups: abstract, structure, foliage and other.
-The abstract group contains factors that are not quantifiable and thus more abstract in nautre.
+The abstract group contains factors that are not quantifiable and thus more abstract in nature.
 For example it is not straight forward to quantify how ``natural'' a plant looks.
 Structure contains factors that consider the structure of the plant, i.e. the features of the branches and their patterns.
 Foliage contains factors that consider the leaves on the plant and their individual properties or the foliage as a whole.
