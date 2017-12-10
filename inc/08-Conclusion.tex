@@ -2,5 +2,39 @@
 \chapter{Conclusion}
 
 \section{Main Findings}
+This thesis explored how to improve plant L-system generation, particularly with the goal of being usable for combining plants.
+The idea behind this is to be able to create a virtual world where people may grow and cross-breed plants.
+For people to enjoy this world, the plants should be aesthetically pleasing.
+They should also be varied and so that the people may get new experiences.
+Finally the plants should be modeled in a way such that they can be combined into new plants via cross-breeding.
+Thus, the research question is formed: How can plants be generated that are aesthetically pleasing, varied and could
+be used to create offspring similar to its parents?
+
+Previous research on L-system generation has been focused on restricted L-system grammars and with fitness functions that aim at generating realistic plants.
+Multiple L-system versions have been used, including D0L-systems, parametric D0L-systems, and parametric DIL-systems, which have then been evolved using evolutionary algorithms including GA, GP and GE.
+Both automated fitness evaluation of L-systems, human evaluation and similarity evaluation have been used as selections strategies in the evolutionary algorithms.
+Several different metrics have been used to measure the fitness of a plant, mostly aiming at evaluating the survivability of the plant, though some use humans to aesthetically evolve the plants.
+Multiple genetic operators have been used to modify the the L-system genes in order to evolve them, and they are often specifically designed for L-systems in order to not invalidate the syntax, and often only parts of the L-systems can be modified.
+
+This thesis introduces a concept called Distribution-based Grammar Evolution of L-systems (DGEL), based on the use of GE to evolve L-systems. %cite
+It follows the traditional GE method, %cite
+but introduces a grammar distribution to control which parts of the grammar that should be weighted the most.
+Because varied plants are required, DGEL does not restrict the grammar and modification of the L-system as much as the previous research does.
+But with a less restricting grammar, the search space becomes significantly larger.
+Thus the distribution will help focus the search space without actually restricting it.
+Additionally, different distributions may produce particular plants and thus multiple distributions could be used together to generated varied plants.
+
+At the heart of DGEL is the model of the L-system, which consists of a chromosome, a grammar description and a grammar distribution.
+This novel underlying representation of the L-system adapts GE to work with a distribution, and is also applicable to problems not involving L-systems, such as evolution of programs defined by programming languages.
+DGEL also consists of two processes that generate parts of the model.
+Simulated Annealing (SA) is used to find grammar distributions that GE will used to evolve chromosomes that become aesthetically pleasing plants.
+To measure how aesthetically pleasing the plants are, metrics are adapted from the literature and some new are created.
+They focus on the structure and shape of the plant, the foliage on it, and physically impossible situations.
+To simplify the problem, only branches were allowed in the L-systems, and branch widths and leaves were added as heuristics to the generated plant so that it would not look dead.
+
+% evaluation
+% discussion
 
 \section{Future Work}
+At the same time DGEL has weaknesses that need to be resolved to make it better in all areas.
+Especially the fitness function needs to be improved as it is the most central part of generating ``aesthetically pleasing plants''.

@@ -613,7 +613,7 @@ dRank calculates a ranking distance of 16.67, and a p-value of 0, meaning that t
 This does still not mean that there is no positive correlation between the rankings, only that they are not equal.
 Kendall's tau is 0.55 (p < 0.05), indicating a positive correlation, though only at about 55\%.
 
-With the two best ranks (0.97 and 0.91) and three worst ranks (0.27, 0.34, 0.40) removed, thus looking only at the ``middle'' part, the dRank distance is 5.21, still with a p-value of 0, and Kendall's tau is -0.33 (p >= 0.05), indicating no correlation in either direction.
+With the two best ranks (0.97 and 0.91) and three worst ranks (0.27, 0.34, 0.40) removed, thus looking only at the ``middle'' part, the dRank distance is 5.21, still with a p-value of 0, and Kendall's tau is -0.33 (p >= 0.05), indicating no correlation in either direction (\textit{excluded} in Table~\ref{tab:rankstats}).
 
 % EXPLAIN HOW SCORES WERE TRANSLATED TO WEIGHTS FOR COMPARISON.
 
@@ -669,7 +669,7 @@ The fitness ranking has a clear problem of scoring the ranks 5--9 too high, whic
 Two metrics that stand out --- closeness and branching --- look like may be a major cause of this bump, as they themselves have an even larger bump.
 Additionally, the drop metric seems to be in a disagreement with the human ranking.
 These observations are also supported by Kendall's Tau and to some degree dRank, as seen in Table~\ref{tab:rankstats}.
-Kendall's Tau indicates that both closeness and drop are almost not correlated, and there is a high probability that the correlation is by chance.
+Kendall's Tau indicates that all three metrics are not correlated (p >= 0.05).
 Branching also has a low correlation compared to the other metrics, but relatively higher than the other two.
 dRank supports that drop and branching have a low correlation, but disagrees with Kendall's Tau on the closeness ranking.
 
@@ -684,7 +684,7 @@ These findings together suggest that these three metric may have a bad affect on
 This is supported by the plot of the \textit{removal} evaluation in Figure~\ref{fig:fitcmp-removal} and its rank correlation in Table~\ref{tab:rankstats} (\textit{removal}).
 The ``bump'' has been removed, but there are instead some ``waves'' in the center part that disrupts the ranking.
 Additionally, there is less distance between the two best plants and the third best plant, and a larger distance between the worst and second worst plants.
-The Kendall's Tau is 0.79 (p < 0.01), which is an improvement of 0.24, while dRank indicates no difference.
+The Kendall's Tau is 0.79 (p < 0.05), which is an improvement of 0.24, while dRank indicates no difference.
 
 \subsubsection{Human Perception of Aesthetically Pleasing Plants}
 All participants were asked openly what they would say ``separates good plants from bad plants in the ranking''.
