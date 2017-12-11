@@ -301,7 +301,7 @@ Table~\ref{tab:fitness} lists all of the metrics and their weight.
     \hline
     Balance & Reward plants that have their center of gravity closer to their root & \ref{eq:balance} & 1 \\
     \hline
-    Complexity & Reward plants with a balanced number of child branches & \ref{eq:complexity} & 1 \\
+    Branching & Reward plants with a balanced number of child branches & \ref{eq:complexity} & 1 \\
     \hline
     Foliage & Reward plants with more leaves & \ref{eq:foliage} & 1.5 \\
     \hline
@@ -379,7 +379,7 @@ Thus the fraction $\frac{centerdistance}{centerspread}$ is used.
 balance(x) = (0.5 - \frac{centerdistance(x)}{centerspread(x)}) * 2
 \end{equation}
 
-\textit{Complexity} measures how complex the branching of the plant is.
+\textit{Branching} measures how complex the branching of the plant is.
 It is inspired by the Structural Stability~\cite{1998Ochoa}, Plant Structural Stability~\cite{2009Corchado} and Proportion of Branch Bases~\cite{1998Ochoa} measures.
 These measures assume that the plant becomes too unstable to survive if it has too many child segments growing from a branch base.
 Corchado et al.\ additionally assume that plants with too few branches will have worse light gathering ability.
@@ -395,7 +395,7 @@ This creates a smooth curve between the limits.
 \begin{equation}
 \label{eq:complexity}
 \begin{aligned}
-    complexity(x) =
+    branching(x) =
     \begin{cases}
         -1, & b < 1 \\
         icos(-1, 0, \frac{b - 1.0}{0.2}), & b < 1.2 \\
