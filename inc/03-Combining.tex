@@ -431,15 +431,16 @@ A sweet spot of 0.24711092, which is rewarded by 1, was found to provide a good 
 \begin{equation}
 \label{eq:curvature}
 \begin{aligned}
-     a = avg(minangles(x))  \\
-     min = 0  \\
-     opt = 0.24711092  \\
-     max = \frac{\pi}{4}  \\
-     f(x) =
+    curvature(x) =
     \begin{cases}
         icos(0, 1, \frac{a - min}{opt - min}), & a >= min \text{ and } a < opt \\
         icos(1, 0, \frac{a - opt}{max - opt}), & a >= opt \text{ and } a < max \\
         min, & \text{otherwise}
-    \end{cases}
+    \end{cases}, \\
+     \text{where } a = avg(minangles(x))  \\
+     min = 0  \\
+     opt = 0.24711092  \\
+     max = \frac{\pi}{4}  \\
+     f(x) =
 \end{aligned}
 \end{equation}
