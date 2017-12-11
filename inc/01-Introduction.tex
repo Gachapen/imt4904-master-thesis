@@ -3,65 +3,93 @@
 \label{chap:introduction}
 
 \section{Topic covered by the project}
-In the area of computer graphics and visualization, there is a desire to replicate environments and creatures found in nature in a virtual environment.
+% AI, EA, PCG, plant modelling, L-system
+This project covers the topic of evolutionary algorithms (EA) which is part of evolutionary computing and even more broadly artificial intelligence.
+More specifically we cover the use of EA to generate L-systems which is one form of procedural content generation (PCG)~\cite{PCG_5}.
+
+In the area of computer graphics, visualization and game development, there is a desire to replicate environments and creatures found in nature in a virtual environment. %cite
 Many types of environments and creatures can be of interest, for example terrains, mountains, rivers, plants, animals and bacteria.
-These can be recreated by manually modeling the specific objects, but this can be a slow process, especially when a large variation of the objects is required.
-Another approach to solve this is to generate the content using procedural content generation (PCG) methods.
+These can be created by manually modeling the specific objects, for example by 3D artists, but this can be a slow process, especially when a large variation of the objects is required.
+Another approach is to generate the content using PCG methods.
 This way, digital programs can generate virtually infinite amounts of variations based on a representation and a recipe.
 
 Plants, specifically, can be generated using L-Systems where their structure is represented as strings of characters in a parallel rewrite system~\cite{2012Prusinkiewicz}.
 Based on actual plants, one may model a virtual plant by creating the rewrite rules and parameters for how the system should be drawn.
-Alternatively, it is possible to procedurally generate these by using genetic algorithms and natural selection.
+These models can be handcrafted, or alternatively EA can be applied to evolve the models into something desired.
 
 \section{Keywords}
-L-system, plant, procedural content generation, PCG, genetic algorithm, feature extraction.
+\begin{itemize}
+    \item L-system
+    \item plants
+    \item games
+    \item procedural content generation
+    \item artificial intelligence
+    \item evolutionary algorithm
+    \item genetic algorithm
+    \item grammar evolution
+\end{itemize}
 
 \section{Problem description}
 % Should add some sources.
-Plants can be cross-bred and selected to create offspring with desirable features from multiple species.
-For example, most of the species used in agriculture have gone through selection and cross-breeding over several years to yield species that produce a bigger quantity of food and are resistant to deceases and harsh environments.
-This can be a long process, taking several hundred of years with gradual improvements, and many combinations do not even work.
-To make this process more fun and interesting, a virtual world where people can cross-breed plants could be created.
-In this world, cross-breeding is not limited like it is in the real world.
-Plants could be combined in ways never possible in the real world.
+Real plants can be bred to create offspring with desirable features from multiple species.
+For example, many of the species used in agriculture have gone through selection over several years to yield plants that produce a bigger quantity of food and are resistant to deceases and harsh environments.
+Some plants were domesticated several thousand years ago, for example the popular plant Maize has indication that it was domesticated 8700 years ago~\cite{2009Starch}, while crossing between different species started in the 18th century~\cite{PlantBreeding}.
+This can be a complex and long process, taking several hundred of years with gradual improvements, and many combinations do not even work.~\cite{2014Hartung, PlantBreeding}
+
+To make this process more fun and interesting, a virtual world where people can breed plants could be created.
+In this world, breeding is not limited like it is in the real world.
+Plants could be combined in ways never possible.
 For example, a user may like both apple trees and Venus flytraps, so they want to combine them into a tree with Venus flytrap mouths that could eat humans.
 The problem is that randomly crossing the representation of different plants may not produce meaningful or interesting offspring, but rather random creatures that do not satisfy the user.
 
 To be able to create meaningful crossovers between virtual plants, a baseline requirement is to have something that models the plants and something that generates the plants.
-The plant model is the baseline requirement of the system, as no generator or crossover would work without this.
-A generator is required to generate the parent plants, and could be required for crossing the plants.
+The plant model is the baseline requirement of the system, as no generator or crossover would work without this, and a generator is required to generate the parent plants.
+Additionally the generator could be used to cross the plants into something the user is satisfied with.
 
-% problem of aesthetically pleasing
-% problem of large parameter space
-% problem of representation for crossing
+Plants that are to be bred should be varied in their shape and features, like real plants are, otherwise interesting combinations can not be made.
+Additionally, since the breeding should be able to create combinations that are impossible in the real world, the variation should be even larger, allowing for plants not found in nature.
+As a baseline the plants should be aesthetically pleasing, otherwise the user of a virtual environment with these plants would most likely be dissatisfied.
+This is especially important in video games where a user may quit if they do not enjoy playing it.
+Finally, if the plants should be crossed, their model should be represented in such a way that genes can be interchanged in a meaningful way that retains properties of the plants.
+
+The current research on evolving L-systems uses strict restrictions on the grammar which limit the variation in the plant, in addition to its potential for being aesthetically pleasing. %cite...???
+Thus a less restricting grammar is required, but this will increase the complexity of the problem, which will make it more difficult to produce meaningful and pleasing plants.
+
+In summary the problem to be studied is how to generate aesthetically pleasing and varied L-system plants that could be used for crossbreeding, with a particular focus on how to handle complex grammars.
 
 \section{Justification, motivation and benefit}
-Solving this problem will create the foundation for multiple games based on or using cross-breeding of plants.
-Additionally, it may be possible to generalize the results to other areas of cross-breeding and PCG, such as breeding animals, or generating levels.
-Creating a game based on cross-breeding where the offspring may be disliked by the users may be catastrophic and result in a game that will not make any revenue.
+PCG has many benefits over manually crafting content.
+For example it may remove the need for artists which is a big expense in content creation, it may support the artist such that they may be more efficient and create better quality content, it can enable the creation of completely new games, it can adapt the content to the user's abilities or needs, it may allow for more creative solutions than what humans are able to create, and it may help understand design~\cite{PCG_1}.
+The specific problem studied in this thesis may have all of these benefits as it could improve the method of generating virtual plants.
+It may also create an understanding of what aesthetically pleasing plants consists of and what is required from an L-system.
+With methods for how to crossbreed virtual plants a foundation for future games, movies or other virtual environments is created.
+Additionally, because L-systems, and more generally grammar, can be used to generate other content such as missions, spaces and levels~\cite{PCG_5}, the findings may improve the generation of such content, and possibly other content.
 
-The results from this research can be used in a game where users may create their own virtual garden, potentially in virtual reality (VR), where they breed the plants they always wanted to see or new surprising species, and have a place outside the busy world to relax and watch their plants grow.
-The research results will directly benefit game developers wishing to create games like the one described, and indirectly benefit the PCG research community, other game areas, users of the produced games and companies developing and publishing games.
-The game developers and publishers will benefit from more revenue by producing new and interesting games, while users will benefit from new games that fulfill their entertainment and relaxation needs.
+% The results from this research can be used in a game where users may create their own virtual garden, potentially in virtual reality (VR), where they breed the plants they always wanted to see or new surprising species, and have a place outside the busy world to relax and watch their plants grow.
+The findings can directly benefit game developers wishing to create games that involve plants either in the environment or as the main concept, and indirectly benefit the PCG research area, other game areas, users of the produced games and companies developing and publishing games.
+The game developers and publishers will benefit from more revenue by producing new and interesting games, while users will benefit from new games that fulfill their entertainment needs.
+
+% Should I actually talk concretely about my solution, or should I keep it more abstract?
+It may not only benefit PCG and games, but also different computer science areas within evolutionary computing.
+Specifically, other problems that involve formal grammars, such as computer programs defined by programming languages, may benefit because the methods presented only require that there is a grammar that can be used to produce a system that can be evaluated.
+It could also be adapted to other problems where choices need to be made to construct a system.
+
+The stakeholders in this project is mainly game programmers, game artists, level designers and game developers as a whole.
+Additionally, movie makers and creators of other virtual worlds, like simulators and training software, are included.
+Indirectly game players or consumers in general will also be stakeholders as they consume the content created by the creators
+At a broader level, stakeholders include EA researchers and any field that use EA, which now is found in most scientific and non-scientific fields and industries. %cite?
 
 \section{Research questions}
-The problem described can be summarized in a single research question: How can plants be generated that are aesthetically pleasing, varied and could be used to create offspring similar to its parents.
-The base problem to be solved in this question is how to generate plants.
-This problem is accompanied with three requirements: being aesthetically pleasing, varied and usable for cross-breeding.
-Aesthetically pleasing plants is required because the plants are aimed at being used in virtual environments, such as video games where a pleasing environment may be a crucial factor for the user.
-Varied plants is required to be able to model various plant species and make the virtual worlds feel more realistic.
-A world where the same plants repeats themselves all the time could be boring.
-The final requirement, that the plants should be usable for cross-breeding, is required to achieve the final goal of creating a virtual world where users may cross-breed plants.
-
-
-The L-systems should be able to represent plants both found in nature and not found in nature, as the problem involves combining existing plants into new plants.
-Thus a new research question is defined: What types of L-systems are appropriate to represent plants both found in nature and not found in nature?
-To combine the L-systems together into offspring with distinct features from both parents, features in an L-systems that appropriately reflect the features found in the produced plants need to be identified.
-This gives raise to the question: What are the features of an L-system that can be combined?
-Finally, the combination of the features needs to happen, and thus comes the question: How can the features be combined to create offspring that contain distinct features from both parents?
-
-In the end, there is one main research question, and three sub questions that follow the three requirements described.
+The problem described can be summarized in a single research question: How can plants be generated that are aesthetically pleasing, varied and could be used to create offspring similar to its parents?
+The base problem to be solved in this question is how to generate plants, and is accompanied with three requirements: being aesthetically pleasing, varied and usable for cross-breeding.
+Thus the research question is split into three sub-questions that aim to tackle the three requirements, such that the main research question may be answered.
 The questions are listed below.
+
+% The L-systems should be able to represent plants both found in nature and not found in nature, as the problem involves combining existing plants into new plants.
+% Thus a new research question is defined: What types of L-systems are appropriate to represent plants both found in nature and not found in nature?
+% To combine the L-systems together into offspring with distinct features from both parents, features in an L-systems that appropriately reflect the features found in the produced plants need to be identified.
+% This gives raise to the question: What are the features of an L-system that can be combined?
+% Finally, the combination of the features needs to happen, and thus comes the question: How can the features be combined to create offspring that contain distinct features from both parents?
 
 \begin{description}
     \item[RQ0] How can plants be generated that are aesthetically pleasing, varied and could be used to create offspring similar to its parents?
@@ -74,8 +102,7 @@ The questions are listed below.
 
 \section{Contribution}
 \begin{itemize}
-    \item A literature review of plant representations, especially L-system, and how to evolve these.
-    \item A set of metrics to evaluate how pleasing a virtual plant is.
-    \item A method of generating well-performing plants from a big parameter space.
-    \item A software implementation that demonstrates the method.
+    \item A literature review of plant L-system representations and evolutionary algorithms used on them.
+    \item A method of generating well-performing plants from a large parameter space.
+    \item An analysis of metrics that evaluate how aesthetically pleasing an L-system plant is, and important factors as indicated by humans.
 \end{itemize}
