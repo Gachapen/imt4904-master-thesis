@@ -13,6 +13,10 @@ As explained in Section~\ref{sec:overview} and shown in Figure~\ref{fig:dgel}, t
 The remaining steps are dependent on the model and do not create variations on the same model.
 Thus GE and SA are the two processes of interests to evaluate.
 
+While the fitness score results does not depend on the hardware the experiment runs on, the duration does.
+It ran on a water-cooled Intel i7-4790K CPU (8M Cache, up to 4.40 GHz)\footnote{Intel i7-4790K: \url{https://ark.intel.com/products/80807/Intel-Core-i7-4790K-Processor-8M-Cache-up-to-4_40-GHz}} with 8GB of RAM.
+The GE, SA and brute-force processes are parallelized and ran with 9 threads.
+
 % Could explain why...
 When sample groups are compared, their distributions will be tested for normality using the Shapiro-Wilk normality test~\cite{1965Shapiro}.
 If Shapiro-Wilk is not applicable because of the sample size, a Q-Q plot will be analyzed~\cite{1968Wilk}.
