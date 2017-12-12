@@ -107,6 +107,7 @@ This process would then continue with the next gene, 0, on the $D$ rule.
 \end{figure}
 
 \section{Interpreting L-systems Into Plant 3D Models}
+\label{sec:interpreting}
 As seen in Figure~\ref{fig:dgel}, after an L-system has been generated, it needs to be interpreted into a 3D-model such that people may see the plant.
 Turtle interpretation is used to do this~\cite{2012Prusinkiewicz}, as it is a popular method used in the literature.
 A 3D version of the turtle interpretation is used, where the turtle can draw lines with \texttt{F}, and rotate around three axes using \texttt{-} and \texttt{+} for yaw, \texttt{\textasciicircum} and \texttt{\&} for pitch, and \texttt{<} and \texttt{>} for roll.
@@ -274,7 +275,7 @@ Thus, tournament selection was selected for DGEL, based on Blickle and Thiele's 
 Both tournament and ranking selection are recommended as good options, but tournament selection performs faster~\cite{1995Blickle}.
 Thus because it is assumed that DGEL may be used in real-time applications, tournament selection is preferred.
 
-To make the choice of tournament selection based on Blickle and Thiele's comparison to be valid, the GE algorithm is implemented as GA is described in the same paper.
+To make the choice of tournament selection based on Blickle and Thiele's comparison to be valid, the GE algorithm is implemented as GA is described by Blickle and Thiele~\cite{1995Blickle}.
 The only difference from the GA algorithm is the addition of the duplication and prune operators that were specifically added to GE because of their benefits in biology~\cite{1998Ryan}.
 
 \section{Using a Fitness Function to Evaluate Plants}
