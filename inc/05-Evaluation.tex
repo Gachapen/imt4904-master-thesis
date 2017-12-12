@@ -339,10 +339,10 @@ This is interesting as an operation has no effect if it is not followed by a var
 Thus depth 2, along with depth 3, is not contributing anything to the plant, but depth 2 is still wasting instructions.
 Depth 1 also has only about 10\% chance of a variable, meaning that most of the drawing will happen in depth 0, which in turn means less branching.
 
-The operation distribution in Figure~\ref{fig:sa-dist-op} has a strong tendency of yawing to the right (\textit{-}) than the left (\textit{+}) in depth 0.
-In depth 1 it barely allows yawing at all, while in depth 2 it is the opposite with a strong focus on \textit{+}.
+The operation distribution in Figure~\ref{fig:sa-dist-op} has a strong tendency of yawing to the right (\texttt{-}) than the left (\texttt{+}) in depth 0.
+In depth 1 it barely allows yawing at all, while in depth 2 it is the opposite with a strong focus on \texttt{+}.
 The other rotations (pitch and roll) also have one-sided tendencies, but not as strong.
-Among all of the 20 variables available, \textit{F} is the only variable that is an instruction, the draw line instruction.
+Among all of the 20 variables available, \texttt{F} is the only variable that is an instruction, the draw line instruction.
 Figure~\ref{fig:sa-dist-var} shows that it is included and is in fact one of the stronger variables in the distribution.
 Only 3--4 of the variables have a strong weight in each of the depths.
 
@@ -368,7 +368,7 @@ An example of a plant generated with the SA-optimized distribution can be seen i
 This plant is very tall and straight, has few branches and few fractal patterns.
 The L-system goes to depth 2, but depth 2 never includes any symbols, thus not being relevant.
 Depth 1 is mostly producing operators, but also an occasional variable.
-There is recursion in the segment drawing as \textit{F} produces \textit{P} and \textit{T} which in turn produce \textit{F}.
+There is recursion in the segment drawing as \texttt{F} produces \texttt{P} and \texttt{T} which in turn produce \texttt{F}.
 Additionally, part of the recursion is inside a stack, thus allowing for fractal patterns.
 
 \section{Evaluation of Evaluation Module}

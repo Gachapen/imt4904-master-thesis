@@ -19,7 +19,7 @@ Additionally the clustering at exactly zero indicatest that there are some mutat
 This bad locality mutations could be caused by some parameters in the grammar distribtion having cascading effect.
 For example if the \texttt{symbol / stack} distribution in depth 0 suddenly changes from 0.5/0.5 to 1.0/0.0, all depths below will be excluded and thus most of the parameters in the distribution will be irrelevant.
 The clustering at exactly 0 is more likely to be caused by the fitness measure, because it has a limit on the amount of L-system instructions and when that limit is reached the plant is in all cases scored 0.
-It could also happen if the distribution does not allow for any \textit{F} symbols as without it no branches will be drawn in the 3D model.
+It could also happen if the distribution does not allow for any \texttt{F} symbols as without it no branches will be drawn in the 3D model.
 %, indicating a discontinuity in the fitness metric.
 
 Because brute-force with the SA-optimized distribution has a higher percentage of non-zero fitness scores than with a uniform distribution, one of the benefits of using an optimized distribution is that it avoids many the problamtic ``nothning'' plants that are scored 0.
@@ -44,7 +44,7 @@ This string pitches down and rolls before drawing a line such that the branch wi
 % random? impossible to say without more tests...
 
 The strong weight of \texttt{F} in the grammar distribution indicates that the SA process understood the importance of \texttt{F}.
-Without the \textit{F} variable, the L-systems would have no branches and thus get score 0.
+Without the \texttt{F} variable, the L-systems would have no branches and thus get score 0.
 Additionally the fact that only a small amount of the other variables are strongly weighted could be explained by the fact that a large amount of variables decreases the likeliness of the same variable appearing multiple times and thus not being useful (e.g. only in successors).
 
 With a significant difference in the medians by a large amount, it is clear that ``an SA-optimized grammar distribution can find better individuals than a uniform grammar distribution'' (\textbf{H2})
