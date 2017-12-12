@@ -35,13 +35,14 @@ The fitness function models how aesthetically pleasing a plant is by assigning i
 As described, the L-systems in DGEL are represented by a chromosome, a grammar description and a grammar distribution.
 If we assume a uniform grammar distribution, only a chromosome and a grammar description is required.
 
-The grammar description, represented in a format such as the Backus Naur Form (BNF), describes the syntax of the L-system.
-For example, it may describe that an L-system consists of a number of rules, each with a predecessor and successor, where a predecessor contains one character, etc.
+The grammar description, represented in Augmented BNF (ABNF)~\cite{RFC5234}, describes the syntax of the L-system.
+For example, it may describe that an L-system consists of a number of rules, each with a predecessor and successor, where a predecessor contains one character.
 The chromosome describes the choices to be made in the grammar description, for example how many rules there are, or which character the predecessor contains.
 These choices are what creates the variations in the L-systems.
 If there were no choices, there would only exist one single L-system.
 
 This method of representing the L-systems was based on Beaumont and Stepney's work on applying GE to plant L-systems~\cite{2009Beaumont}, in addition to Ortega et al.'s work on applying it to fractal L-systems~\cite{2003Ortega}, and Ryan et al.'s introduction of GE~\cite{1998Ryan}.
+Though in stead of using traditional BNF, ABNF is used because of its support for repetitions with minimum and maximum, grouping and value ranges, and that it has a simpler syntax~\cite{RFC5234}.
 
 While Ortega et al.\ and Beaumont and Stepney make assumptions about the grammar to significantly simplify it and reduce the search space~\cite{2003Ortega, 2009Beaumont}, the DGEL method uses a grammar that covers the largest search space reasonably possible.
 To make the search space reasonable, there still have to be some limits.
