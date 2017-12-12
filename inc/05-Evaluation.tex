@@ -402,6 +402,7 @@ Kendall's Tau will test the ranking correlation and the data fit the requirement
 It will also give an indication of how correlated they are in range $[-1, 1]$, where 1 is perfectly positively correlated, 0 is not correlated and -1 is perfectly negatively correlated.
 But there are two problems with it: it does not consider the relative distances between the ranks~\cite{2010Webber}, and the different participant's rankings will have to be aggregated beforehand, meaning Kendall's Tau does not consider the variance between the different human rankings rankings.
 Thus, dRank will be used as an additional statistic, as it considers the distances between ranks and that there are multiple rankings aggregated together~\cite{2010Webber,2009Carterette}.
+Whenever a dRank statistic is shown, the B is the bootstrap sampling size used for estimating the p-value~\cite{2009Carterette}.
 
 As many plants as possible is desired, but humans have a limited patience and the number of comparisons to rate is $\frac{n * (n - 1)}{2}$, where $n$ is the number of plants.
 Thus a limited set of plants has to be used.
@@ -626,11 +627,11 @@ For example, 0.65, 0.72, 0.78 and 0.84 are ordered in the reverse order, and are
 Finally, humans prefer 0.91 much more over 0.97, which is reverse of the fitness.
 Still they do somewhat agree with the ranking of 0.49 and 0.59, while they are reversed.
 
-dRank calculates a ranking distance of 16.67, and a p-value of 0, meaning that the human rankings are significantly different from the fitness ranking, and we reject the hypothesis that they are the same.
+dRank calculates a ranking distance of 16.67 (p = 0, B = 10000), meaning that the human rankings are significantly different from the fitness ranking, and we reject the hypothesis that they are the same.
 This does still not mean that there is no positive correlation between the rankings, only that they are not equal.
 Kendall's tau is 0.55 (p < 0.05), indicating a positive correlation, though only at about 55\%.
 
-With the two best ranks (0.97 and 0.91) and three worst ranks (0.27, 0.34, 0.40) removed, thus looking only at the ``middle'' part, the dRank distance is 5.21, still with a p-value of 0, and Kendall's tau is -0.33 (p >= 0.05), indicating no correlation in either direction (\textit{middle} in Table~\ref{tab:rankstats}).
+With the two best ranks (0.97 and 0.91) and three worst ranks (0.27, 0.34, 0.40) removed, thus looking only at the ``middle'' part, the dRank distance is 5.21, (p = 0, B = 10000), and Kendall's tau is -0.33 (p >= 0.05), indicating no correlation in either direction (\textit{middle} in Table~\ref{tab:rankstats}).
 
 % EXPLAIN HOW SCORES WERE TRANSLATED TO WEIGHTS FOR COMPARISON.
 
@@ -664,17 +665,17 @@ Both 0.84 and 0.46 were moved 5 ranks down and up respectively, almost swapping 
     \hline
     \textbf{Ranking} & \textbf{Kendall's Tau} & \textbf{dRank} \\
     \hline
-                all & 0.55 (p = 0.01)  & 16.67 (p = 0) \\
-             middle & -0.33 (p = 0.88) & 5.21 (p = 0) \\
-        only-length & 0.75 (p = 0.00)  & 20.99 (p = 0) \\
-       only-foliage & 0.57 (p = 0.01)  & 17.01 (p = 0) \\
-       only-balance & 0.49 (p = 0.02)  & 16.67 (p = 0) \\
-     only-curvature & 0.45 (p = 0.02)  & 16.63 (p = 0) \\
-     only-branching & 0.36 (p = 0.07)  & 25.43 (p = 0) \\
-     only-closeness & 0.14 (p = 0.27)  & 16.63 (p = 0) \\
-          only-drop & 0.13 (p = 0.30)  & 21.67 (p = 0) \\
-            removal & 0.79 (p = 0.00)  & 16.67 (p = 0) \\
-     removal-middle & 0.52 (p = 0.07)  & 5.21 (p = 0) \\
+                all & 0.55 (p = 0.01)  & 16.67 (p = 0, B = 10000) \\
+             middle & -0.33 (p = 0.88) & 5.21 (p = 0, B = 10000) \\
+        only-length & 0.75 (p = 0.00)  & 20.99 (p = 0, B = 100) \\
+       only-foliage & 0.57 (p = 0.01)  & 17.01 (p = 0, B = 100) \\
+       only-balance & 0.49 (p = 0.02)  & 16.67 (p = 0, B = 100) \\
+     only-curvature & 0.45 (p = 0.02)  & 16.63 (p = 0, B = 100) \\
+     only-branching & 0.36 (p = 0.07)  & 25.43 (p = 0, B = 100) \\
+     only-closeness & 0.14 (p = 0.27)  & 16.63 (p = 0, B = 100) \\
+          only-drop & 0.13 (p = 0.30)  & 21.67 (p = 0, B = 100) \\
+            removal & 0.79 (p = 0.00)  & 16.67 (p = 0, B = 100) \\
+     removal-middle & 0.52 (p = 0.07)  & 5.21 (p = 0, B = 100) \\
     \hline
     \end{tabular}
     \caption{}
