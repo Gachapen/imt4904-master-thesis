@@ -323,6 +323,15 @@ Equation~\ref{eq:nothing} demonstrates this by giving it a score of -1 if it doe
 In this case no other metrics will make any difference.
 The $branches$ function returns the number of branch segments.
 
+Because of the recursive property of L-systems and the flexible grammar used in DGEL, the expanded string from running all the iterations may become very large.
+For example, if the axiom contains the letter \texttt{F}, and the production \texttt{F} produces 20 \texttt{F}, with 5 iterations, the expanded string would have length $20^5$.
+Additionally, the interpreted 3D model would consist of $20^5 + 1$ points, which is too much for the simple 3D renderer used.
+Thus the number of points in the interpreted 3D model is limited to 10,000 (skeleton limit).
+If the \texttt{F} was instead a rotation operator, $20^5$ matrix multiplications would have to be performed, and the skeleton limit would not be breached.
+Thus the number of instructions (i.e. characters in expanded string) is limited to a maximum of 50,000 (instruction limit).
+Both limits were experimentally found to be balanced in time and space, while still allowing complex structures.
+If they are breached the L-system will become \textit{nothing} and thus be scored zero
+
 \begin{equation}
 \label{eq:nothing}
     nothing(x) =
