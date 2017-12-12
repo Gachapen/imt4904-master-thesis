@@ -13,6 +13,12 @@ As explained in Section~\ref{sec:overview} and shown in Figure~\ref{fig:dgel}, t
 The remaining steps are dependent on the model and do not create variations on the same model.
 Thus GE and SA are the two processes of interests to evaluate.
 
+% Could explain why...
+When sample groups are compared, their distributions will be tested for normality using the Shapiro-Wilk normality test~\cite{1965Shapiro}.
+If Shapiro-Wilk is not applicable because of the sample size, a Q-Q plot will be analyzed~\cite{1968Wilk}.
+Robust Brown-Forsythe Levene-type test will be used to test if the variances in the distributions are equal~\cite{1974Brown}.
+Finally, in the cases when normality cannot be assumed, Mann-Whitney U test will be used to test the location shift of the distributions~\cite{1947Mann}.
+
 % GE SA vs GE uniform - need data, how to measure?
 
 \subsubsection{Grammar Evolution Parameters}
