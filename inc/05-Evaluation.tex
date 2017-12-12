@@ -35,8 +35,8 @@ Otherwise, the current parameter values will be considered as not improving the 
 When there are no more improvements, the parameter values that produced the best score will be returned.
 The parameter values will start at a small value and increase in an exponential fashion.
 This is based on the assumption that the parameters are more sensitive when the values are small.
-All of the parameter searches, except for the reproduction parameter search, will increase with a multiplicative of 2.
-Because the reproduction rate parameters are bounded ($[0, 1]$) and to cover the whole range with a reasonable amount of steps, custom steps of 0.01, 0.1, 0.5 and 1 are used.
+All of the parameter searches, except for the reproduction parameter and duplication rate search, will increase with a multiplicative of 2.
+Because the reproduction and duplication rate parameters are bounded ($[0, 1]$) and to cover the whole range with a reasonable amount of steps, custom steps of 0.01, 0.1, 0.5 and 1 are used.
 
 \begin{figure}
     \centering
@@ -82,6 +82,13 @@ If \textbf{H2} is supported, we can further hypothesize that \textit{GE} with an
 
 \subsection{Results}
 \subsubsection{Grammar Evolution Parameters}
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{figures/ge-size-sampling}
+    \caption[Visualized search of GE population size and number of generations]{Visualized search of GE population size and number of generations. Numbers are the mean of best fitness scores, box sizes are a representation of that number, and colors represent the mean duration of the GE.}
+    \label{fig:size-sampling}
+\end{figure}
+
 Figure~\ref{fig:size-sampling} shows the search of the population size and number of generations to be used for the GE process.
 The search was prematurely stopped because at around either 1600 number of generations or population size the duration became unreasonable long.
 As seen, a minimum of either a population size of 200 or 200 generations is required for a reasonable performance.
@@ -95,9 +102,9 @@ Thus, these parameter values were selected for use.
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.8\textwidth]{figures/ge-size-sampling}
-    \caption[Visualized search of GE population size and number of generations]{Visualized search of GE population size and number of generations. Numbers are the mean of best fitness scores, box sizes are a representation of that number, and colors represent the mean duration of the GE.}
-    \label{fig:size-sampling}
+    \includegraphics[width=0.7\textwidth]{figures/ge-tournament-sampling}
+    \caption[Visualized search of the GE tournament selection tournament size]{Visualized search of the GE tournament selection tournament size with standard error}
+    \label{fig:tournament-sampling}
 \end{figure}
 
 Figure~\ref{fig:tournament-sampling} shows the search of the tournament size.
@@ -105,26 +112,6 @@ Contrasted to the other searches, this is a one-dimensional search.
 % Possibly do a significance test. Need to re-run to generate raw data...
 As seen in the figure, the search did not find any improvements at all.
 Thus the tournament size was kept at the lowest value, i.e.\ 2.
-
-\begin{figure}
-    \centering
-    \includegraphics[width=0.7\textwidth]{figures/ge-tournament-sampling}
-    \caption[Visualized search of the GE tournament selection tournament size]{Visualized search of the GE tournament selection tournament size with standard error}
-    \label{fig:tournament-sampling}
-\end{figure}
-
-Figure~\ref{fig:recombination-sampling} shows the search of the recombination parameters: mutation rate and crossover rate.
-There is a general improvement in fitness with both increasing mutation rate and crossover rate until the crossover rate reaches 1 where it suddenly turns for the worse.
-Thus the crossover rate should at least be below 1.
-Additionally, the crossover rate seems to be the parameter that contributes less to an improved fitness and increases the duration the most.
-Thus the mutation rate should be the most important parameter.
-The best fitness score is provided by a mutation rate of 1 and crossover rate of 0.5, further indicating this.
-
-% Also did an ANOVA on this, could mention.
-Figure~\ref{fig:recombination-sampling-variance} shows the standard deviations in the same search.
-The pattern is similar to that of the mean fitness scores.
-The most stable performance is provided by a mutation rate of 1 and crossover rate of 0.5.
-Thus the recombination parameters will be using these values.
 
 \begin{figure}
     \centering
@@ -142,7 +129,31 @@ Thus the recombination parameters will be using these values.
     \caption{Visualized search of the GE recombination parameters}
 \end{figure}
 
-% WHAT ABOUT DUPLICATION RATE
+Figure~\ref{fig:recombination-sampling} shows the search of the recombination parameters: mutation rate and crossover rate.
+There is a general improvement in fitness with both increasing mutation rate and crossover rate until the crossover rate reaches 1 where it suddenly turns for the worse.
+Thus the crossover rate should at least be below 1.
+Additionally, the crossover rate seems to be the parameter that contributes less to an improved fitness and increases the duration the most.
+Thus the mutation rate should be the most important parameter.
+The best fitness score is provided by a mutation rate of 1 and crossover rate of 0.5, further indicating this.
+
+% Also did an ANOVA on this, could mention.
+Figure~\ref{fig:recombination-sampling-variance} shows the standard deviations in the same search.
+The pattern is similar to that of the mean fitness scores.
+The most stable performance is provided by a mutation rate of 1 and crossover rate of 0.5.
+Thus the recombination parameters will be using these values.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.7\textwidth]{figures/ge-duplication-sampling}
+    \caption[Visualized search of the GE duplication rate]{Visualized search of the GE duplication rate with standard error}
+    \label{fig:duplication-sampling}
+\end{figure}
+
+Figure~\ref{fig:duplication-sampling} shows the search of the duplication rate.
+It shows a worsening of both score and duration from a rate of 0 to 0.1, from where it stays bad.
+% possibly run anova, but don't have raw data...
+Thus, a duplication rate is set to 0 and the operator is thus not included in the GE process.
+
 All of the GE parameters are summarized in Table~\ref{tab:ge-parameters}.
 
 \begin{table}
