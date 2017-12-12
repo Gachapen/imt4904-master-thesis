@@ -75,3 +75,10 @@ This would require a metric for the similarities between L-system plants, which 
 
 It is also necessary to study how DGEL handles more complex grammars, such as parametric and context-sensitive L-systems, or simply D0L-systems with more features like leaves, branch widths and colors implemented in the grammar instead as heuristics.
 With more flexible L-systems more dynamics in the plants can be created, and thus DGEL should be able to generate more interesting and varied plants.
+
+Another interesting problem for the future is how chromosomes from different grammar distributions can be combined.
+This would be important if DGEL were to be used for combining plants of large variety into offspring.
+The chromosome and grammar distribution is strongly tied, and can thus not be simply combined.
+A possible solution that should be explored is to convert parent chromosomes from non-uniform grammar distributions to uniform distributions after they have been generated, thus enabling them to be combined assuming a uniform grammar distribution.
+Would then the optimized distributions only be useful for generating the initial population of plants, or could the be used inside the grammatical evolution process by converting forth and back between distributions?
+Additionally, could this conversion be made lossless, enabling a converted chromosome to be converted back to the exact original chromosome?
