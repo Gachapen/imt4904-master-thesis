@@ -37,8 +37,9 @@ With this, signal propagation can be simulated either upwards or downwards throu
 
 Parametric \glspl{L-system} adds parameters to the letters in the words, and conditional rules~\cite{2012Prusinkiewicz}.
 The main benefit of using parametric \glspl{L-system}, is that it can work with rational numbers rather than only integers.
-For example, with non-parametric \glspl{L-system}, extension of a segment can be modeled with the rule $F\rightarrow FF$, or any number of ``F'' in the successor.
-In any case, it will only be possible to grow the segment with a multiple of the previous.
+For example, with non-parametric \glspl{L-system}, a growing segment can be modeled with the rule $F\rightarrow FF$, or any number of \texttt{F} in the successor (edge rewriting).
+With this rule the number of \texttt{F}s will double---doubling the length of the branch---with each iteration.
+This means that the length of a branch can only double with each iteration.
 For some plants, this is enough, but to model a larger variety of plants, rational numbers are required.
 With parametric \glspl{L-system}, the same rule would be $F(l)\rightarrow F(l*2)$, where $l$ is the length of the segment.
 But now it is also possible to grow it at another rate, e.g.\ $F(l)\rightarrow F(l*1.2)$.
@@ -66,7 +67,7 @@ A popular way to render complete \glspl{L-system} is the turtle interpretation, 
 Turtle interpretation is in its original form simple and can only draw lines on a 2D image, but it has been extended to draw realistic looking plants in 3D~\cite{2012Prusinkiewicz}.
 To use the turtle interpretation, extra parameters describing how much the \gls{L-system} should be expanded and how it should be drawn has to be defined~\cite{2012Prusinkiewicz}.
 For example, the number of rewrite iterations, the branching angle, the segment length, and the segment width have to be specified.
-This may depend on the plant to be rendered, as some plants might require a more complex set of drawing instructions.
+This may vary depending on the plant to be rendered, as some plants might require a more complex set of drawing instructions.
 
 \section{Genetically Evolving L-systems}
 Genetic evolution involves crossing and mutating genes from parents to create offspring.
@@ -87,7 +88,7 @@ The \textit{model} and \textit{representation} are related and sometimes almost 
 The difference is that the model describes how the plant is modeled, while the representation may be a small part of the model or the model represented in a different format, and is the part which is evolved by the algorithm.
 \textit{Generation} is how the representations are generated, e.g.\ for the initial population, or when replacing parts of an \gls{L-system} with a new part.
 \textit{Selection} is the part of selecting individuals to be used for creating the next generation.
-\textit{Genetic operators} are used on the selected individuals to modify the representation by either doing crossover between parents, mutating an offspring, or other.
+\textit{Genetic operators} are used on the selected individuals to modify the representation either by doing a crossover between parents, mutating an offspring, or other.
 
 \subsection{Model}
 Discrete context-free \glspl{L-system} (D0L-systems) are the simplest form of \glspl{L-system} and is commonly used for \gls{EA}~\cite{1998Mock,1998Ochoa,2002Ebner,2003Ebner,2006Ashlock,2009Beaumont,2009Corchado}.
@@ -95,8 +96,8 @@ Parametric discrete context-free \glspl{L-system} (PD0L-systems) have also been 
 Parametric discrete context-sensitive \glspl{L-system} (PDIL-systems) was used in Jacob's further work by extending the PD0L-system version~\cite{1995Jacob, 1996Jacob, 1996Jacob-2}.
 Other types of \glspl{L-system}, such as stochastic, timed, table, environmentally-sensitive and open \glspl{L-system} have not been used for \gls{EA} in the reviewed literature.
 Hornby and Pollack argue that stochastic \glspl{L-system} are hard to use for \gls{EA} because they are non-deterministic~\cite{2001Hornby}.
-Additionally, they argue that context-sensitive \glspl{L-system} are not as powerful as parametric \glspl{L-system}, and should thus not be used.
-They use PD0L-systems in their own research, but it is worth noting that they evolve moving creatures rather than plants.
+Additionally, they argue that context-sensitive \glspl{L-system} are not as powerful as parametric \glspl{L-system}, and should therefore not be used.
+They use PD0L-systems in their own research, but it is worth noting that they evolve moving creatures---not plants.
 
 All of the above-mentioned \glspl{L-system} are bracketed \glspl{L-system}, i.e.\ they include stack operators (\texttt{[} and \texttt{]}) in their alphabets to push and pop the current interpretation state, which creates branches in the structure.
 Additionally, Hornby and Pollack use repetition brackets (\texttt{\{} and \texttt{\}}) with an integer parameter to specify how many times the content inside the brackets should be repeated~\cite{2001Hornby}.
@@ -104,7 +105,7 @@ Additionally, Hornby and Pollack use repetition brackets (\texttt{\{} and \textt
 The \gls{L-system} type is only the first part of the model required to model a plant.
 The second and final part is the interpretation of the \gls{L-system} into a visualized model.
 Even though the literature only use three types of \glspl{L-system} (D0L, PD0L and PDIL), they use different ways of interpreting it.
-Both Mock, Ochoa, and Beaumont and Stepney visualize the \glspl{L-system} in 2D with branching, but while Mock uses node rewriting~\cite{1998Mock}, Ochoa and Beaumont and Stepney use edge rewriting~\cite{1998Ochoa,2009Beaumont}, which results in different types of plants.
+Both Mock, Ochoa, and Beaumont and Stepney visualize the \glspl{L-system} in 2D with branching, but while Mock uses node rewriting~\cite{1998Mock}, Ochoa and also Beaumont and Stepney use edge rewriting~\cite{1998Ochoa,2009Beaumont}, which results in different types of plants.
 The remaining authors use 3D visualization with branching~\cite{1994Jacob,2006Ashlock}, though Jacob adds the concepts of sprout, stalk leaf and bloom~\cite{1995Jacob}, and Ebner et al.\ only add leaves~\cite{2002Ebner,2003Ebner}.
 
 \subsection{Representation}
@@ -113,14 +114,14 @@ In the literature, there have been three main \gls{EA} methods: \gls{GP}, \gls{G
 Jacob and Ochoa use the \gls{GP} methods~\cite{1994Jacob,1995Jacob,1998Ochoa}, both based on techniques introduced by Koza~\cite{1992Koza}.
 Ochoa uses a simple version of \gls{GP}, where representation only consists of one single rule successor~\cite{1998Ochoa}.
 The successor is divided into a hierarchy based on the branching in the string, such that top-level letters are on the top, and each stack below is one level down.
-In their paper, they only use successors with one level deep branching.
+In their paper they only use successors with one level of branching.
 
 Jacob represents the whole \gls{L-system} as a tree structure, such as a \gls{GP} method commonly does~\cite{1994Jacob}.
 The tree structure starts with the \gls{L-system} root at the top, then with the axiom and rules as children, then with each rule as a child of rules.
 The axiom has one child for each letter, and each letter has a child for the parameter.
 Each rule have a left and right side, where the left is the predecessor and the right is the successor.
 The left node is composed the same way as the axiom, but without parameters.
-The right node is also the same, but it can have parameters and also stacks for branching that also follow a tree structure.
+The right node is the same, but it can have parameters and also stacks for branching that follow a tree structure.
 It can practically represent any PD0L-system this way, but without conditions and with a limited set of letters.
 This could be extended.
 
@@ -136,11 +137,11 @@ For example, the first rule predecessor is always \texttt{f}, while the second a
 This means that the genotype is a set of strings (successors), instead of one single string.
 This would allow the \gls{GA} to search a bigger space compared to Mock and Ochoa's genotypes.
 
-Hornby and Pollack takes this further and represents the genotype as a fixed number of production rules composed of a predecessor and successor~\cite{2001Hornby}.
+Hornby and Pollack take this further and represent the genotype as a fixed number of production rules composed of a predecessor and successor~\cite{2001Hornby}.
 In this case, the genotype has as set of pairs of strings, which would allow the \gls{GA} to search a even bigger space.
 
 Finally, Ashlock et al.\ encodes the \gls{L-system} as a string of real numbers~\cite{2006Ashlock}.
-Some of numbers encoded are used to index a table of a fixed set of \gls{L-system} rules, and some are used directly in the \gls{L-system} interpretation step.
+Some of the numbers encoded are used to index a table of a fixed set of \gls{L-system} rules, and some are used directly in the \gls{L-system} interpretation step.
 This enables the \gls{L-system} and its interpretation to be tackled as one single parameter optimization problem.
 None of the previous genotypes presented represented the \gls{L-system} interpretation, though Ebner et al. and Hornby and Pollock used PD0L-systems where some interpretation parameters can be moved into the \gls{L-system} production strings.
 Even though the encoded genotype can affect more aspects of the \gls{L-system} (rules and interpretation), it is more limited because of its fixed set of rules that are used.
@@ -150,8 +151,8 @@ Thus it can search a smaller space than Hornby and Pollack's representation.
 It is ``an [\gls{EA}] that can evolve complete programs in an arbitrary language using a variable-length binary string''~\cite{2003Oneil}.
 It was introduced for \glspl{L-system} by Ortega et al. to evolve a D0L-system into fractal curves~\cite{2003Ortega}.
 Beaumont and Stepney transferred this to generating D0L-system 2D plants to match a drawing of a plant~\cite{2009Beaumont}.
-Interestingly, \glspl{L-system} themselves are grammar that produce plants, but Beaumont and Stepney's work define a grammar that produce the \glspl{L-system}, which then is used to produce the plant.
-They represent the genome as a string of numbers that index into a Backus Naur Form (BNF) grammar to build the \gls{L-system}.
+Interestingly, \glspl{L-system} themselves are grammar that produce plants, but Beaumont and Stepney's work define a grammar that produces the \glspl{L-system}, which is then used to produce the plant.
+They represent the genome as a string of numbers that index into a Backus Naur Form (BNF) grammar in order to build the \gls{L-system}.
 In this sense the representation is similar to that of Ashlock~\cite{2006Ashlock}, but with integers instead of real numbers and a different way of mapping from numbers to the \gls{L-system}.
 It is also similar to Jacob's \gls{GP} representation because it uses a pool of expressions that could be compared to a BNF.
 When undergoing evolution, the genotype (string of numbers) will be modified by a \gls{GA}.
@@ -167,7 +168,7 @@ Finally they added a second terminal symbol \texttt{X} in addition to \texttt{F}
 This further expanded the search space, but required a significantly larger population size and more generations, making the computation time significantly longer.
 The search space for this \gls{GE} representation is smaller than some of the other methods because of its use of non-parametric \glspl{L-system} and limited set of symbols, but it could be expanded to include this.
 
-In addition, there is a non-\gls{EA} method introduced by Vanak that still is relevant, called XL-system~\cite{2000Vanak}.
+In addition, there is a non-\gls{EA} method introduced by Vanak that is still relevant, called XL-system~\cite{2000Vanak}.
 Rather than evolving \glspl{L-system}, the XL-system is another form of \glspl{L-system} where two or more PD0L-systems are combined with an X-machine into an XL-system.
 The original \glspl{L-system} are not modified in any way, but rather kept as two states in the X-machine.
 The XL-system is used as a normal \gls{L-system}, running a specified amount of derivations to rewrite an axiom.
@@ -198,7 +199,7 @@ The basis for the selection is the fitness of the individuals calculated by a fi
 In the literature, there are three main ways of calculating the fitness: evaluating at the properties of the interpreted \gls{L-system}, evaluating how similar the interpreted \gls{L-system} is to a target object, and human evaluation.
 
 Various research evaluates various properties of the interpreted \glspl{L-system}.
-Jacob first uses a simple method of rewarding \glspl{L-system} with a majority of leaves outside an inner cube an inside an outer cube~\cite{1994Jacob}.
+Jacob first uses a simple method of rewarding \glspl{L-system} with a majority of leaves between an inner cube and an outer cube~\cite{1994Jacob}.
 This created ``densely packed structures with broad branching''~\cite{1994Jacob}.
 
 While this fitness function was not aimed particularly at evolving plants, Jacob later used a different fitness function aimed at ``breeding artificial flowers''~\cite{1994Jacob}.
@@ -212,7 +213,7 @@ Mock's fitness function rewarded plants that where short but wide~\cite{1998Mock
 He also states that this was a simple fitness function compared to the real factors that determines a plants survivability, including ``height, root depth, leaf size, attractive flowers, ability to withstand wind, proximity to water, etc.''~\cite{1998Mock}
 
 Positive phototropism (the movement of a plant based on stimulus by light) is used by both Ochoa and Corchado et al.\ as part of the fitness function~\cite{1998Ochoa, 2009Corchado}.
-They use a simplified version where they taller plants are rewarded more.
+They use a simplified version where taller plants are rewarded more.
 In reality the positive phototropism direction could be different because the sunlight does not always arrive from directly above.
 
 Bilateral symmetry is used by Ochoa as a measure of how balanced the weight of the plant is~\cite{1998Ochoa}.
@@ -223,31 +224,29 @@ Multiple researchers use light gathering ability as a measure of fitness.
 Ochoa calculates the total surface area of the leaves on the plant not shadowed by other leaves~\cite{1998Ochoa}.
 They assume that light arrives as vertical lines from the top.
 Ebner uses a similar method by using the OpenGL depth buffer to render the visible leaf area and count the pixels~\cite{2003Ebner}.
-Corchado et al.\ also use a similar method, but instead of calculating the visible leaf area, they calculate the ration of shadowed leaves to visible leaves and reward ratios closer to 0~\cite{2009Corchado}.
-Thus, if there are no leaves at all, the the plant would get a full score, which seems wrong as it can not gather any light.
+Corchado et al.\ also use a similar method, but instead of calculating the visible leaf area, they calculate the ratio of shadowed leaves to visible leaves and reward ratios closer to 0~\cite{2009Corchado}.
+Therefore, if there are no leaves at all, the plant would get a full score, which seems wrong as it can not gather any light.
 
 Ochoa uses an additional metric that measures light gathering ability, but also seed dissemination ability.
-They assume that more branches improves these abilities.
-Thus they count the amount of branching points with more than one branches leaving it, and reward plants with a higher amount of these.~\cite{1998Ochoa}
+They assume that more branches improve these abilities, so they count the amount of branching points with more than one branch leaving it, and reward plants with a higher amount of these.~\cite{1998Ochoa}
 
 Another metric used by multiple researchers is structural stability.
-Ochoa assumes that branching points with a high number of branches makes the plant unstable.
-Thus they punish plants based on the proportion of these branching points~\cite{1998Ochoa}.
+Ochoa assumes that branching points with a high number of branches makes the plant unstable, so they punish plants based on the proportion of these branching points~\cite{1998Ochoa}.
 Corchado et al.\ use a similar method, but also considers branching points with few branches as unstable, because they are poorer at gathering light~\cite{2009Corchado}.
 
-Ebner also considers this, but does in a different way and calls it ``structural complexity''~\cite{2003Ebner}.
+Ebner also considers this, but does so in a different way and calls it ``structural complexity''~\cite{2003Ebner}.
 They assign a cost of 1 to each branch segment, and a cost of 3 to each leaf.
 This cost is then multiplied with a factor that grows with the distance from the root.
-Thus, plants with long branches and many leaves are more ``structural complex'' and are punished more (though this may be redeemed by their light gathering ability).
+Thus, plants with long branches and many leaves are more structurally complex and are punished more (though this may be redeemed by their light gathering ability).
 
 Beaumont and Stepney measure the similarity between the interpreted 2D \gls{L-system} (plant) and a target 2D plant.
 They do this by looking at each drawn pixel in one image and calculating the distance to the nearest drawn pixel in the other image.
-They find indications that ``elitism is required to ensure that good solutions are kept and built on, not lost or mutated in the next generation'', and make 20\% of the population be elites.~\cite{2009Beaumont}
+They find indications that ``elitism is required to ensure that good solutions are kept and built on, not lost or mutated in the next generation'', and thus assigns 20\% of the population to be elites.~\cite{2009Beaumont}
 
 Ding et al.\ measure the similarity between an interpreted 3D \gls{L-system} plant and a target image of a real tree.
 They combine the similarity of the outlines, topology and internal space into the fitness function.~\cite{2013Ding}
 
-While Mock bred \glspl{L-system} using a genetic algorithm, they also hand-bred plants using humans to select the ``most interesting plant from each generation''~\cite{1998Mock}.
+While Mock bred \glspl{L-system} using a genetic algorithm, he also hand-bred plants using humans to select the ``most interesting plant from each generation''~\cite{1998Mock}.
 
 McCormack used a similar method when they looked at aesthetic evolution of \glspl{L-system}.
 They use a method called ``interactive aesthetic evolution'' where a normal \gls{GA} process is used, but where humans select which individuals are to be used for the next population.
@@ -262,7 +261,7 @@ The crossover operation varies based on different genetic representations.
 For \gls{GP}, where it is represented as a tree structure, Jacob swaps two expressions that have matching heads~\cite{1994Jacob,1995Jacob}.
 
 For \gls{GA} when the genotype is represented as a string, the operation varies based on what the string represents in the \gls{L-system}.
-Mock and Corchado et al.\ exchange production substrings with equal number of of push and pop bracket operators to avoid invalid syntax~\cite{1998Mock,2009Corchado}.
+Mock and Corchado et al.\ exchange production substrings with equal number of push and pop bracket operators to avoid invalid syntax~\cite{1998Mock,2009Corchado}.
 Ochoa uses an approach inspired by \gls{GP} by considering the successor string as a tree where nodes are defined by branches, and these nodes are exchanged~\cite{1998Ochoa}.
 Hornby and Pollack create a copy of one parent, and replace either a complete successor or substring of a successor with an equivalent part from the other parent~\cite{2001Hornby}.
 Ebner et al.\ use two types of crossover operators: one-point crossover that exchanges rules and sub-tree crossover that exchanges sub-trees~\cite{2002Ebner,2003Ebner}.
@@ -272,7 +271,7 @@ For genotypes encoded as arrays of real parameters, Ashlock et al.\ use a one-po
 For the genotype used by \gls{GE}, which is encoded as integral numbers, Beaumont and Stepney also use one-point crossover~\cite{2009Beaumont}.
 
 The mutation operation also varies between different genotype representations.
-Unlike crossover, where there in most cases only is one operation, mutation often includes multiple different operators that mutate the genotype in some way.
+Unlike crossover, where there is in most cases only one operation, mutation often includes multiple different operators that mutate the genotype in some way.
 
 Jacob uses four different mutation operators for mutating \gls{GP} trees.
 The first is to replace a sub-expression with a new generated matching sub-expression.
@@ -297,5 +296,5 @@ Specialized operations are used for parametric \glspl{L-system} to mutate the pa
 Parameters may be added to or subtracted from, or if the parameter is an equation, the equation may be changed to a production.
 As parametric \glspl{L-system} also may contain conditions, the equation of the condition may be mutated in a similar manner.~\cite{2001Hornby}
 
-McCormack and others mentions that one needs to use measure to avoid invaliding bracket operators in a string.
+McCormack and others mention that one needs to use measure to avoid invalidating bracket operators in a string.
 This may be done by excluding brackets from mutations, selecting sub-string within bracketed pairs, or repairing the brackets after mutation.~\cite{2004McCormack}
