@@ -50,7 +50,7 @@ The three different levels go from more abstract to more concrete, where partial
 Different methods exist for each level, and which method to use will depend on the type of plant that should be generated.
 
 \gls{L-system} schemata is of particular interest because there exists multiple methods to use.
-The event of a structure resulting into a new structure is called a ``developmental switch''~\cite{2012Prusinkiewicz}.
+The event of a structure resulting into a new structure is called a {\it developmental switch}~\cite{2012Prusinkiewicz}.
 The timing of the switches need to be controlled by a control mechanism in the system.
 There are two classes of these mechanisms: lineage and interaction.
 Lineage mechanisms are transferring information from a module to a descendant, while interaction mechanisms exchange information between cells.
@@ -91,9 +91,9 @@ The difference is that the model describes how the plant is modeled, while the r
 \textit{Genetic operators} are used on the selected individuals to modify the representation either by doing a crossover between parents, mutating an offspring, or other.
 
 \subsection{Model}
-Discrete context-free \glspl{L-system} (D0L-systems) are the simplest form of \glspl{L-system} and is commonly used for \gls{EA}~\cite{1998Mock,1998Ochoa,2002Ebner,2003Ebner,2006Ashlock,2009Beaumont,2009Corchado}.
+Discrete context-free \glspl{L-system} (D0L-systems) are the simplest form of \glspl{L-system} and they are commonly used for \gls{EA}~\cite{1998Mock,1998Ochoa,2002Ebner,2003Ebner,2006Ashlock,2009Beaumont,2009Corchado}.
 Parametric discrete context-free \glspl{L-system} (PD0L-systems) have also been prominently used in the literature~\cite{1994Jacob,2000Vanak,2001Hornby}.
-Parametric discrete context-sensitive \glspl{L-system} (PDIL-systems) was used in Jacob's further work by extending the PD0L-system version~\cite{1995Jacob, 1996Jacob, 1996Jacob-2}.
+Parametric discrete context-sensitive \glspl{L-system} (PDIL-systems) have been used in Jacob's further work by extending the PD0L-system version~\cite{1995Jacob, 1996Jacob, 1996Jacob-2}.
 Other types of \glspl{L-system}, such as stochastic, timed, table, environmentally-sensitive and open \glspl{L-system} have not been used for \gls{EA} in the reviewed literature.
 Hornby and Pollack argue that stochastic \glspl{L-system} are hard to use for \gls{EA} because they are non-deterministic~\cite{2001Hornby}.
 Additionally, they argue that context-sensitive \glspl{L-system} are not as powerful as parametric \glspl{L-system}, and should therefore not be used.
@@ -151,7 +151,7 @@ Thus it can search a smaller space than Hornby and Pollack's representation.
 It is ``an [\gls{EA}] that can evolve complete programs in an arbitrary language using a variable-length binary string''~\cite{2003Oneil}.
 It was introduced for \glspl{L-system} by Ortega et al. to evolve a D0L-system into fractal curves~\cite{2003Ortega}.
 Beaumont and Stepney transferred this to generating D0L-system 2D plants to match a drawing of a plant~\cite{2009Beaumont}.
-Interestingly, \glspl{L-system} themselves are grammar that produce plants, but Beaumont and Stepney's work define a grammar that produces the \glspl{L-system}, which is then used to produce the plant.
+Interestingly, \glspl{L-system} themselves are grammar that produce plants, but Beaumont and Stepney's work defines a grammar that produces the \glspl{L-system}, which is then used to produce the plant.
 They represent the genome as a string of numbers that index into a Backus Naur Form (BNF) grammar in order to build the \gls{L-system}.
 In this sense the representation is similar to that of Ashlock~\cite{2006Ashlock}, but with integers instead of real numbers and a different way of mapping from numbers to the \gls{L-system}.
 It is also similar to Jacob's \gls{GP} representation because it uses a pool of expressions that could be compared to a BNF.
@@ -164,7 +164,7 @@ They also have a fixed number of iterations and rotation angle.
 This can be expanded, and they did some experiments to try this.
 \texttt{+} and \texttt{-} was added as predecessor letters, and the axiom was allowed to contain any symbols and have any length.
 This expanded the search space, making the algorithm find fewer very bad solutions, but also far fewer good solutions.
-Finally they added a second terminal symbol \texttt{X} in addition to \texttt{F}, allowing for both edge and node rewriting \glspl{L-system}.
+Finally, they added a second terminal symbol \texttt{X} in addition to \texttt{F}, allowing for both edge and node rewriting \glspl{L-system}.
 This further expanded the search space, but required a significantly larger population size and more generations, making the computation time significantly longer.
 The search space for this \gls{GE} representation is smaller than some of the other methods because of its use of non-parametric \glspl{L-system} and limited set of symbols, but it could be expanded to include this.
 
