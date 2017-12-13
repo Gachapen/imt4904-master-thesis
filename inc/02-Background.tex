@@ -273,7 +273,7 @@ For genotypes encoded as arrays of real parameters, Ashlock et al.\ use a one-po
 For the genotype used by \gls{GE}, which is encoded as integral numbers, Beaumont and Stepney also use one-point crossover~\cite{2009Beaumont}.
 
 The mutation operation also varies between different genotype representations.
-Unlike crossover, where there in most cases only is one operation, mutation often includes multiple different operators that mutate the genotype in some way.
+Unlike crossover, where, in most cases, there is only one operator, mutation often includes multiple different operators that mutate the genotype in various ways.
 
 Jacob uses four different mutation operators for mutating \gls{GP} trees.
 The first is to replace a sub-expression with a new generated matching sub-expression.
@@ -300,3 +300,6 @@ As parametric \glspl{L-system} also may contain conditions, the equation of the 
 
 McCormack and others mentions that one needs to use measure to avoid invaliding bracket operators in a string.
 This may be done by excluding brackets from mutations, selecting sub-string within bracketed pairs, or repairing the brackets after mutation.~\cite{2004McCormack}
+
+
+% This above is  very good summary of what is out there, but, there is limited commentary of what to use when and why. An overview with your-own commentary and suggestions would be good to have (it is hard though).
