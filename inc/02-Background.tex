@@ -241,7 +241,8 @@ Thus, plants with long branches and many leaves are more structurally complex an
 
 Beaumont and Stepney measure the similarity between the interpreted 2D \gls{L-system} (plant) and a target 2D plant.
 They do this by looking at each drawn pixel in one image and calculating the distance to the nearest drawn pixel in the other image.
-They find indications that ``elitism is required to ensure that good solutions are kept and built on, not lost or mutated in the next generation'', and thus assigns 20\% of the population to be elites.~\cite{2009Beaumont}
+% TODO: Elitism has not been introduced - do we assume reader will know what it is?
+They find indications that ``elitism is required to ensure that good solutions are kept and built on, not lost or mutated in the next generation'', and therefore assigns 20\% of the population to be elites.~\cite{2009Beaumont}
 
 Ding et al.\ measure the similarity between an interpreted 3D \gls{L-system} plant and a target image of a real tree.
 They combine the similarity of the outlines, topology and internal space into the fitness function.~\cite{2013Ding}
@@ -251,7 +252,7 @@ While Mock bred \glspl{L-system} using a genetic algorithm, he also hand-bred pl
 McCormack used a similar method when they looked at aesthetic evolution of \glspl{L-system}.
 They use a method called ``interactive aesthetic evolution'' where a normal \gls{GA} process is used, but where humans select which individuals are to be used for the next population.
 They found that interactive evolution is still superior to autonomous evolution in terms of creativity.
-Interactive evolution can evolve plants into something that better matches a human's subjective criteria, while autonomous evolution only evolves plants into a similar style.~\cite{2004McCormack}
+Interactive evolution can evolve plants into something that better match a human's subjective criteria, while autonomous evolution only evolves plants into a similar style.~\cite{2004McCormack}
 
 \subsection{Genetic Operators}
 After selection, the individual \glspl{L-system} will undergo some genetic operations that modify or combine genetic material.
