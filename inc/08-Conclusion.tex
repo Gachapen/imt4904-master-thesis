@@ -81,3 +81,8 @@ The chromosome and grammar distribution is strongly tied, and can thus not be si
 A possible solution that should be explored is to convert parent chromosomes from non-uniform grammar distributions to uniform distributions after they have been generated, thus enabling them to be combined assuming a uniform grammar distribution.
 Would then the optimized distributions only be useful for generating the initial population of plants, or could the be used inside the grammatical evolution process by converting forth and back between distributions?
 Additionally, could this conversion be made lossless, enabling a converted chromosome to be converted back to the exact original chromosome?
+
+Beaumont and Stepney find indications that both elitism in the GA selection and structure in the grammar affects the performance of GE~\cite{2009Beaumont}.
+The changes in the grammar are subtle and does not change the possible solutions, but still have a significant effect on the performance in some cases.
+Thus this may apply to DGEL as well and should be investigated.
+Especially interesting is if this effect is mitigated by using a grammar distribution.

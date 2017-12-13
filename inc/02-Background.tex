@@ -22,6 +22,14 @@ Stochastic L-systems add a randomness to the generation of the plants.
 Each letter in the alphabet may have multiple productions, each with a probability of being selected~\cite{2012Prusinkiewicz}.
 This may simulate how different instances of a plant species may look slightly different, thus making the plants look less synthetic when seen together with other plants of the same species.
 
+% Xueqiang and Hong developed a generalized L-system method, called GLSM, that better follows botanical principles and increases the expressive ability of L-systems.
+% They emphasize the importance of a stochastic property in the L-systems to reflect botanical principles.~\cite{2012Xueqiang}
+
+% Wensheng and Xinyan model grass with stochastic L-systems and trees with parametric L-systems~\cite{2010Wensheng}.
+% For the tree models, they create one L-system where four parameters determine the branching angles and branch lengths.
+% They show how two different set of parameters in the same L-system can generate two different looking trees, and how adding stochastic multiples to the parameters can generate more naturally looking trees.
+% This is different from stochastic L-systems, because here they multiply stochastic values with parameters in the productions, while stochastic L-systems select productions stochastically.
+
 Context sensitive L-systems add a context to the production rule.
 The context can be on either left, right or both sides of the letter.
 A production will only be used if the context matches the surrounding letters in the word.
@@ -82,7 +90,7 @@ The difference is that the model describes how the plant is modeled, while the r
 \textit{Genetic operators} are used on the selected individuals to modify the representation by either doing crossover between parents, mutating an offspring, or other.
 
 \subsection{Model}
-Discrete context-free L-systems (D0L-systems) are the simplest form of L-systems and is commonly used for EA~\cite{1998Mock,1998Ochoa,2002Ebner,2003Ebner,2006Ashlock,2009Beaumont}.
+Discrete context-free L-systems (D0L-systems) are the simplest form of L-systems and is commonly used for EA~\cite{1998Mock,1998Ochoa,2002Ebner,2003Ebner,2006Ashlock,2009Beaumont,2009Corchado}.
 Parametric discrete context-free L-systems (PD0L-systems) have also been prominently used in the literature~\cite{1994Jacob,2000Vanak,2001Hornby}.
 Parametric discrete context-sensitive L-systems (PDIL-systems) was used in Jacob's further work by extending the PD0L-system version~\cite{1995Jacob, 1996Jacob, 1996Jacob-2}.
 Other types of L-systems, such as stochastic, timed, table, environmentally-sensitive and open L-systems have not been used for EA in the reviewed literature.
@@ -90,8 +98,8 @@ Hornby and Pollack argue that stochastic L-systems are hard to use for EA becaus
 Additionally, they argue that context-sensitive L-systems are not as powerful as parametric L-systems, and should thus not be used.
 They use PD0L-systems in their own research, but it is worth noting that they evolve moving creatures rather than plants.
 
-All of the above-mentioned L-systems are bracketed L-systems, i.e.\ they include stack operators (\textit{[} and \textit{]}) in their alphabets to push and pop the current interpretation state, which creates branches in the structure.
-Additionally, Hornby and Pollack use repetition brackets (\textit{\{} and \textit{\}}) with an integer parameter to specify how many times the content inside the brackets should be repeated~\cite{2001Hornby}.
+All of the above-mentioned L-systems are bracketed L-systems, i.e.\ they include stack operators (\texttt{[} and \texttt{]}) in their alphabets to push and pop the current interpretation state, which creates branches in the structure.
+Additionally, Hornby and Pollack use repetition brackets (\texttt{\{} and \texttt{\}}) with an integer parameter to specify how many times the content inside the brackets should be repeated~\cite{2001Hornby}.
 
 The L-system type is only the first part of the model required to model a plant.
 The second and final part is the interpretation of the L-system into a visualized model.
@@ -111,19 +119,20 @@ Jacob represents the whole L-system as a tree structure, such as a GP method com
 The tree structure starts with the L-system root at the top, then with the axiom and rules as children, then with each rule as a child of rules.
 The axiom has one child for each letter, and each letter has a child for the parameter.
 Each rule have a left and right side, where the left is the predecessor and the right is the successor.
-The left node is composed the same way as the axiom, but without parameters..
+The left node is composed the same way as the axiom, but without parameters.
 The right node is also the same, but it can have parameters and also stacks for branching that also follow a tree structure.
 It can practically represent any PD0L-system this way, but without conditions and with a limited set of letters.
 This could be extended.
 
 GA is the second major method used in the literature.
 The main difference between GA and GP is that GA represents the genotype as a flat string of elements, while GP represents it as a tree structure.
-Both Mock and Ochoa use only a single rule successor to represent the genotype~\cite{1998Mock,1998Ochoa}.
+Both Mock, Ochoa and Crochado et al.\ use only a single rule successor to represent the genotype~\cite{1998Mock,1998Ochoa,2009Corchado}.
 The successor is a plain string of symbols, including letters and the branching operators.
+While Ochoa only uses node rewriting~\cite{1998Ochoa}, Mock and Corchado et al.\ only use edge rewriting~\cite{1998Mock, 2009Corchado}.
 
 Ebner et al.\ represent the genotype as a set of production rules with one edge rewriting rule and 0--26 node rewriting rules, each with individual nodes ranging from A--Z~\cite{2002Ebner,2003Ebner}.
 The predecessor is fixed based on the rule number.
-For example, the first rule predecessor is always \textit{f}, while the second and third predecessors would be \textit{A} and \textit{B}.
+For example, the first rule predecessor is always \texttt{f}, while the second and third predecessors would be \texttt{A} and \texttt{B}.
 This means that the genotype is a set of strings (successors), instead of one single string.
 This would allow the GA to search a bigger space compared to Mock and Ochoa's genotypes.
 
@@ -131,12 +140,14 @@ Hornby and Pollack takes this further and represents the genotype as a fixed num
 In this case, the genotype has as set of pairs of strings, which would allow the GA to search a even bigger space.
 
 Finally, Ashlock et al.\ encodes the L-system as a string of real numbers~\cite{2006Ashlock}.
-Some of numbers encoded are used to index a table of a fixed set of rules, and some are used directly in the interpretation step.
-None of the previous genotypes presented represented the interpretation, though Ebner et al. and Hornby and Pollock used PD0L-systems where some interpretation parameters can be moved into the L-system production strings.
+Some of numbers encoded are used to index a table of a fixed set of L-system rules, and some are used directly in the L-system interpretation step.
+This enables the L-system and its interpretation to be tackled as one single parameter optimization problem.
+None of the previous genotypes presented represented the L-system interpretation, though Ebner et al. and Hornby and Pollock used PD0L-systems where some interpretation parameters can be moved into the L-system production strings.
 Even though the encoded genotype can affect more aspects of the L-system (rules and interpretation), it is more limited because of its fixed set of rules that are used.
 Thus it can search a smaller space than Hornby and Pollack's representation.
 
 GE is the final and latest method used in the literature.
+It is ``an evolutionary algorithm (EA) that can evolve complete programs in an arbitrary language using a variable-length binary string''~\cite{2003Oneil}.
 It was introduced for L-systems by Ortega et al. to evolve a D0L-system into fractal curves~\cite{2003Ortega}.
 Beaumont and Stepney transferred this to generating D0L-system 2D plants to match a drawing of a plant~\cite{2009Beaumont}.
 Interestingly, L-systems themselves are grammar that produce plants, but Beaumont and Stepney's work define a grammar that produce the L-systems, which then is used to produce the plant.
@@ -147,12 +158,12 @@ When undergoing evolution, the genotype (string of numbers) will be modified by 
 Thus the GE method is strongly related to GA.
 
 Beaumont and Stepney use a limited search space for the GE method.
-Their alphabet only consists of \textit{F}, \textit{+} and \textit{-}, their axiom is always \textit{F}, and only \textit{F} can be the production predecessor, i.e.\ it is an edge rewriting L-system.
+Their alphabet only consists of \texttt{F}, \texttt{+} and \texttt{-}, their axiom is always \texttt{F}, and only \texttt{F} can be the production predecessor, i.e.\ it is an edge rewriting L-system.
 They also have a fixed number of iterations and rotation angle.
 This can be expanded, and they did some experiments to try this.
-\textit{+} and \textit{-} was added as predecessor letters, and the axiom was allowed to contain any symbols and have any length.
+\texttt{+} and \texttt{-} was added as predecessor letters, and the axiom was allowed to contain any symbols and have any length.
 This expanded the search space, making the algorithm find fewer very bad solutions, but also far fewer good solutions.
-Finally they added a second terminal symbol \textit{X} in addition to \textit{F}, allowing for both edge and node rewriting L-systems.
+Finally they added a second terminal symbol \texttt{X} in addition to \texttt{F}, allowing for both edge and node rewriting L-systems.
 This further expanded the search space, but required a significantly larger population size and more generations, making the computation time significantly longer.
 The search space for this GE representation is smaller than some of the other methods because of its use of non-parametric L-systems and limited set of symbols, but it could be expanded to include this.
 
@@ -173,7 +184,7 @@ When using a GP representation, one option is to randomly attach subexpressions 
 This works by using a tree structure that describes the pattern of the expressions that can be attached to child nodes. One of the expressions that match a pattern is randomly selected and attached to the node. Then it continues recursively until it reaches a terminal node.
 
 With GA, it depends on the specific representation.
-To generate individuals with Mock's representation, they first select a random string length in some range for the successor, then fill the string with random characters from a set and finally repairs invalid branching (bracketing operators \textit{[} and \textit{]})~\cite{1998Mock}.
+To generate individuals with Mock's representation, they first select a random string length in some range for the successor, then fill the string with random characters from a set and finally repairs invalid branching (bracketing operators \texttt{[} and \texttt{]})~\cite{1998Mock}.
 
 Ebner et al.\ use a fixed initial population where every individual has the single identity rule $f\rightarrow f$~\cite{2002Ebner}.
 
@@ -230,7 +241,8 @@ This cost is then multiplied with a factor that grows with the distance from the
 Thus, plants with long branches and many leaves are more ``structural complex'' and are punished more (though this may be redeemed by their light gathering ability).
 
 Beaumont and Stepney measure the similarity between the interpreted 2D L-system (plant) and a target 2D plant.
-They do this by looking at each drawn pixel in one image and calculating the distance to the nearest drawn pixel in the other image.~\cite{2009Beaumont}
+They do this by looking at each drawn pixel in one image and calculating the distance to the nearest drawn pixel in the other image.
+They find indications that ``elitism is required to ensure that good solutions are kept and built on, not lost or mutated in the next generation'', and make 20\% of the population be elites.~\cite{2009Beaumont}
 
 Ding et al.\ measure the similarity between an interpreted 3D L-system plant and a target image of a real tree.
 They combine the similarity of the outlines, topology and internal space into the fitness function.~\cite{2013Ding}
