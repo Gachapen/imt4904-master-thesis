@@ -13,21 +13,21 @@ Thus, the GE process can save time by not evaluation certain individuals.
 
 \section{Simulated Annealing}
 %An SA-optiomized grammar distribution can find better individuals than a uniform grammar distribution (H2)
-The clustering of the movements around the current score in the SA process (Figure~\ref{fig:sa-progress-close}) indicates that the mutation function used has a good locality, i.e. that the neighbouring grammar distributions are fairly close in terms of score.
+The clustering of the movements around the current score in the SA process (Figure~\ref{fig:sa-progress-close}) indicates that the mutation function used has a good locality, i.e. that the neighboring grammar distributions are fairly close in terms of score.
 At the same time, with the somewhat uniform spread of scores between the current score and 0 indicates that there are some mutations that have bad locality.
-Additionally the clustering at exactly zero indicatest that there are some mutations with the worst possible locality.
-This bad locality mutations could be caused by some parameters in the grammar distribtion having cascading effect.
+Additionally the clustering at exactly zero indicates that there are some mutations with the worst possible locality.
+This bad locality mutations could be caused by some parameters in the grammar distribution having cascading effect.
 For example if the \texttt{symbol / stack} distribution in depth 0 suddenly changes from 0.5/0.5 to 1.0/0.0, all depths below will be excluded and thus most of the parameters in the distribution will be irrelevant.
 The clustering at exactly 0 is more likely to be caused by the fitness measure, because it has a limit on the amount of L-system instructions and when that limit is reached the plant is in all cases scored 0.
 It could also happen if the distribution does not allow for any \texttt{F} symbols as without it no branches will be drawn in the 3D model.
 %, indicating a discontinuity in the fitness metric.
 
-Because brute-force with the SA-optimized distribution has a higher percentage of non-zero fitness scores than with a uniform distribution, one of the benefits of using an optimized distribution is that it avoids many the problamtic ``nothning'' plants that are scored 0.
+Because brute-force with the SA-optimized distribution has a higher percentage of non-zero fitness scores than with a uniform distribution, one of the benefits of using an optimized distribution is that it avoids many the problematic `nothing'' plants that are scored 0.
 This is good because even though the non-zero scores in majorly zero-scored grammar distributions may have good scores (as evident from Figure~\ref{fig:uniform-population-no0}), a large amount of zero-scored plants will lead to a slow search process.
 
-Because of the large amounts of zero-scored plants, as evident from Figure~\ref{fig:sa-population} and~\ref{fig:uniform-population}, the median is a better measure for central tencency.
+Because of the large amounts of zero-scored plants, as evident from Figure~\ref{fig:sa-population} and~\ref{fig:uniform-population}, the median is a better measure for central tendency.
 Based on this, it may be argued that the median should be used in stead of the mean when measuring the grammar distributions
-But since a large amount of zero-scored plants is bad, the mean may also could also be argued as beeing a good measurement.
+But since a large amount of zero-scored plants is bad, the mean may also could also be argued as being a good measurement.
 Additionally, by using the median, it will suddenly jump from a good score to zero if the amount of zero-scored plants goes below 50\%.
 Thus comparing distributions that are at around this limit by the median may be unfair.
 
@@ -187,12 +187,12 @@ The variation within and between different grammar distributions (including both
 There is a big limitation in the sampling method used and the sample of humans found for the evaluation of the fitness metric.
 As seen from the overview of the demographics, the sample is highly biased and thus does most likely not represent the population.
 
-Another limitation is that the GE parameters found may not be the optimial parameters.
+Another limitation is that the GE parameters found may not be the optimal parameters.
 For example, the tournament size did not have an effect on the performance of the GE process, which may be caused by the large population size and number of generations already being good enough.
-It might be the case a larger tournment size may lead to better performance with smaller population size and fewer generations.
+It might be the case a larger tournament size may lead to better performance with smaller population size and fewer generations.
 In fact, tournament has an increasing selection intensity with increasing tournament size~\cite{1995Blickle}, meaning that the fitness should change faster with larger tournament sizes.
 The same problem may apply to the other parameters as well.
-This limitation does not affect the rest of the results, it only means that the GE parameters could likly be improved.
+This limitation does not affect the rest of the results, it only means that the GE parameters could likely be improved.
 
 As heuristics are used for both branch widths and leaf placement, the results may not apply to L-systems that include leaves and widths as parts of the grammar.
 A grammar like that would have more dimensions and thus be more complex to search, thus the results may be different.
@@ -201,8 +201,8 @@ For example the benefit of using GE or SA may be even larger when the space is m
 Especially the particular parameters used, for example the GE parameters, may not be applicable for other L-system grammars.
 Additionally, using other L-systems, like parametric SIL-systems introduce even more dimensions to the search space, which may have the same problem.
 
-Finally each persion only saw one plant alone, which is unusual in the nature.
-Realisticly plants would be surrounded by other plants, either of the same species or of different speies, which will likely have a significant effect on the perception on the plant.
+Finally each person only saw one plant alone, which is unusual in the nature.
+Realistically plants would be surrounded by other plants, either of the same species or of different species, which will likely have a significant effect on the perception on the plant.
 The perception of the plant may also be different depending on the context it is in.
 For example a potted plant in the window inside a house may have different criteria for being aesthetically pleasing than a plant in the garden, or a plant found in the wild.
 

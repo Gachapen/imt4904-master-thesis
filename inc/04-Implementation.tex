@@ -57,7 +57,7 @@ It is an easy to use method that only involves including the crate and changing 
 The tournament selection is parallelized in a similar manner, doing all the selections of new individuals in parallel.
 
 \section{Parallelized SA}
-The SA is parallelized in terms of the grammar distribution measurement as this is the most costly part; it has to generated several individual L-systems and evaluate their fitnesses before finding their average.
+The SA is parallelized in terms of the grammar distribution measurement as this is the most costly part; it has to generated several individual L-systems and evaluate their fitness before finding their average.
 This part is also perfect for parallelization because each L-system can be generated and evaluated completely independently, making it an embarrassingly parallel problem.
 The specific function that is parallelized is \texttt{GENERATE} in Algorithm~\ref{alg:eval-dist}.
 This function will in parallel generate and evaluate $n$ L-systems.
