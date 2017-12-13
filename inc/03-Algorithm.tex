@@ -1,8 +1,6 @@
 % !TEX root = ../Masters.tex
 \chapter{Distribution-based Grammar Evolution of L-system}
 
-% NEED TO DESCRIBE LIMITS TO NUMBER OF INSTRUCTIONS.
-
 \section{Overview}
 \label{sec:overview}
 To generate \gls{L-system} plants that are aesthetically pleasing, varied and could be used to create offspring similar to its parents (\textbf{RQ0}), an algorithm called Distribution-based \gls{DGEL} was developed.
@@ -49,10 +47,10 @@ To make the search space reasonable, there still have to be some limits.
 The number of productions, string length, and number of characters for a variable were limited to a maximum of 20.
 A higher number did not seem reasonable as no \glspl{L-system} in the literature reviewed used larger numbers, and the search times for higher numbers started to become unreasonable long.
 
-Additionally, to limit the complexity of \glspl{L-system}, complex features such as leaves, flowers, branch segment width and more were not included.
+Additionally, to limit the complexity of \glspl{L-system}, complex features such as leaves, flowers, \gls{branch segment} width and more were not included.
 Thus the grammar used can only produce the branches of a plant.
 This is the most essential part of a plant, which can be expanded later by modifying only the grammar description.
-Listing~\ref{lst:grammar} shows the actual grammar description used during the development and testing of the algorithm, while Listing~\ref{lst:grammar2} shows a grammar description that supports leaves and varying branch segment width.
+Listing~\ref{lst:grammar} shows the actual grammar description used during the development and testing of the algorithm, while Listing~\ref{lst:grammar2} shows a grammar description that supports leaves and varying \gls{branch segment} width.
 
 \begin{lstlisting}[caption={[ABNF grammar description used in DGEL]{ABNF grammar description used in \gls{DGEL}}}, label=lst:grammar, float]
 lsystem = axiom productions
@@ -68,7 +66,7 @@ variable = %x41-55
 operation = "+" / "-" / "^" / "&" / ">" / "<"
 \end{lstlisting}
 
-\begin{lstlisting}[caption=ABNF grammar description supporting leaves and varying branch segment width, label=lst:grammar2, float]
+\begin{lstlisting}[caption=ABNF grammar description supporting leaves and varying \gls{branch segment} width, label=lst:grammar2, float]
 lsystem = axiom productions
 axiom = string
 productions = 1*20production
@@ -111,7 +109,7 @@ This process would then continue with the next gene, 0, on the $D$ rule.
 As seen in Figure~\ref{fig:dgel}, after an \gls{L-system} has been generated, it needs to be interpreted into a 3D-model such that people may see the plant.
 Turtle interpretation is used to do this~\cite{2012Prusinkiewicz}, as it is a popular method used in the literature.
 A 3D version of the turtle interpretation is used, where the turtle can draw lines with \texttt{F}, and rotate around three axes using \texttt{-} and \texttt{+} for yaw, \texttt{\textasciicircum} and \texttt{\&} for pitch, and \texttt{<} and \texttt{>} for roll.
-The bracket operators, \texttt{[} and \texttt{]}, are used to create branch bases.
+The bracket operators, \texttt{[} and \texttt{]}, are used to create \glspl{branch base}.
 Table~\ref{tab:turtle-cmd} shows a complete overview of the characters and their operations, including extra operators used for more control and features like leaves (e.g.\ Listing~\ref{lst:grammar2}).
 
 \begin{table}
@@ -141,7 +139,7 @@ Table~\ref{tab:turtle-cmd} shows a complete overview of the characters and their
 \end{table}
 
 The actual 3D model created from this interpretation is kept as simple as possible while still trying to look somewhat natural.
-The branch segments (created by the \texttt{F} character) are brown stretched cubes.
+The \glspl{branch segment} (created by the \texttt{F} character) are brown stretched cubes.
 Leaves are green flat surfaces.
 An example can bee seen in Figure~\ref{fig:example-model}.
 
@@ -175,21 +173,21 @@ They can be seen in Table~\ref{tab:turtle-param}.
 
 As described earlier, leaves and branches with varying widths are not included.
 Without these, the plants may look ``dead'', and thus can not be very aesthetically pleasing.
-To work around this, widths of branch segments were heuristically set and leaves were heuristically placed.
+To work around this, widths of \glspl{branch segment} were heuristically set and leaves were heuristically placed.
 These heuristics were based on observations of real plants and \gls{L-system} based 3D models such as the aforementioned models presented by Prusinkiewicz and Lindenmayer (Figures 1.25 and 1.26)~\cite{2012Prusinkiewicz}.
 
-The branch segment widths are determined by their distance from the branch top.
-From a branch top, the segment width will increase by a fixed number towards the first branch base.
-In a branch base, the width will be set to the largest of the child branch segments.
+The \gls{branch segment} widths are determined by their distance from the branch top.
+From a branch top, the segment width will increase by a fixed number towards the first \gls{branch base}.
+In a \gls{branch base}, the width will be set to the largest of the child \glspl{branch segment}.
 Then, the width will continue to increase towards the tree root.
 Thus the plant will have natural-looking branches that are larger closer to the root.
 Bigger plants will naturally have thicker branches than smaller plants.
 
-Leaves are placed from the branch tops towards the root on each branch segment in increasing sizes, until they become too big.
+Leaves are placed from the branch tops towards the root on each \gls{branch segment} in increasing sizes, until they become too big.
 Thus, the leaves on the branch tops are the smallest, and they get bigger towards the root.
-To prevent thick branch segments, e.g.\ the trunk of a tree, to have leaves directly placed on them, the leaves will no longer be placed when they reach a specific size.
+To prevent thick \glspl{branch segment}, e.g.\ the trunk of a tree, to have leaves directly placed on them, the leaves will no longer be placed when they reach a specific size.
 The leaves are always pitched upwards, with a random noise applied to the pitch to look more natural.
-They have a random rotation around the branch segment they are placed on.
+They have a random rotation around the \gls{branch segment} they are placed on.
 
 This interpretation of the \gls{L-system} can be swapped out with a different interpretation, while still using the \gls{DGEL} algorithm.
 For example a more realistic interpretation with smoothed branches or branches bent by gravity could be used.
@@ -216,14 +214,14 @@ These weights are then used to define the segments in the gene, as described in 
 \end{figure}
 
 By using a specialized distribution, rather than a uniform distribution, the generator may be targeted at specialized \glspl{L-system}, or just have a higher average fitness score for the generated plants.
-For example, the distribution may focus more on producing the \texttt{F} character which is used for drawing the branch segments.
-Or it may be focused on the \texttt{stack} rule that produces branch bases.
+For example, the distribution may focus more on producing the \texttt{F} character which is used for drawing the \glspl{branch segment}.
+Or it may be focused on the \texttt{stack} rule that produces \glspl{branch base}.
 This may in turn increase the rate of produced plants that have long or many branches.
 
 In addition to the distribution weights shown in Figure~\ref{fig:distribution}, there is a default distribution that will be used if there does not exist a mapping for a rule and choice at a specific depth.
 This can be used to prevent infinite recursion with the \texttt{stack} rule.
-For example, the distribution for the grammar in Listing~\ref{lst:grammar} may specify the weights $[0.5, 0.5]$ for the second choice (\texttt{symbol / stack}) in the \texttt{string} rule at depth 0, 1 and 2, such that there is an equal change to produce a string and a stack (branch base).
-To prevent any deeper branch bases, the weights $[1.0, 0.0]$ may be specified for the default distribution, causing it to not produce a stack at depth 3 or deeper.
+For example, the distribution for the grammar in Listing~\ref{lst:grammar} may specify the weights $[0.5, 0.5]$ for the second choice (\texttt{symbol / stack}) in the \texttt{string} rule at depth 0, 1 and 2, such that there is an equal change to produce a string and a stack (\gls{branch base}).
+To prevent any deeper \glspl{branch base}, the weights $[1.0, 0.0]$ may be specified for the default distribution, causing it to not produce a stack at depth 3 or deeper.
 
 To find specialized distributions to more efficiently generate good plants or generate different types of plants, the weights in the distribution need to be optimized.
 As the distribution maps from depth, to rule, to choice, to alternative (weight), it is a four-dimensional parameter space to be optimized.
@@ -298,7 +296,7 @@ Table~\ref{tab:fitness} lists all of the metrics and their weight.
     \hline
     Nothing & Punish plants that have no branches (can not be seen) & \ref{eq:nothing} & 1 \\
     \hline
-    Closeness & Punish plants with child branch segments very close to each other & \ref{eq:closeness} & 1 \\
+    Closeness & Punish plants with child \glspl{branch segment} very close to each other & \ref{eq:closeness} & 1 \\
     \hline
     Drop & Punish plants based on how much the plant grows downwards & \ref{eq:drop} & 1 \\
     \hline
@@ -318,11 +316,11 @@ Table~\ref{tab:fitness} lists all of the metrics and their weight.
 \end{table}
 
 \textit{Nothing} is the simplest and most basic metric.
-It punishes plants that have no branch segments.
+It punishes plants that have no \glspl{branch segment}.
 This may happen if for example the \gls{L-system} contains no drawing commands (the character \texttt{F}).
-Equation~\ref{eq:nothing} demonstrates this by giving it a score of -1 if it does not have any branch segments.
+Equation~\ref{eq:nothing} demonstrates this by giving it a score of -1 if it does not have any \glspl{branch segment}.
 In this case no other metrics will make any difference.
-The $branches$ function returns the number of branch segments.
+The $branches$ function returns the number of \glspl{branch segment}.
 
 Because of the recursive property of \glspl{L-system} and the flexible grammar used in \gls{DGEL}, the expanded string from running all the iterations may become very large.
 For example, if the axiom contains the letter \texttt{F}, and the production \texttt{F} produces 20 \texttt{F}, with 5 iterations, the expanded string would have length $20^5$.
@@ -342,16 +340,16 @@ If they are breached the \gls{L-system} will become \textit{nothing} and thus be
     \end{cases}
 \end{equation}
 
-\textit{Closeness} is another punishing metric that punishes plants that have branch bases with child segments too close to each other.
+\textit{Closeness} is another punishing metric that punishes plants that have \glspl{branch base} with \glspl{child segment} too close to each other.
 This metric helps avoid plants that have segments clipping into each other.
 This clipping may look bad, and if they are completely inside each other the complexity of the 3D model increases, which decreases the rendering performance without improving visuals.
-The dot product between the direction of two child segments is used for this metric.
+The dot product between the direction of two \glspl{child segment} is used for this metric.
 The dot product is larger the closer the direction vectors are, becoming 1 when they are parallel.
-If the largest dot product between segment directions in a branch base is below a threshold, $t$, there is no punishment.
+If the largest dot product between segment directions in a \gls{branch base} is below a threshold, $t$, there is no punishment.
 Otherwise, the plant is punished by a factor depending on how much above the threshold the dot product is.
 This factor is interpolated between 0 and 1 linearly from the threshold to 1.
 Equation~\ref{eq:closeness} shows how the closeness is calculated.
-The $closest$ function finds the closest dot product between child segments in a branch base.
+The $closest$ function finds the closest dot product between \glspl{child segment} in a \gls{branch base}.
 The threshold was experimentally set to 0.9 to punish plants that have segments that look like they clip into each other.
 
 \begin{equation}
@@ -383,7 +381,7 @@ This is done by Equation~\ref{eq:balance}.
 In the worst case, if both $centerdistance$ and $centerspread$ are the same, the plant will be punished by -1.
 In the best case, if the $centerdistance$ is 0, i.e.\ the gravitational center is in the center of the plant, the plant will be rewarded by 1.
 Since $centerdistance$ generally will increase with increasing $centerspread$, the plant will be more punished the more it spreads out in one direction.
-Though by having most of its branch segments close to the root, it may mitigate the punishment.
+Though by having most of its \glspl{branch segment} close to the root, it may mitigate the punishment.
 Thus the fraction $\frac{centerdistance}{centerspread}$ is used.
 
 \begin{equation}
@@ -393,11 +391,11 @@ balance(x) = (0.5 - \frac{centerdistance(x)}{centerspread(x)}) * 2
 
 \textit{Branching} measures how complex the branching of the plant is.
 It is inspired by the Structural Stability~\cite{1998Ochoa}, Plant Structural Stability~\cite{2009Corchado} and Proportion of Branch Bases~\cite{1998Ochoa} measures.
-These measures assume that the plant becomes too unstable to survive if it has too many child segments growing from a branch base.
+These measures assume that the plant becomes too unstable to survive if it has too many \glspl{child segment} growing from a \gls{branch base}.
 Corchado et al.\ additionally assume that plants with too few branches will have worse light gathering ability.
 Thus there will be a sweet spot in the branching proportion which is rewarded the most.
 If the proportion is too low or too high, the plant will be punished.
-This is shown in Equation~\ref{eq:complexity} where if the branching proportion is below 1.2 (1.2 child segments from a branch base on average), or above 5, it will be punished in range $[-1, 0]$.
+This is shown in Equation~\ref{eq:complexity} where if the branching proportion is below 1.2 (1.2 \glspl{child segment} from a \gls{branch base} on average), or above 5, it will be punished in range $[-1, 0]$.
 While between 1.2 and 5, it will be rewarded in range $[0, 1]$.
 The sweet spot is 2, where it will be rewarded by 1.
 $icos$ interpolates the value from the first parameter, $a$, to the second parameter, $b$, using a cosine function.
@@ -442,7 +440,7 @@ This change is made on the assumption that plants can gather more light both by 
 Additionally it was found during an early experiment that short plants were generally found as displeasing.
 Like the Foliage metric, the Length metric is asymptotic towards 1 as the plant length increases towards $\infty$.
 This is shown in Equation~\ref{eq:length}.
-The length of the plant is found using $longest$, which finds the longest path in the branches of the plant from root to leaf and returns the number of branch segments in it.
+The length of the plant is found using $longest$, which finds the longest path in the branches of the plant from root to leaf and returns the number of \glspl{branch segment} in it.
 As with the Foliage metric, the $s$ constant controls how fast it should increase towards 1.
 
 \begin{equation}
@@ -452,12 +450,12 @@ As with the Foliage metric, the $s$ constant controls how fast it should increas
 
 \textit{Curvature} is a metric that rewards plants with more curved branches.
 It was developed from the results of the first experiment where it was found that plants that looked ``static'' or ``straight'' were not as pleasing as plants that looked more ``dynamic'' or ``curvy''.
-As Equation~\ref{eq:curvature} demonstrates, the plant is rewarded more if the branch segments are oriented with a small angle different from their parent.
+As Equation~\ref{eq:curvature} demonstrates, the plant is rewarded more if the \glspl{branch segment} are oriented with a small angle different from their parent.
 If the angle is too sharp, the plant is rewarded less, as the plant may look like ``doodles'' with such angles.
-The $minangles$ function returns a list of the smallest angle from an internode segment to its parent segments.
-Thus, if an internode segment only has one child (i.e.\ it does not branch), the smallest angle will be the angle between it and that one child.
-Otherwise, if an internode segment has multiple children (i.e.\ it is a branch base), all of the angles between it and the children are calculated and the smallest will be used.
-This is based on the assumption that the child segment with the smallest angle is the straight segment following a branch base.
+The $minangles$ function returns a list of the smallest angle from an \gls{internode segment} to its parent segments.
+Thus, if an \gls{internode segment} only has one child (i.e.\ it does not branch), the smallest angle will be the angle between it and that one child.
+Otherwise, if an \gls{internode segment} has multiple children (i.e.\ it is a \gls{branch base}), all of the angles between it and the children are calculated and the smallest will be used.
+This is based on the assumption that the \gls{child segment} with the smallest angle is the \gls{straight segment} following a \gls{branch base}.
 % This assumption only holds for apex trees? What if it branches into two equally angled branches?
 $avg$ calculates the average of all of the angles returned by $minangles$.
 Like in Equation~\ref{eq:complexity}, $icos$ is used to create a smooth interpolation between the limits $min$, $opt$ and $max$.
@@ -479,5 +477,3 @@ A limit of $max = \frac{\pi}{4}$ (45°) was intuitively chosen as a point where 
     max = \frac{\pi}{4} \\
 \end{aligned}
 \end{equation}
-
-% REMEMBER TO MENTION THAT TERMS USED ARE BASED ON AXIAL TREES IN L-SYSTEM BOOK.

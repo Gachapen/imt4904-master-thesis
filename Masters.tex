@@ -66,7 +66,15 @@
 \newacronym{GLP}{GLP}{genetic L-system programming}
 \newacronym{GA}{GA}{genetic algorithm}
 \newacronym{PCG}{PCG}{procedural content generation}
+\newacronym{AHP}{AHP}{analytical heirarchy process}
+
 \newglossaryentry{L-system}{name=L-system, description={Lindenmayer systems}}
+\newglossaryentry{branch segment}{name={branch segment}, description={An edge in an interpreted L-system~\cite{2012Prusinkiewicz}}}
+\newglossaryentry{internode segment}{name={internode segment}, description={``A branch segment followed by at least one more segment in some path''~\cite{2012Prusinkiewicz}}}
+\newglossaryentry{branch base}{name={branch base}, description={A point on a branch with at least two child branch segments~\cite{2012Prusinkiewicz}}}
+\newglossaryentry{child segment}{name={child segment}, description={A branch segment following a parent segment in direction from the root}}
+\newglossaryentry{parent segment}{name={parent segment}, description={The branch segment a child segment follows}}
+\newglossaryentry{straight segment}{name={straight segment}, description={The child segment that continues the branch (as opposed to child segments branching into new branches)~\cite{2012Prusinkiewicz}}}
 
 \begin{document}
 
@@ -84,8 +92,6 @@
 \listoftables
 \lstlistoflistings
 \printglossaries
-
-% Remember a glossary of abbreviations.
 
 \include{inc/01-Introduction}
 \include{inc/02-Background}
