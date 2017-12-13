@@ -1,7 +1,7 @@
 % !TEX root = ../Masters.tex
 \chapter[Evaluation of DGEL]{Evaluation of \gls{DGEL}}
 \gls{DGEL} consists of to main modules: \textit{generation} and \textit{evaluation}.
-The evaluation module consists of the fitness component which evaluates who good the \gls{L-system} plants are.
+The evaluation module consists of the fitness component which evaluates how good the \gls{L-system} plants are.
 The remaining components are part of the generation component which generates plants, and uses the evaluation module to generate \textit{good} plants.
 To answer if \gls{DGEL} solves the research questions, both modules have to be evaluated.
 The generation module will be evaluated in a technical manner to determine if it performs well or not.
@@ -27,7 +27,7 @@ Finally, in the cases when normality cannot be assumed, Mann-Whitney U test will
 
 \subsubsection{Grammar Evolution Parameters}
 \gls{GE}, as with \gls{GA}, depends on multiple parameters, and with tournament sampling there are even more.
-Thus, before evaluation the \gls{GE} process, good parameters should be found.
+Therefore, before evaluation the \gls{GE} process, good parameters should be found.
 Additionally, seeing what parameters are needed for a good performing \gls{GE} may reveal additional properties of it.
 The parameters were found using a combined manual and automated approach by searching the parameter space in multiple steps.
 The idea was not to find the optimal parameters, but rather to find some parameters that made the \gls{GE} produce an individual with good fitness within a reasonable time.
@@ -60,10 +60,9 @@ The reason for using \gls{GE} is to search the space in an efficient way.
 To see if it is doing this, it needs to be compared to a brute-force approach that finds completely random samples in the space and picks the best of them.
 Thus, the hypothesis is that \gls{DGEL} \gls{GE} finds plants with better fitness scores than brute-force does (\textbf{H1}).
 
-To make a fair comparison, the brute-force should generate as many individuals as the \gls{GE} generates and modifies (through mutation or crossover)
+To make a fair comparison, the brute-force should generate as many individuals as the \gls{GE} generates and modifies (through mutation or crossover).
 This way, both methods will ``generate'' the same amount of individuals, either being completely new individuals or modifications of existing individuals.
-\gls{GE} uses a fixed number of generations and population size, resulting into a fixed number of total individuals: $individuals = population + population * generations$.
-Thus the brute-force method will generate $individuals$ individuals.
+\gls{GE} uses a fixed number of generations and population size, resulting into a fixed number of total individuals: $individuals = population + population * generations$, that the brute-force method also will generate.
 
 Because both methods depend on a random seed, an average of multiple runs will have to be used.
 A sample size of 11 was selected as balanced choice between sample size and duration.
@@ -100,7 +99,7 @@ The \glspl{L-system} are generated in a brute-force manner, not using any evolut
 \end{figure}
 
 Figure~\ref{fig:size-sampling} shows the search of the population size and number of generations to be used for the \gls{GE} process.
-The search was prematurely stopped because at around either 1600 number of generations or population size the duration became unreasonable long.
+The search was prematurely stopped because when either the number of generations or population size reached 1600 the duration became unreasonable long.
 As seen, a minimum of either a population size of 200 or 200 generations is required for a reasonable performance.
 Additionally, for any number of generations, a population size of 200 makes a notable improvement.
 From this point on, there is a steady improvement from scores around 0.8 to 0.9 with both parameters increasing towards 1600.
@@ -108,7 +107,7 @@ From this point on, there is a steady improvement from scores around 0.8 to 0.9 
 Outside a line drawn through 800, 400 and 400, 800 there does not seem to be any notable improvement, while the duration increases by a large amount.
 The parameter values that yielded the best fitness was $generations = 200$ and $population size = 800$, and they did it within a reasonable duration.
 The duration of it is significantly smaller than other parameter values that yield approximately the same fitness.
-Thus, these parameter values were selected for use.
+Thus these parameter values were selected for use.
 
 \begin{figure}
     \centering
@@ -121,7 +120,7 @@ Figure~\ref{fig:tournament-sampling} shows the search of the tournament size.
 Contrasted to the other searches, this is a one-dimensional search.
 % Possibly do a significance test. Need to re-run to generate raw data...
 As seen in the figure, the search did not find any improvements at all.
-Thus the tournament size was kept at the lowest value, i.e.\ 2.
+Therefore the tournament size was kept at the lowest value, i.e.\ 2.
 
 \begin{figure}
     \centering
@@ -141,9 +140,9 @@ Thus the tournament size was kept at the lowest value, i.e.\ 2.
 
 Figure~\ref{fig:recombination-sampling} shows the search of the recombination parameters: mutation rate and crossover rate.
 There is a general improvement in fitness with both increasing mutation rate and crossover rate until the crossover rate reaches 1 where it suddenly turns for the worse.
-Thus the crossover rate should at least be below 1.
-Additionally, the crossover rate seems to be the parameter that contributes less to an improved fitness and increases the duration the most.
-Thus the mutation rate should be the most important parameter.
+Therefore the crossover rate should at least be below 1.
+Additionally, the crossover rate seems to be the parameter that contributes the least to an improved fitness and increases the duration the most.
+Therefore the mutation rate should be the most important parameter.
 The best fitness score is provided by a mutation rate of 1 and crossover rate of 0.5, further indicating this.
 
 % Also did an ANOVA on this, could mention.
@@ -162,7 +161,7 @@ Thus the recombination parameters will be using these values.
 Figure~\ref{fig:duplication-sampling} shows the search of the duplication rate.
 It shows a worsening of both score and duration from a rate of 0 to 0.1, from where it stays bad.
 % possibly run anova, but don't have raw data...
-Thus, a duplication rate is set to 0 and the operator is thus not included in the \gls{GE} process.
+Therefore the duplication rate is set to 0.
 
 All of the \gls{GE} parameters are summarized in Table~\ref{tab:ge-parameters}.
 
@@ -233,9 +232,9 @@ The grammar distribution evaluation had a minimum 32 samples and an error thresh
 In total this resulted into 436000 moves over 9 annealings.
 As seen in the figure, for each annealing there is a general improvement from a fitness score of 0 to around 0.6.
 The \gls{SA} process explores the space in the beginning, moving both up and down in score, and then gradually focuses more on hill climbing towards the end.
-Each annealing generally reach a plateau before being halfway through the annealing process, from when nearly all mutations are worse and thus it chooses to stay, though the second annealing is slower to reach the plateau.
+Each annealing generally reach a plateau before getting halfway through the annealing process, from which point nearly all mutations are worse and so it chooses to stay, though the second annealing is slower to reach the plateau.
 The fourth annealing found one exceptionally good grammar distribution with a score of almost 0.75, but when the same grammar distribution was measured over 100000 samples its score was 0.61 (SD = 0.25).
-Thus the score measured in the \gls{SA} process may have been inaccurate.
+Therefore the score measured in the \gls{SA} process may have been inaccurate.
 As this distribution was the one with the best score during the \gls{SA} process, it will be the one used for further analysis.
 
 \begin{figure}
@@ -386,7 +385,7 @@ T -> PT[>&^>&&&>&&R&&<>>]
 % Try to connect this to the above even more.
 An example of a plant generated with the \gls{SA}-optimized distribution can be seen in Figure~\ref{fig:sa-plant}, and its \gls{L-system} is found in in Listing~\ref{lst:sa-plant}.
 This plant is very tall and straight, has few branches and few fractal patterns.
-The \gls{L-system} goes to depth 2, but depth 2 never includes any symbols, thus not being relevant.
+The \gls{L-system} goes to depth 2, but depth 2 never includes any symbols, and is therefore not relevant for the 3D model.
 Depth 1 is mostly producing operators, but also an occasional variable.
 There is recursion in the segment drawing as \texttt{F} produces \texttt{P} and \texttt{T} which in turn produce \texttt{F}.
 Additionally, part of the recursion is inside a stack, thus allowing for fractal patterns.
@@ -395,8 +394,8 @@ Additionally, part of the recursion is inside a stack, thus allowing for fractal
 \subsection{Method}
 \textbf{RQ2} asks ``how aesthetically pleasing plants can be generated''.
 \gls{DGEL} was the developed solution to this question, but to know if it can actually generate aesthetically pleasing plants or not, the evaluation module has to be analyzed and compared to how humans rank the plants.
-If the ranking made by the humans agree with the ranking made by the fitness component in the evaluation module, it would suggest that the generator know how to distinguish good plants from bad plants, and can thus apply its evolutionary algorithms to generate aesthetically pleasing plants.
-Thus the hypothesis (\textbf{H4}) is: Humans agree with the ranking made by the \gls{DGEL} fitness component.
+If the ranking made by the humans agree with the ranking made by the fitness component in the evaluation module, it would suggest that the generator knows how to distinguish good plants from bad plants, and can apply its evolutionary algorithms to generate aesthetically pleasing plants.
+So the hypothesis (\textbf{H4}) is: Humans agree with the ranking made by the \gls{DGEL} fitness component.
 If the humans do not completely agree with the \gls{DGEL} ranking, the next question is why this is the case and what can be done to improve the rank correlation?
 
 While the first question can be answered by quantitative methods, the second question requires support from a qualitative analysis to understand what factors are important to distinguish good generated plants from bad.
@@ -408,14 +407,15 @@ By using \gls{AHP}, we will not only get a ranking of the plants, but also dista
 This is useful because humans may consider some of the plants equally pleasing, or some plants much more pleasing than others.
 Finally, all of the rankings will be aggregated and compared to the ranking made by \gls{DGEL} using Kendall's Tau~\cite{1938Kendall}, and dRank~\cite{2009Carterette}.
 Because the human rankings only has priority weights and not absolute scores, the DGEL fitness scores will be translated into weights by dividing each score by the sum of the scores such that they sum to 1.
-Kendall's Tau will test the ranking correlation and the data fit the requirements of Kendall's Tau~\cite{2010Webber}: they are unweighted, conjoint and have a definite range.
+The data fit the requirements of Kendall's Tau~\cite{2010Webber}: they are unweighted, conjoint and have a definite range.
+Therefore Kendall's Tau will be used to test the ranking correlation.
 It will also give an indication of how correlated they are in range $[-1, 1]$, where 1 is perfectly positively correlated, 0 is not correlated and -1 is perfectly negatively correlated.
-But there are two problems with it: it does not consider the relative distances between the ranks~\cite{2010Webber}, and the different participant's rankings will have to be aggregated beforehand, meaning Kendall's Tau does not consider the variance between the different human rankings rankings.
-Thus, dRank will be used as an additional statistic, as it considers the distances between ranks and that there are multiple rankings aggregated together~\cite{2010Webber,2009Carterette}.
+But there are two problems with this: it does not consider the relative distances between the ranks~\cite{2010Webber}, and the different participant's rankings will have to be aggregated beforehand, meaning Kendall's Tau does not consider the variance between the different human rankings.
+Therefore, dRank will be used as an additional statistic, as it considers the distances between ranks and that there are multiple rankings aggregated together~\cite{2010Webber,2009Carterette}.
 Whenever a dRank statistic is shown, the B is the bootstrap sampling size used for estimating the p-value~\cite{2009Carterette}.
 
-As many plants as possible is desired, but humans have a limited patience and the number of comparisons to rate is $\frac{n * (n - 1)}{2}$, where $n$ is the number of plants.
-Thus a limited set of plants has to be used.
+As many plants as possible is desired, but humans have limited patience and the number of comparisons to rate is $\frac{n * (n - 1)}{2}$, where $n$ is the number of plants.
+Therefore a limited set of plants has to be used.
 The final number of plants used is based on the estimated time used on a comparison and the estimated time a participant is patient.
 The plants should also be spread over the whole range of the fitness score, so that the rank comparison will be valid for the complete range.
 They should also always be \textit{something} (have at least one branch), otherwise there is nothing to rate.
@@ -434,7 +434,7 @@ They were asked to complete the survey as described in its introduction, think a
 Based on this, the number of plants is re-estimated with a margin in case of bias, a new set of plants is generated, quality issues are fixed, and the pilot is run once more to confirm the new estimate.
 
 Participants were sampled using convenience sampling and snowball sampling.
-As such, the results may not be generalizable to the whole population, but they may be used as an indication to what is important in an aesthetically pleasing plant.
+As such, the results may not be generalizable to the whole population, but they may be used as an indication as to what is important in an aesthetically pleasing plant.
 Convenience sampling was selected because of time and resource restrictions, and snowball sampling was added as a means to gather further samples.
 Participants were found by asking friends, family and acquaintances either by direct conversation or by posting publicly on social networks including Facebook, Google+ and Twitter.
 The participants were asked to share the survey to others, and a sharing link was shown at the end of the survey, thus allowing for a snowballing effect.
@@ -444,10 +444,10 @@ This both allowed for deeper qualitative data and final adjustments to the surve
 \subsection{Survey Design}
 % link to consent?
 % link to survey?
-The survey consists of a consent that they need to agree with, a pre-questionnaire, a description, the pairwise comparison, a post-questionnaire with the results, and finally a thank-you page with the sharing link.
+The survey consists of a consent form that they need to agree with, a pre-questionnaire, a description, the pairwise comparison, a post-questionnaire with the results, and finally a thank-you page with the sharing link.
 The pre-questionnaire is intended to map the demographic and what relation they have to plants and games.
 The description describes the pairwise comparison task, what they should do in it, and what to expect at the end.
-The post-questionnaire is intended to find how much the participant agree with the ranking calculated by \gls{AHP} or why they do not agree, and what they find important in plants.
+The post-questionnaire is intended to find out how much the participant agrees with the ranking calculated by \gls{AHP} or why they do not agree, and what they find important in plants.
 Finally, the thank-you page is used to assure the participant that they have completed the survey, give them the option to see or share their results, and share the survey to others.
 
 In the pre-questionnaire the participants are first asked about their age, gender, education and occupation.
@@ -455,9 +455,9 @@ They are then asked ``how often do you work with plants? Including all types of 
 Their purpose is to see if their relation to plants affects how they rank the plants.
 Finally, they are asked ``how often do you play video games?'' on a 5-point Likert scale.
 This is to see if their relation to video games affects how they rank the plants.
-A person that regularly works with plants or enjoys looking at plants in nature may expect something different in a plant than a person who regularly see plants in video games.
+A person that regularly works with plants or enjoys looking at plants in nature may expect something different in a plant than a person who regularly sees plants in video games.
 
-During the description of the task, they are recommended to enter fullscreen such that they do not have distractions and that the plants can be viewed as big as possible.
+During the description of the task, they are recommended to enter fullscreen so that they do not have distractions and so that the plants can be viewed as big as possible.
 They are also asked to try a different browser or withdraw if the plant visualization is not working as expected.
 This is because the quality of the visualization may affect their ratings.
 
@@ -470,7 +470,7 @@ This is because the quality of the visualization may affect their ratings.
 
 Figure~\ref{fig:pairwise} shows the comparison task.
 It is kept as simple as possible to avoid distractions, and a neutral gray background color is used to avoid the perceived hue or brightness of the plants to be shifted.
-Two plants are visualized side by side as looping videos of a camera rotating around the plant such that all sides of the plant is seen.
+Two plants are visualized side by side as looping videos of a camera rotating around the plant so that all sides of the plant is seen.
 In addition, the camera adjusts its height and distance from the plant so that all of the plant can be viewed.
 The rotation happens at a balanced speed that lets the user view all of the plant in a short amount of time, while being slow enough to let them study it.
 % The pilot confirmed that the speed was good.
@@ -491,8 +491,8 @@ Based on this, WebM is encoded with the parameters \texttt{-quality best -crf 32
 
 The participant is presented with three categories to choose between: left is more pleasing, they are equally (dis)pleasing, and right is more pleasing.
 If they find one more pleasing they need to rate how much pleasing it is on a scale of 1 to 3.
-The original \gls{AHP} method uses an 8-point scale for each side~\cite{2008Saaty}, but this is too detailed for a ``normal human'',% cite or argue
-and thus it was reduced to 3 points which allows for a low, medium and high rating.
+The original \gls{AHP} method uses an 8-point scale for each side~\cite{2008Saaty}, but this is too detailed for a ``normal human'', % cite or argue
+and so it was reduced to 3 points which allows for a low, medium and high rating.
 Based on feedback from the pilot run, the ``equally (dis)pleasing'' option was labeled ``='' instead of ``0'' because ``0'' seemed like it meant that the plants were bad.
 ``(dis)'' was also added based on the feedback because without it it seemed like it meant that the plants were good.
 With these changes, the participant should be less reluctant to select ``equal''.
@@ -509,9 +509,9 @@ The pairs are presented in random order and with random placement (left or right
 
 The post-questionnaire asks some questions and displays the resulting order of the plants.
 Figure~\ref{fig:rank} shows an example of the resulting order.
-The dots on the white line represents the relative distance between the plants, and the plants them selves are shown in order below.
+The dots on the white line represents the relative distance between the plants, and the plants themselves are shown in order below.
 % Explain how this is done.
-In this example, the plant ranked as the best is much more better than the second than the second is to the third.
+In this example, the plant ranked as the best has a larger distance to the second than the second has to the third.
 The participants are asked if they ``agree with the ranking of the plants shown below'', and if they do not ``strongly agree'', they are asked ``why do you not strongly agree with the ranking?''
 This can help determine if the method of ranking the plants with \gls{AHP} is valid.
 Next they are asked the most important question: ``What would you say separates good plants from bad plants in the ranking?''
@@ -524,8 +524,8 @@ With this data the snowball effect can be tracked.
 Though, there is nothing preventing them from sharing the original link, thus losing this information.
 
 \subsection{Implementation}
-No web-based application the matches the design of the survey was found.
-Thus as single-page web-application was created~\cite{CodePairwise}.
+No web-based application that matches the design of the survey was found.
+Thus a single-page web-application was created~\cite{CodePairwise}.
 It uses the Vue.js JavaScript framework in the front end\footnote{Vue: \url{https://vuejs.org/}}, the Rocket web framework for Rust in the back end\footnote{Rocket: \url{https://rocket.rs/}}, and MongoDB to store the data\footnote{MongoDB: \url{https://www.mongodb.com/}}.
 Multiple other libraries were used both in the front end and back end, but the aforementioned are the most central.
 As the application is a on-off application, only meant to be used for the survey, and fairly simple, the choices of technology and architecture were based on experience, convenience and preferences.
@@ -618,7 +618,7 @@ As seen in Figure~\ref{fig:agree}, the participants always agree with the rankin
 73\% strongly agree, while the rest agree.
 The ones that did not strongly agree have to explain why.
 These explanations were categorized into four categories based on the content: null, invalid, position and distance, as shown in Table~\ref{tab:agree-why}.
-While the participants were forced to write a reason, one participant was able to not write anything and is thus categorized as \textit{null}.
+While the participants were obligated to write a reason, one participant was able to not write anything and is therefore categorized as \textit{null}.
 Some explanations contained comments that were not answering the question, which could be because of misunderstanding the question, misinterpretation of the scale, or laziness.
 For example, the comment ``I never agree strongly with online tests'', indicates that they use the scale differently, and actually completely agree with the ranking.
 Therefore, these comments were categorized as ``invalid''.
@@ -636,7 +636,7 @@ Only one commented on the distance between the ranks.
     \hline
     invalid & The participant did not answer the question, but commented something irrelevant & 3 \\
     \hline
-    position & Feels that plant is in wrong position and wants to change its rank & 5 \\
+    position & Feels that a plant is in the wrong position and wants to change its rank & 5 \\
     \hline
     distance & Feels that the distances between some ranks are either too short or too long & 1 \\
     \hline
@@ -661,7 +661,7 @@ Finally, humans prefer 0.91 much more over 0.97, which is reverse of the fitness
 Still they do somewhat agree with the ranking of 0.49 and 0.59, while they are reversed.
 
 dRank calculates a ranking distance of 16.67 (p = 0, B = 10000), meaning that the human rankings are significantly different from the fitness ranking, and we reject the hypothesis that they are the same.
-This does still not mean that there is no positive correlation between the rankings, only that they are not equal.
+Still, this does not mean that there is no positive correlation between the rankings, only that they are not equal.
 Kendall's tau is 0.55 (p < 0.05), indicating a positive correlation, though only at about 55\%.
 
 With the two best ranks (0.97 and 0.91) and three worst ranks (0.27, 0.34, 0.40) removed, thus looking only at the ``middle'' part, the dRank distance is 5.21, (p = 0, B = 10000), and Kendall's tau is -0.33 (p >= 0.05), indicating no correlation in either direction (\textit{middle} in Table~\ref{tab:rankstats}).
@@ -730,7 +730,7 @@ dRank supports that drop and branching have a low correlation, but disagrees wit
     \label{fig:fitcmp-removal}
 \end{figure}
 
-These findings together suggest that these three metric may have a bad affect on the correlation of the human and fitness rankings.
+These findings together suggest that these three metrics may have a bad effect on the correlation of the human and fitness rankings.
 This is supported by the plot of the \textit{removal} evaluation in Figure~\ref{fig:fitcmp-removal} and its rank correlation in Table~\ref{tab:rankstats} (\textit{removal}).
 The ``bump'' has been removed, but there are instead some ``waves'' in the center part that disrupts the ranking.
 Additionally, there is less distance between the two best plants and the third best plant, and a larger distance between the worst and second worst plants.
