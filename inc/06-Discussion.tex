@@ -4,30 +4,30 @@
 As evident from the results, the \gls{DGEL} \gls{GE} process has the upper hand on the brute-force approach, and the significantly different medians of their scores makes a strong support for \textbf{H1}.
 Additionally, the fact that \gls{GE} was five times faster than brute-force means that even if both methods produce just as good individuals, \gls{GE} should be faster at doing so.
 
-The difference in duration is an interesting case because both \gls{GE} and brute-force generate the same amount of individuals, and while brute-force only fills a vector of random numbers, \gls{GE} must both do a crossover and mutation which are more complex functions.
+The difference in duration is an interesting case because both \gls{GE} and brute-force generate the same amount of individuals, and while brute-force only fills a vector of random numbers, \gls{GE} must do both a crossover and mutation which are more complex functions.
 It is likely that this is caused by the tournament sampling that \gls{GE} uses.
 Because this sampling method is stochastic, it does not necessarily evaluate each of the chromosomes, and this evaluation process is expensive.
-Thus, the \gls{GE} process can save time by not evaluation certain individuals.
+Thus, the \gls{GE} process can save time by not evaluating certain individuals.
 % What is the average percentage of evaluated individuals? Does this correlate with the difference in duration?
 
 \section{Simulated Annealing}
 The clustering of the movements around the current score in the \gls{SA} process (Figure~\ref{fig:sa-progress-close}) indicates that the mutation function used has a good locality, i.e. that the neighboring grammar distributions are fairly close in terms of score.
-At the same time, with the somewhat uniform spread of scores between the current score and 0 indicates that there are some mutations that have bad locality.
+At the same time, the somewhat uniform spread of scores between the current score and 0 indicates that there are some mutations that have bad locality.
 Additionally the clustering at exactly zero indicates that there are some mutations with the worst possible locality.
-This bad locality mutations could be caused by some parameters in the grammar distribution having cascading effect.
+These bad locality mutations could be caused by some parameters in the grammar distribution having a cascading effect.
 For example if the \texttt{symbol / stack} distribution in depth 0 suddenly changes from 0.5/0.5 to 1.0/0.0, all depths below will be excluded and thus most of the parameters in the distribution will be irrelevant.
 The clustering at exactly 0 is more likely to be caused by the fitness measure, because it has a limit on the amount of \gls{L-system} instructions and when that limit is reached the plant is in all cases scored 0.
 It could also happen if the distribution does not allow for any \texttt{F} symbols as without it no branches will be drawn in the 3D model.
 %, indicating a discontinuity in the fitness metric.
 
-Because brute-force with the \gls{SA}-optimized distribution has a higher percentage of non-zero fitness scores than with a uniform distribution, one of the benefits of using an optimized distribution is that it avoids many the problematic `nothing'' plants that are scored 0.
+Because brute-force with the \gls{SA}-optimized distribution has a higher percentage of non-zero fitness scores than with a uniform distribution, one of the benefits of using an optimized distribution is that it avoids many of the problematic `nothing'' plants that are scored 0.
 This is good because even though the non-zero scores in majorly zero-scored grammar distributions may have good scores (as evident from Figure~\ref{fig:uniform-population-no0}), a large amount of zero-scored plants will lead to a slow search process.
 
-Because of the large amounts of zero-scored plants, as evident from Figure~\ref{fig:sa-population} and~\ref{fig:uniform-population}, the median is a better measure for central tendency.
-Based on this, it may be argued that the median should be used in stead of the mean when measuring the grammar distributions
-But since a large amount of zero-scored plants is bad, the mean may also could also be argued as being a good measurement.
+Because of the large amounts of zero-scored plants, as evident from Figure~\ref{fig:sa-population} and~\ref{fig:uniform-population}, the median should be a better measure for central tendency.
+Based on this, it may be argued that the median should be used instead of the mean when measuring the grammar distributions as well.
+But since a large amount of zero-scored plants is bad, which is something the grammar distribution should consider, the mean may also could also be argued as being a good measurement.
 Additionally, by using the median, it will suddenly jump from a good score to zero if the amount of zero-scored plants goes below 50\%.
-Thus comparing distributions that are at around this limit by the median may be unfair.
+Thus comparing distributions that are at around this limit by the median may be unfair, so the mean is more appropriate.
 
 Based on the observation that the \gls{SA}-optimized distribution restricts itself to three depths, setting a hard limit of maximum four depths may not have been too limiting.
 At the same time, other \gls{SA}-optimized distributions may want to allow four depths, and there may be a point above four depths where very good plants are found.
@@ -35,19 +35,19 @@ At the same time, other \gls{SA}-optimized distributions may want to allow four 
 Comparing the \gls{SA}-optimized grammar distribution in Figure~\ref{fig:sa-dist} with the generated 3D model in Figure~\ref{fig:sa-plant}, similarities can be drawn, thus indicating that the grammar distribution has an effect on the resulting plants.
 For example, the fact that depth 1 only has variables, and deeper depths barely has any variables, is reflected in the tall and straight tree with few branches.
 It is impossible for the generator to produce \glspl{L-system} with operators in depth 0, and thus only straight lines are possible in that depth.
-While there is a possibility of drawing angled lines though the lower depths, because of the low rate of variables in them, it is less likely.
-The only reason that there are branches coming out of the trunk is of the string \texttt{[\&\&\&O>\&>\&\&>{}>\&\&F]} in rule \texttt{P}.
-This string pitches down and rolls before drawing a line such that the branch will actually stick out from the trunk rather than grown inside it.
+While there is a possibility of drawing angled lines through the lower depths, because of the low rate of variables in them, it is less likely.
+The only reason that there are branches coming out of the trunk is of the string ``\texttt{[\&\&\&O>\&>\&\&>{}>\&\&F]}'' in rule \texttt{P}.
+This string pitches down and rolls before drawing a line so that the branch will actually stick out from the trunk rather than grow inside it.
 % WHY NOT MEDIUM STRING LENGTHS? WHY A VALLEY BETWEEN THESE?
 % random? impossible to say without more tests...
 
 The strong weight of \texttt{F} in the grammar distribution indicates that the \gls{SA} process understood the importance of \texttt{F}.
 Without the \texttt{F} variable, the \glspl{L-system} would have no branches and thus get score 0.
-Additionally the fact that only a small amount of the other variables are strongly weighted could be explained by the fact that a large amount of variables decreases the likeliness of the same variable appearing multiple times and thus not being useful (e.g. only in successors).
+Additionally the fact that only a small amount of the other variables are strongly weighted could be explained by the fact that a large amount of variables decreases the likeliness of the same variable appearing multiple times and therefore not being useful (e.g. only in successors).
 
 With a significant difference in the medians by a large amount, it is clear that ``an \gls{SA}-optimized grammar distribution can find better individuals than a uniform grammar distribution'' (\textbf{H2})
 The additional fact that the \gls{SA}-optimized grammar distribution produced a significantly smaller proportion of zero-scored individuals further supports this hypothesis.
-This may also not be restricted to only \gls{SA}, but any parameter optimization technique.
+This may not be restricted to only \gls{SA}, but any parameter optimization technique.
 Additionally, since the \gls{GE} method is not specific to \glspl{L-system}, other systems using grammar descriptions, such as programming languages, could benefit from the same method.
 The important fact is that the novel grammar distribution method used by \gls{DGEL} helps focus the grammar at desired regions in the grammar space.
 
@@ -78,11 +78,11 @@ Both types of factors can be used to analyze why the current metrics do not corr
 
 With the standard errors being smaller on the bad plants than on the good plants, it might indicate that it is more likely that humans agree on what looks bad compared to what looks good.
 % The below not actually mentioned in the results...
-This is also supported by the observations of the four first participants where they often used more time comparing good plants against each other, and said themselves that this was difficult.
+This is also supported by the observations of the four first participants where they often spent more time comparing good plants to each other, and said themselves that this was difficult.
 % Thus maybe plants above a certain threshold should be used?
 
 Drop, closeness and branching were found as the metrics that had the worst correlations, and the correlation statistic on the rankings with these metrics removed supports this.
-It is thus clear that these metrics either incorrectly measure pleasingness or measure something else.
+It is clear that these metrics either incorrectly measure pleasingness or measure something else.
 
 Closeness is most likely not a good metric for how aesthetically pleasing a plant is, because its purpose is to prevent a the physically impossible phenomenon of branches clipping into each other, something that the human in most cases does not notice.
 It could in fact have a negative effect on the fitness function, because one of its artifacts is that multiple leaves will appear on the same branch segment when multiple branches clip into each other.
@@ -98,11 +98,11 @@ This could also be solved with a heuristic or physical simulation, like with the
 
 The branching metric is a more interesting case as it is more aimed at measuring the realism of the plant, but still has a bad effect on the overall fitness function.
 From the plot in Figure~\ref{fig:fitcmp-only}, it seems to work well in distinguishing the good from the bad plants, but it creates a bump in the middle region from rank 5 to 8.
-Looking at the specific plants in this region, there could be multiple reasons to this bump.
-The plant at rank 5, when counting the branches coming out from the bases, looks like to have an OK amount of branches, but is generally simplistic and small, which are negative factors that could be overshadowing the other factors such as the branching.
+Looking at the specific plants in this region, there could be multiple reasons for this bump.
+The plant at rank 5, when counting the branches coming out from the bases, looks like it has an OK amount of branches, but is generally simplistic and small, which are negative factors that could be overshadowing the other factors such as the branching.
 The next plant has a balanced amount of branches, but that value may have been overshadowed by its simplicity, leaf scarcity and symmetry which are all mostly negative factors as indicated by the humans.
 The plant at rank 7, when looking at it, has a large amount of branches coming out of a single point, indicating that either the metric is not correctly measuring the branching or the branches are clipping into each other, thus allowing more branches to appear from the same point.
-The latter is a likely cause because the closeness metric is punishing it with the maximum possible value (-1.0), mean that there is at least one point where branches complete overlap.
+The latter is a likely cause because the closeness metric is punishing it with the maximum possible value (-1.0), meaning that there is at least one point where branches completely overlap.
 %It is likely that it triggers negatively on factors such as chaos, visible branches and even spread, that could overshadow other factors.
 The last plant visually has slightly too many branches, which is also supported by the \textit{branching} metric (0.38, where the best is 1 and worst is -1), but is not on the negative side.
 The humans also rated this plant the highest of all four middle plants.
@@ -117,7 +117,7 @@ Additionally, because three of these plants were relatively small, and humans in
 \section{Research Questions}
 As parametric S2L-systems are the most flexible \gls{L-system} variations, one can argue that they should be the best choice for plant models that ``are appropriate to represent plants both found in nature and not found in nature'' (\textbf{RQ1}).
 While these \glspl{L-system} were not used in this research and other literature because of their complexity, based on the results, simple D0L-systems, specifically represented by the grammar in Listing~\ref{lst:grammar}, seem to be able to model both natural and artificial plants.
-This is because based on the human comments, both ``natural'' and ``artificial'' was found as important factors either describing bad or good plants, thus indicating that the generated plants was able to look both natural and artificial.
+This is because, based on the comments from the participants, both ``natural'' and ``artificial'' was found as important factors either describing bad or good plants, thus indicating that the generated plants was able to look both natural and artificial.
 An important factor to consider is that the \gls{L-system} grammar used only enabled branches, and adds branch widths and leaves as simple heuristics.
 Thus, these results are only applicable if these heuristics or \gls{L-system} grammar that replace these heuristics are used.
 While D0L-systems may be appropriate to represent both natural and artificial plants, it may not be the best.
@@ -141,14 +141,14 @@ This assumes that the fitness function and humans agree on the ranking.
 
 % Where is the data for this? need to ditch it if I can't add results for it.
 Looking at the observations of participants in the survey, some said that certain plants looked realistic or natural.
-Based on this and the assumption that realistic or natural plants are aesthetically pleasing, on could suggest that using \gls{DGEL} is able to generate aesthetically pleasing plants (\textbf{RQ2}), though this is a stretch.
+Based on this and the assumption that realistic or natural plants are aesthetically pleasing, could suggest that using \gls{DGEL} is able to generate aesthetically pleasing plants (\textbf{RQ2}), though this is a stretch.
 % generalize?
 
 With the in-depth analysis of one \gls{SA}-optimized grammar distribution, there is an indication that the \gls{DGEL} grammar distribution together with \gls{SA} can focus the parameter space onto certain areas that contain plants with particular properties.
 It shows that the grammar distribution can restrict the stack dept, adjust in which depth the drawing instruction should appear and control which rotations should be more prominent.
 Thus, by using multiple grammar distributions, multiple ``generators'' that each generate somewhat unique plants could be used together to create a larger variations of plants.
 
-Additionally, the 37 different factors of aesthetic plants found from the qualitative data from participants, indicate that just the 12 different plants generated have different properties and can thus be varied.
+Additionally, the 37 different factors of aesthetic plants found from the qualitative data from participants, indicate that just the 12 different plants generated have different properties and can therefore be varied.
 For example, both natural, artificial, chaos, symmetry, asymmetry, curves, straight, sideways, environment and details were found as factors.
 They are all different or opposites of others, and since the participants were asked specifically about the plants that they ranked, this shows that there was a clear variation in those 12 plants.
 The fact that these 12 plants were randomly generated by \gls{DGEL} suggests that this may apply generally for \gls{DGEL} and that another 12 new plants may also be varied.
@@ -169,7 +169,7 @@ It could also be used to discover properties of good solutions, like how the \gl
 There are limitations to the findings, especially regarding the variations in plants and the fitness evaluation.
 Only one \gls{SA}-optimized grammar distribution was studied, and only one plant generated with that grammar distribution.
 While this gave an in-depth view on this part of \gls{DGEL}, the external validity of the results is questionable.
-It is possible that \gls{SA} finds similar grammar distributions each time and thus does help generating varied plants.
+It is possible that \gls{SA} finds similar grammar distributions each time and thus does increase the variation of the plants.
 The variation within and between different grammar distributions (including both optimized and uniform) should be studied to see if this is generally true or not.
 
 There is a big limitation in the sampling method used and the sample of humans found for the evaluation of the fitness metric.
@@ -177,20 +177,20 @@ As seen from the overview of the demographics, the sample is highly biased and t
 
 Another limitation is that the \gls{GE} parameters found may not be the optimal parameters.
 For example, the tournament size did not have an effect on the performance of the \gls{GE} process, which may be caused by the large population size and number of generations already being good enough.
-It might be the case a larger tournament size may lead to better performance with smaller population size and fewer generations.
+It might be the case that a larger tournament size may lead to better performance with smaller population size and fewer generations.
 In fact, tournament has an increasing selection intensity with increasing tournament size~\cite{1995Blickle}, meaning that the fitness should change faster with larger tournament sizes.
 The same problem may apply to the other parameters as well.
 This limitation does not affect the rest of the results, it only means that the \gls{GE} parameters could likely be improved.
 
 As heuristics are used for both branch widths and leaf placement, the results may not apply to \glspl{L-system} that include leaves and widths as parts of the grammar.
-A grammar like that would have more dimensions and thus be more complex to search, thus the results may be different.
+A grammar like that would have more dimensions and therefore be more complex to search, thus the results may be different.
 The results could both be worse or better.
 For example the benefit of using \gls{GE} or \gls{SA} may be even larger when the space is more complex, or the space may be too complex for them to perform well.
 Especially the particular parameters used, for example the \gls{GE} parameters, may not be applicable for other \gls{L-system} grammars.
 Additionally, using other \glspl{L-system}, like parametric SIL-systems introduce even more dimensions to the search space, which may have the same problem.
 
-Finally each person only saw one plant alone, which is unusual in the nature.
-Realistically plants would be surrounded by other plants, either of the same species or of different species, which will likely have a significant effect on the perception on the plant.
+Finally each person only saw one plant alone, which is unusual in nature.
+Realistically plants would be surrounded by other plants, either of the same species or of different species, which will likely have a significant effect on the perception of the plant.
 The perception of the plant may also be different depending on the context it is in.
 For example a potted plant in the window inside a house may have different criteria for being aesthetically pleasing than a plant in the garden, or a plant found in the wild.
 
