@@ -1,49 +1,49 @@
 % !TEX root = ../Masters.tex
 \chapter{Conclusion}
 
-This thesis explored how to improve plant L-system generation, particularly with the goal of being usable for combining plants.
+This thesis explored how to improve plant \gls{L-system} generation, particularly with the goal of being usable for combining plants.
 The idea behind this is to be able to create a virtual world where people may grow and cross-breed plants.
 For people to enjoy this world, the plants should be aesthetically pleasing.
 They should also be varied and so that the people may get new experiences.
 Finally the plants should be modeled in a way such that they can be combined into new plants via cross-breeding.
 Thus, the research question is formed: How can plants be generated that are aesthetically pleasing, varied and could be used to create offspring similar to its parents?
 
-Previous research on L-system generation has been focused on restricted L-system grammars and with fitness functions that aim at generating realistic plants.
-Multiple L-system versions have been used, including D0L-systems, parametric D0L-systems, and parametric DIL-systems, which have then been evolved using evolutionary algorithms including GA, GP and GE.
-Both automated fitness evaluation of L-systems, human evaluation and similarity evaluation have been used as selections strategies in the evolutionary algorithms.
+Previous research on \gls{L-system} generation has been focused on restricted \gls{L-system} grammars and with fitness functions that aim at generating realistic plants.
+Multiple \gls{L-system} versions have been used, including D0L-systems, parametric D0L-systems, and parametric DIL-systems, which have then been evolved using evolutionary algorithms including \gls{GA}, \gls{GP} and \gls{GE}.
+Both automated fitness evaluation of \glspl{L-system}, human evaluation and similarity evaluation have been used as selections strategies in the evolutionary algorithms.
 Several different metrics have been used to measure the fitness of a plant, mostly aiming at evaluating the survivability of the plant, though some use humans to aesthetically evolve the plants.
-Multiple genetic operators have been used to modify the the L-system genes in order to evolve them, and they are often specifically designed for L-systems in order to not invalidate the syntax, and often only parts of the L-systems can be modified.
+Multiple genetic operators have been used to modify the the \gls{L-system} genes in order to evolve them, and they are often specifically designed for \glspl{L-system} in order to not invalidate the syntax, and often only parts of the \glspl{L-system} can be modified.
 
-We introduce a concept called Distribution-based Grammar Evolution of L-systems (DGEL), based on the use of GE to evolve L-systems. %cite
-It follows the traditional GE method, %cite
+We introduce a concept called Distribution-based Grammar Evolution of \glspl{L-system} (DGEL), based on the use of \gls{GE} to evolve \glspl{L-system}. %cite
+It follows the traditional \gls{GE} method, %cite
 but introduces a grammar distribution to control which parts of the grammar that should be weighted the most.
-Because varied plants are required, DGEL does not restrict the grammar and modification of the L-system as much as the previous research does.
+Because varied plants are required, \gls{DGEL} does not restrict the grammar and modification of the \gls{L-system} as much as the previous research does.
 But with a less restricting grammar, the search space becomes significantly larger.
 Thus the distribution will help focus the search space without actually restricting it.
 Additionally, different distributions may produce particular plants and thus multiple distributions could be used together to generated varied plants.
 % finally... ge representation good for genetic operations.
 
-At the heart of DGEL is the model of the L-system, which consists of a chromosome, a grammar description and a grammar distribution.
-This novel underlying representation of the L-system adapts GE to work with a distribution, and is also applicable to problems not involving L-systems, such as evolution of programs defined by programming languages.
-DGEL consists of two processes that generate parts of the model.
-Simulated Annealing (SA) is used to find grammar distributions that GE will used to evolve chromosomes that become aesthetically pleasing plants.
+At the heart of \gls{DGEL} is the model of the \gls{L-system}, which consists of a chromosome, a grammar description and a grammar distribution.
+This novel underlying representation of the \gls{L-system} adapts \gls{GE} to work with a distribution, and is also applicable to problems not involving \glspl{L-system}, such as evolution of programs defined by programming languages.
+\gls{DGEL} consists of two processes that generate parts of the model.
+\gls{SA} is used to find grammar distributions that \gls{GE} will used to evolve chromosomes that become aesthetically pleasing plants.
 To measure how aesthetically pleasing the plants are, metrics are adapted from the literature and some new are created.
 They focus on the structure and shape of the plant, the foliage on it, and physically impossible situations.
-To simplify the problem, only branches were allowed in the L-systems, and branch widths and leaves were added as heuristics to the generated plant so that they would not look dead.
+To simplify the problem, only branches were allowed in the \glspl{L-system}, and branch widths and leaves were added as heuristics to the generated plant so that they would not look dead.
 
-DGEL was evaluated in three parts: GE, SA/distribution and fitness.
-Each of GE's parameters, except for the tournament size, were found to be improving the performance of it with larger values.
+\gls{DGEL} was evaluated in three parts: \gls{GE}, \gls{SA}/distribution and fitness.
+Each of \gls{GE}'s parameters, except for the tournament size, were found to be improving the performance of it with larger values.
 The crossover operator rate interestingly improved the performance until it went from 0.5 to 1.0 where it worsened the performance by a large margin.
-GE was shown to be an improvement over random brute-force search when both generated the same amount of individuals.
+\gls{GE} was shown to be an improvement over random brute-force search when both generated the same amount of individuals.
 It was additionally several times faster than random brute-force search, likely caused by the tournament sampling not evaluating each individual.
 
-The SA's progress during one run was analyzed and it was found that it was able to find distributions that on average generated plants with a fitness of 0.6, compared to 0.0 for the uniform distribution.
+The \gls{SA}'s progress during one run was analyzed and it was found that it was able to find distributions that on average generated plants with a fitness of 0.6, compared to 0.0 for the uniform distribution.
 It had mostly good locality, but some moves had the worst possible locality, likely caused by cascading effects of some of the parameters.
-The SA-optimized grammar distribution was found to generate plants with higher scores than a uniform distribution, and could thus additionally improve the efficiency of GE.
+The \gls{SA}-optimized grammar distribution was found to generate plants with higher scores than a uniform distribution, and could thus additionally improve the efficiency of \gls{GE}.
 
-The grammar distribution and an L-system generated by the SA-optimized grammar distribution was studied in-depth to see what effect it could have.
-It was found that the grammar distribution had a restricting effect on the L-system, making the produced plants possibly have similarities with each other, which suggests that multiple distributions could be used together to generate more varied plants.
-Additionally, based on feedback from people evaluating the generated plants, 37 factors were found as important for distinguishing the good plants from the bad, indicating that DGEL was able to generate a wide specter of plants, even without an optimized distribution.
+The grammar distribution and an \gls{L-system} generated by the \gls{SA}-optimized grammar distribution was studied in-depth to see what effect it could have.
+It was found that the grammar distribution had a restricting effect on the \gls{L-system}, making the produced plants possibly have similarities with each other, which suggests that multiple distributions could be used together to generate more varied plants.
+Additionally, based on feedback from people evaluating the generated plants, 37 factors were found as important for distinguishing the good plants from the bad, indicating that \gls{DGEL} was able to generate a wide specter of plants, even without an optimized distribution.
 
 A survey was created where participants ranked 12 generated plants using pairwise comparisons and AHP.
 It was found that humans did not perfectly agree with the ranking created by the fitness function, though Kendall's tau indicated a positive correlation.
@@ -53,36 +53,36 @@ The cause is most likely that two of them are not measuring the aesthetics of th
 A suggested solution to this is to include additional metrics based on the human feedback that include size, branch density and leaf density.
 Additionally, size and complexity should be weighted more when they have worse scores such that they overshadow the branching metric for small and simple plants.
 
-All of this together suggests that the presented DGEL is a solution to generating plants ``that are aesthetically pleasing, varied and could be used to create offspring similar to its parents''.
-By removing the L in DGEL, it could be used for other problems that are not related to plants or L-systems, but use grammars to describe a system, for example computer programs.
-Additionally, L-systems has been used for generating artificial neural networks and architecture, so it DGEL as a whole could be useful for other models than plants.
+All of this together suggests that the presented \gls{DGEL} is a solution to generating plants ``that are aesthetically pleasing, varied and could be used to create offspring similar to its parents''.
+By removing the L in \gls{DGEL}, it could be used for other problems that are not related to plants or \glspl{L-system}, but use grammars to describe a system, for example computer programs.
+Additionally, \glspl{L-system} has been used for generating artificial neural networks and architecture, so it \gls{DGEL} as a whole could be useful for other models than plants.
 
-Though there are limitations, especially concerning the survey and the analysis of the SA process.
+Though there are limitations, especially concerning the survey and the analysis of the \gls{SA} process.
 The sample used in the survey is highly biased making the results not directly generalizable to the population, but it still gives an indication of what may be the truth.
-The study of the SA process only studies one SA run, one grammar distribution and one produced plant, meaning that the findings may not be applicable to other SA runs, other distributions and other plants.
-At the same time, it is an in-depth analysis that suggests that the SA process ``knows what it is doing'', and similarities drawn between the grammar distribution and the produced L-systems and plant suggests that it can have an important effect.
+The study of the \gls{SA} process only studies one \gls{SA} run, one grammar distribution and one produced plant, meaning that the findings may not be applicable to other \gls{SA} runs, other distributions and other plants.
+At the same time, it is an in-depth analysis that suggests that the \gls{SA} process ``knows what it is doing'', and similarities drawn between the grammar distribution and the produced \glspl{L-system} and plant suggests that it can have an important effect.
 
 \section{Future Work}
-DGEL has weaknesses that need to be resolved to make it better.
+\gls{DGEL} has weaknesses that need to be resolved to make it better.
 Especially the fitness function needs to be improved as it is the most central part of generating ``aesthetically pleasing plants''.
 A larger study with a representative sample should be conducted to understand what metrics are important for measuring aesthetically pleasing plants.
 Physical simulation should be tested as an alternative to the \textit{closeness} and \textit{drop}, though this will make the fitness dependent on the environment.
 How the context around the plant affects how aesthetically pleasing it is should also be studied.
 
-The plant similarities within and between SA-optimized grammar distributions should be studied to find if they are focusing on different areas in the parameter space, or if all are focusing on the same space.
-This would require a metric for the similarities between L-system plants, which is also the next step for DGEL to be able to cross different L-systems in order to produce offspring that are similar to its parents.
+The plant similarities within and between \gls{SA}-optimized grammar distributions should be studied to find if they are focusing on different areas in the parameter space, or if all are focusing on the same space.
+This would require a metric for the similarities between \gls{L-system} plants, which is also the next step for \gls{DGEL} to be able to cross different \glspl{L-system} in order to produce offspring that are similar to its parents.
 
-It is also necessary to study how DGEL handles more complex grammars, such as parametric and context-sensitive L-systems, or simply D0L-systems with more features like leaves, branch widths and colors implemented in the grammar instead as heuristics.
-With more flexible L-systems more dynamics in the plants can be created, and thus DGEL should be able to generate more interesting and varied plants.
+It is also necessary to study how \gls{DGEL} handles more complex grammars, such as parametric and context-sensitive \glspl{L-system}, or simply D0L-systems with more features like leaves, branch widths and colors implemented in the grammar instead as heuristics.
+With more flexible \glspl{L-system} more dynamics in the plants can be created, and thus \gls{DGEL} should be able to generate more interesting and varied plants.
 
 Another interesting problem for the future is how chromosomes from different grammar distributions can be combined.
-This would be important if DGEL were to be used for combining plants of large variety into offspring.
+This would be important if \gls{DGEL} were to be used for combining plants of large variety into offspring.
 The chromosome and grammar distribution is strongly tied, and can thus not be simply combined.
 A possible solution that should be explored is to convert parent chromosomes from non-uniform grammar distributions to uniform distributions after they have been generated, thus enabling them to be combined assuming a uniform grammar distribution.
 Would then the optimized distributions only be useful for generating the initial population of plants, or could the be used inside the grammatical evolution process by converting forth and back between distributions?
 Additionally, could this conversion be made lossless, enabling a converted chromosome to be converted back to the exact original chromosome?
 
-Beaumont and Stepney find indications that both elitism in the GA selection and structure in the grammar affects the performance of GE~\cite{2009Beaumont}.
+Beaumont and Stepney find indications that both elitism in the \gls{GA} selection and structure in the grammar affects the performance of \gls{GE}~\cite{2009Beaumont}.
 The changes in the grammar are subtle and does not change the possible solutions, but still have a significant effect on the performance in some cases.
-Thus this may apply to DGEL as well and should be investigated.
+Thus this may apply to \gls{DGEL} as well and should be investigated.
 Especially interesting is if this effect is mitigated by using a grammar distribution.

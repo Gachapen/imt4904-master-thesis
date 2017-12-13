@@ -1,22 +1,22 @@
 % !TEX root = ../Masters.tex
-\chapter{Implementation of DGEL}
+\chapter[Implementation of DGEL]{Implementation of \gls{DGEL}}
 \section{Programming Language}
-DGEL is implemented in Rust, a systems programming language~\cite{Rust}.
+\gls{DGEL} is implemented in Rust, a systems programming language~\cite{Rust}.
 The choice of Rust was based on multiple factors.
-Performance is an important factor as complex processes requiring many iterations are to be run (GE and SA).
+Performance is an important factor as complex processes requiring many iterations are to be run (\gls{GE} and \gls{SA}).
 Additionally abstractions are desired to improve ease of use and reasoning of the code.
 Rust fares well in this part because it is a compiled language with zero-cost abstractions, making its performance competitive with that of C and C++~\cite{RustFaq}.
 
 Another benefit of using Rust over for example C++ is its focus on safety.
 Rust, by the language design itself, does not allow unsafe operations, thus guaranteeing in most cases that there will be no segfaults or data races~\cite{RustSafe,Rust,RustRace}.
-The guarantee about data races is particularly useful since it makes the writing of parallel code easier and safer, which the DGEL processes can benefit heavily of.
+The guarantee about data races is particularly useful since it makes the writing of parallel code easier and safer, which the \gls{DGEL} processes can benefit heavily of.
 Finally, as Rust uses LLVM\footnote{The LLVM compiler infrastructure: \url{http://llvm.org/}} to compile to machine code, it has good cross-platform support.
 
 While Rust is fairly new\footnote{First stable Rust version released in May 2015: \url{https://blog.rust-lang.org/2015/05/15/Rust-1.0.html}}, it already has a large repository of libraries, including 12,767 published crates (Rust's name for an external library) as of December 2017\footnote{crates.io, The Rust community’s crate registry: \url{https://crates.io/}}.
-This will aid the implementation of DGEL.
+This will aid the implementation of \gls{DGEL}.
 
 \section{Overview}
-The DGEL implementation is part of a larger application designed to experiment with L-systems.
+The \gls{DGEL} implementation is part of a larger application designed to experiment with \glspl{L-system}.
 It is a module \texttt{dgel} within the program \texttt{lsystem}~\cite{CodeLsystem}.
 \texttt{lsystem} additionally contain a \texttt{fitness} module where the fitness function is implemented.
 Then there are four independent crates that are used by \texttt{lsystem} and \texttt{dgel} for various purposes: \texttt{abnf}, \texttt{lsys}, \texttt{lsys\_kiss3d}, and \texttt{yobun}.
@@ -31,36 +31,36 @@ The \texttt{core} module contains some of the ABNF core rules as defined in the 
 Finally, the \texttt{expand} module can expand the ABNF grammar from a rule into a full string using a specified \texttt{SelectionStrategy}.
 This is an abstract trait that can be implemented by the user of \texttt{abnf} to choose how to select between choices in the grammar.
 \texttt{dgel} uses this to implement the \texttt{ChromosomeStrategy}, \texttt{WeightedChromosome Strategy} and \texttt{WeightedChromosomeStrategyStats}.
-The first is the implementation of the original GE chromosome, the second is DGEL's version with a grammar distribution, and the last is a strategy that gathers stats about which choices were made.
+The first is the implementation of the original \gls{GE} chromosome, the second is \gls{DGEL}'s version with a grammar distribution, and the last is a strategy that gathers stats about which choices were made.
 
-\texttt{lsys} implements L-system functionality, including D0L-systems (\texttt{ol}), IL-systems (\texttt{il}), parametric L-systems (\texttt{param}) and the expansion of them.
-It generalizes features of L-systems in the \texttt{common} module so that different L-systems have a common interface and can be easily swapped out.
-For example, \texttt{Instruction} represents a generic L-system instruction with a parameters, \texttt{Skeleton} represents the structure of an interpreted L-system, and \texttt{Rewriter} has an interface to expand the L-system into a single string.
+\texttt{lsys} implements \gls{L-system} functionality, including D0L-systems (\texttt{ol}), IL-systems (\texttt{il}), parametric \glspl{L-system} (\texttt{param}) and the expansion of them.
+It generalizes features of \glspl{L-system} in the \texttt{common} module so that different \glspl{L-system} have a common interface and can be easily swapped out.
+For example, \texttt{Instruction} represents a generic \gls{L-system} instruction with a parameters, \texttt{Skeleton} represents the structure of an interpreted \gls{L-system}, and \texttt{Rewriter} has an interface to expand the \gls{L-system} into a single string.
 In the case of \texttt{dgel}, only D0L-systems are used, and the others are there for other experimental reasons.
 
-Finally, \texttt{lsys\_kiss3d} is the L-system interpreter implemented using the Kiss3d crate for rendering\footnote{Kiss3d: \url{http://kiss3d.org/}}.
+Finally, \texttt{lsys\_kiss3d} is the \gls{L-system} interpreter implemented using the Kiss3d crate for rendering\footnote{Kiss3d: \url{http://kiss3d.org/}}.
 It supports all of the instructions in Table~\ref{tab:turtle-cmd}, and has an alternative interpretation using the heuristics described in Section~\ref{sec:interpreting}.
 
 \section{L-system expansion}
-The expansion of the L-systems is implemented as an iterator over the expanded instructions such that it can stop the expansion prematurely if it reaches the instruction or skeleton limit.
+The expansion of the \glspl{L-system} is implemented as an iterator over the expanded instructions such that it can stop the expansion prematurely if it reaches the instruction or skeleton limit.
 To accomplish this, the iterator keeps a stack of the instructions that next should be expanded and the rewrite iteration it was expanded from.
-In each iteration of the iterator, it recursively rewrites the current instruction while storing production successors in the stack until it reaches the max number of L-system iterations, where it returns the current instruction.
+In each iteration of the iterator, it recursively rewrites the current instruction while storing production successors in the stack until it reaches the max number of \gls{L-system} iterations, where it returns the current instruction.
 % algorithm??
 
-\section{Parallelized GE}
-The GE implementation is a modified version of the RsGenetic crate\footnote{RsGenetic: \url{https://github.com/m-decoster/RsGenetic}}.
-It was modified to match the GA algorithm as specified by Blickle and Thiele~\cite{1995Blickle}, in addition to supporting custom genetic operators, such that the duplication and pruning operators used by GE can be used.
+\section[Parallelized GE]{Parallelized \gls{GE}}
+The \gls{GE} implementation is a modified version of the RsGenetic crate\footnote{RsGenetic: \url{https://github.com/m-decoster/RsGenetic}}.
+It was modified to match the \gls{GA} algorithm as specified by Blickle and Thiele~\cite{1995Blickle}, in addition to supporting custom genetic operators, such that the duplication and pruning operators used by \gls{GE} can be used.
 
 The genetic operators use the Rayon crate\footnote{Rayon: \url{https://github.com/rayon-rs/rayon}} to parallelize all of the operators with parallel iterators.
 Thus the operators will modify individuals from the population in parallel, allowing for much higher throughput on multi-core CPUs.
 It is an easy to use method that only involves including the crate and changing \texttt{iter()} to \texttt{par\_iter()}, while allowing for a significant increase in performance.
 The tournament selection is parallelized in a similar manner, doing all the selections of new individuals in parallel.
 
-\section{Parallelized SA}
-The SA is parallelized in terms of the grammar distribution measurement as this is the most costly part; it has to generated several individual L-systems and evaluate their fitness before finding their average.
-This part is also perfect for parallelization because each L-system can be generated and evaluated completely independently, making it an embarrassingly parallel problem.
+\section[Parallelized SA]{Parallelized \gls{SA}}
+The \gls{SA} is parallelized in terms of the grammar distribution measurement as this is the most costly part; it has to generated several individual \glspl{L-system} and evaluate their fitness before finding their average.
+This part is also perfect for parallelization because each \gls{L-system} can be generated and evaluated completely independently, making it an embarrassingly parallel problem.
 The specific function that is parallelized is \texttt{GENERATE} in Algorithm~\ref{alg:eval-dist}.
-This function will in parallel generate and evaluate $n$ L-systems.
+This function will in parallel generate and evaluate $n$ \glspl{L-system}.
 
 While it could be parallelized with Rayon, it instead uses the \texttt{futures\_cpupool}\footnote{futures\_cpupool: \url{https://crates.io/crates/futures-cpupool}} crate such that it may add other operations to the pool of parallel tasks.
-In this case it puts the saving of the SA progress into the thread pool such that it will not block while waiting for I/O.
+In this case it puts the saving of the \gls{SA} progress into the thread pool such that it will not block while waiting for I/O.

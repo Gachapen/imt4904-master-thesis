@@ -2,23 +2,23 @@
 \chapter{L-system Representation and Evolution}
 
 \section{L-systems}
-L-systems was introduced by Lindenmayer in 1968 as a ``theoretical framework for studying the development of simple multicellular organisms''~\cite{2012Prusinkiewicz}, and then later applied to model plants.
-An L-system consists of an alphabet, an axiom and a set of production rules.
+\glspl{L-system} was introduced by Lindenmayer in 1968 as a ``theoretical framework for studying the development of simple multicellular organisms''~\cite{2012Prusinkiewicz}, and then later applied to model plants.
+An \gls{L-system} consists of an alphabet, an axiom and a set of production rules.
 It is a parallel rewrite system where each letter in the axiom word is rewritten independently based on the production rules.
 This happens iteratively, where a new word replaces the previous word each iteration.
-A way to draw the plant based on the L-System has to be applied to visualize it.
-Prusinkiewicz and Lindenmayer summarize multiple research papers into a comprehensive book about L-systems~\cite{2012Prusinkiewicz}.
-For a more comprehensive and in-depth explanation of L-systems, refer to this book.
+A way to draw the plant based on the \gls{L-system} has to be applied to visualize it.
+Prusinkiewicz and Lindenmayer summarize multiple research papers into a comprehensive book about \glspl{L-system}~\cite{2012Prusinkiewicz}.
+For a more comprehensive and in-depth explanation of \glspl{L-system}, refer to this book.
 
-There are also multiple types of L-systems, including discrete, stochastic, context sensitive and parametric~\cite{2012Prusinkiewicz}.
-All of these can be combined into one L-system.
-A stochastic, context sensitive and parametric L-system (parametric S2L-System) can model all of the other types of L-System by having 100\% probabilities (discrete), no contexts or no parameters, and is thus the most flexible representation.
+There are also multiple types of \glspl{L-system}, including discrete, stochastic, context sensitive and parametric~\cite{2012Prusinkiewicz}.
+All of these can be combined into one \gls{L-system}.
+A stochastic, context sensitive and parametric \gls{L-system} (parametric S2L-System) can model all of the other types of \gls{L-system} by having 100\% probabilities (discrete), no contexts or no parameters, and is thus the most flexible representation.
 
-Discrete context-free L-systems (D0L-systems) are the simplest L-systems, and can be created using edge rewriting, node rewriting, or both~\cite{2012Prusinkiewicz}.
+Discrete context-free \glspl{L-system} (D0L-systems) are the simplest \glspl{L-system}, and can be created using edge rewriting, node rewriting, or both~\cite{2012Prusinkiewicz}.
 In these systems, there exists one production rule per letter in the alphabet.
 By default the productions will produce the same letter as the input (identity).
 
-Stochastic L-systems add a randomness to the generation of the plants.
+Stochastic \glspl{L-system} add a randomness to the generation of the plants.
 Each letter in the alphabet may have multiple productions, each with a probability of being selected~\cite{2012Prusinkiewicz}.
 This may simulate how different instances of a plant species may look slightly different, thus making the plants look less synthetic when seen together with other plants of the same species.
 
@@ -30,93 +30,93 @@ This may simulate how different instances of a plant species may look slightly d
 % They show how two different set of parameters in the same L-system can generate two different looking trees, and how adding stochastic multiples to the parameters can generate more naturally looking trees.
 % This is different from stochastic L-systems, because here they multiply stochastic values with parameters in the productions, while stochastic L-systems select productions stochastically.
 
-Context sensitive L-systems add a context to the production rule.
+Context sensitive \glspl{L-system} add a context to the production rule.
 The context can be on either left, right or both sides of the letter.
 A production will only be used if the context matches the surrounding letters in the word.
 With this, signal propagation can be simulated either upwards or downwards through the plant~\cite{2012Prusinkiewicz}, and more complex plants may be generated.
 
-Parametric L-systems adds parameters to the letters in the words, and conditional rules~\cite{2012Prusinkiewicz}.
-The main benefit of using parametric L-systems, is that it can work with rational numbers rather than only integers.
-For example, with non-parametric L-systems, extension of a segment can be modeled with the rule $F\rightarrow FF$, or any number of ``F'' in the successor.
+Parametric \glspl{L-system} adds parameters to the letters in the words, and conditional rules~\cite{2012Prusinkiewicz}.
+The main benefit of using parametric \glspl{L-system}, is that it can work with rational numbers rather than only integers.
+For example, with non-parametric \glspl{L-system}, extension of a segment can be modeled with the rule $F\rightarrow FF$, or any number of ``F'' in the successor.
 In any case, it will only be possible to grow the segment with a multiple of the previous.
 For some plants, this is enough, but to model a larger variety of plants, rational numbers are required.
-With parametric L-systems, the same rule would be $F(l)\rightarrow F(l*2)$, where $l$ is the length of the segment.
+With parametric \glspl{L-system}, the same rule would be $F(l)\rightarrow F(l*2)$, where $l$ is the length of the segment.
 But now it is also possible to grow it at another rate, e.g.\ $F(l)\rightarrow F(l*1.2)$.
-Prusinkiewicz and Lindenmayer describe more of the benefits of parametric L-systems~\cite{2012Prusinkiewicz}.
+Prusinkiewicz and Lindenmayer describe more of the benefits of parametric \glspl{L-system}~\cite{2012Prusinkiewicz}.
 
-Prusinkiewicz describe L-systems as having three levels of model specification: partial L-systems, L-system schemata, and complete L-systems~\cite{2012Prusinkiewicz}.
-The three different levels go from more abstract to more concrete, where partial L-systems specify which structures may result into which new structures (e.g.\ bud becomes a flower), schemata specifies when the different structure switches happen (e.g.\ when the bud becomes a flower), and complete systems specify the geometry of the plant to be visualized (e.g.\ how the bud and the flower should look).
+Prusinkiewicz describe \glspl{L-system} as having three levels of model specification: partial \glspl{L-system}, \gls{L-system} schemata, and complete \glspl{L-system}~\cite{2012Prusinkiewicz}.
+The three different levels go from more abstract to more concrete, where partial \glspl{L-system} specify which structures may result into which new structures (e.g.\ bud becomes a flower), schemata specifies when the different structure switches happen (e.g.\ when the bud becomes a flower), and complete systems specify the geometry of the plant to be visualized (e.g.\ how the bud and the flower should look).
 Different methods exist for each level, and which method to use will depend on the type of plant that should be generated.
 
-L-system schemata is of particular interest because there exists multiple methods to use.
+\gls{L-system} schemata is of particular interest because there exists multiple methods to use.
 The event of a structure resulting into a new structure is called a ``developmental switch''~\cite{2012Prusinkiewicz}.
 The timing of the switches need to be controlled by a control mechanism in the system.
 There are two classes of these mechanisms: lineage and interaction.
 Lineage mechanisms are transferring information from a module to a descendant, while interaction mechanisms exchange information between cells.
 
 Prusinkiewicz and Lindenmayer describe some of the mechanisms used.
-The stochastic mechanism uses a stochastic L-system to apply probabilities to developmental switches.
-A table L-system has multiple tables with different rules that can be applied depending on some external factor.
+The stochastic mechanism uses a stochastic \gls{L-system} to apply probabilities to developmental switches.
+A table \gls{L-system} has multiple tables with different rules that can be applied depending on some external factor.
 For example, one table can represent summer and another can represent winter, making different switches happen at different seasons.
 The delay mechanism can delay the developmental switch by a specified number of iterations, for example making a flower bud bloom after a certain amount of iterations.
-Accumulation of components uses parametric L-systems to accumulate some parameter until it reaches a threshold causing the switch to happen.
-Parametric L-systems can also be used to control development switches with signals, where a signal travels either upwards or downwards through the plant.~\cite{2012Prusinkiewicz}
+Accumulation of components uses parametric \glspl{L-system} to accumulate some parameter until it reaches a threshold causing the switch to happen.
+Parametric \glspl{L-system} can also be used to control development switches with signals, where a signal travels either upwards or downwards through the plant.~\cite{2012Prusinkiewicz}
 
-A popular way to render complete L-systems is the turtle interpretation, where a cursor (the turtle) follows instructions to draw lines, and the alphabet is the set of instructions to use~\cite{2012Prusinkiewicz}.
+A popular way to render complete \glspl{L-system} is the turtle interpretation, where a cursor (the turtle) follows instructions to draw lines, and the alphabet is the set of instructions to use~\cite{2012Prusinkiewicz}.
 Turtle interpretation is in its original form simple and can only draw lines on a 2D image, but it has been extended to draw realistic looking plants in 3D~\cite{2012Prusinkiewicz}.
-To use the turtle interpretation, extra parameters describing how much the L-system should be expanded and how it should be drawn has to be defined~\cite{2012Prusinkiewicz}.
+To use the turtle interpretation, extra parameters describing how much the \gls{L-system} should be expanded and how it should be drawn has to be defined~\cite{2012Prusinkiewicz}.
 For example, the number of rewrite iterations, the branching angle, the segment length, and the segment width have to be specified.
 This may depend on the plant to be rendered, as some plants might require a more complex set of drawing instructions.
 
 \section{Genetically Evolving L-systems}
 Genetic evolution involves crossing and mutating genes from parents to create offspring.
-Thus, the research field of L-system genetic evolution is a good starting point for finding out both how to generate L-systems and combine them.
+Thus, the research field of \gls{L-system} genetic evolution is a good starting point for finding out both how to generate \glspl{L-system} and combine them.
 A set of research papers published between 1995 and 2013 was studied to see what different techniques have been used.
 
-When evolving objects, an evolutionary algorithm (EA) is often used.
-EA is composed of a series of steps that will evolve a population over multiple generations based on some criteria.
+When evolving objects, an \gls{EA} is often used.
+\gls{EA} is composed of a series of steps that will evolve a population over multiple generations based on some criteria.
 It begins by generating an initial population of individuals.
 Then it evaluates the individuals with a fitness function.
 This is then used to select the best individuals to be used for reproduction.
 The individuals are then used to create offspring for a new population by using crossover and mutation.
 Finally, the new population is evaluated and the steps repeat.
-In the context of L-systems, the \textit{object} will be replaced with L-system.
+In the context of \glspl{L-system}, the \textit{object} will be replaced with \gls{L-system}.
 
-To get a better overview of the EA techniques used for L-systems, the EA has been split into five parts: model, representation, generation, selection, and genetic operators.
+To get a better overview of the \gls{EA} techniques used for \glspl{L-system}, the \gls{EA} has been split into five parts: model, representation, generation, selection, and genetic operators.
 The \textit{model} and \textit{representation} are related and sometimes almost equal.
 The difference is that the model describes how the plant is modeled, while the representation may be a small part of the model or the model represented in a different format, and is the part which is evolved by the algorithm.
-\textit{Generation} is how the representations are generated, e.g.\ for the initial population, or when replacing parts of an L-system with a new part.
+\textit{Generation} is how the representations are generated, e.g.\ for the initial population, or when replacing parts of an \gls{L-system} with a new part.
 \textit{Selection} is the part of selecting individuals to be used for creating the next generation.
 \textit{Genetic operators} are used on the selected individuals to modify the representation by either doing crossover between parents, mutating an offspring, or other.
 
 \subsection{Model}
-Discrete context-free L-systems (D0L-systems) are the simplest form of L-systems and is commonly used for EA~\cite{1998Mock,1998Ochoa,2002Ebner,2003Ebner,2006Ashlock,2009Beaumont,2009Corchado}.
-Parametric discrete context-free L-systems (PD0L-systems) have also been prominently used in the literature~\cite{1994Jacob,2000Vanak,2001Hornby}.
-Parametric discrete context-sensitive L-systems (PDIL-systems) was used in Jacob's further work by extending the PD0L-system version~\cite{1995Jacob, 1996Jacob, 1996Jacob-2}.
-Other types of L-systems, such as stochastic, timed, table, environmentally-sensitive and open L-systems have not been used for EA in the reviewed literature.
-Hornby and Pollack argue that stochastic L-systems are hard to use for EA because they are non-deterministic~\cite{2001Hornby}.
-Additionally, they argue that context-sensitive L-systems are not as powerful as parametric L-systems, and should thus not be used.
+Discrete context-free \glspl{L-system} (D0L-systems) are the simplest form of \glspl{L-system} and is commonly used for \gls{EA}~\cite{1998Mock,1998Ochoa,2002Ebner,2003Ebner,2006Ashlock,2009Beaumont,2009Corchado}.
+Parametric discrete context-free \glspl{L-system} (PD0L-systems) have also been prominently used in the literature~\cite{1994Jacob,2000Vanak,2001Hornby}.
+Parametric discrete context-sensitive \glspl{L-system} (PDIL-systems) was used in Jacob's further work by extending the PD0L-system version~\cite{1995Jacob, 1996Jacob, 1996Jacob-2}.
+Other types of \glspl{L-system}, such as stochastic, timed, table, environmentally-sensitive and open \glspl{L-system} have not been used for \gls{EA} in the reviewed literature.
+Hornby and Pollack argue that stochastic \glspl{L-system} are hard to use for \gls{EA} because they are non-deterministic~\cite{2001Hornby}.
+Additionally, they argue that context-sensitive \glspl{L-system} are not as powerful as parametric \glspl{L-system}, and should thus not be used.
 They use PD0L-systems in their own research, but it is worth noting that they evolve moving creatures rather than plants.
 
-All of the above-mentioned L-systems are bracketed L-systems, i.e.\ they include stack operators (\texttt{[} and \texttt{]}) in their alphabets to push and pop the current interpretation state, which creates branches in the structure.
+All of the above-mentioned \glspl{L-system} are bracketed \glspl{L-system}, i.e.\ they include stack operators (\texttt{[} and \texttt{]}) in their alphabets to push and pop the current interpretation state, which creates branches in the structure.
 Additionally, Hornby and Pollack use repetition brackets (\texttt{\{} and \texttt{\}}) with an integer parameter to specify how many times the content inside the brackets should be repeated~\cite{2001Hornby}.
 
-The L-system type is only the first part of the model required to model a plant.
-The second and final part is the interpretation of the L-system into a visualized model.
-Even though the literature only use three types of L-systems (D0L, PD0L and PDIL), they use different ways of interpreting it.
-Both Mock, Ochoa, and Beaumont and Stepney visualize the L-systems in 2D with branching, but while Mock uses node rewriting~\cite{1998Mock}, Ochoa and Beaumont and Stepney use edge rewriting~\cite{1998Ochoa,2009Beaumont}, which results in different types of plants.
+The \gls{L-system} type is only the first part of the model required to model a plant.
+The second and final part is the interpretation of the \gls{L-system} into a visualized model.
+Even though the literature only use three types of \glspl{L-system} (D0L, PD0L and PDIL), they use different ways of interpreting it.
+Both Mock, Ochoa, and Beaumont and Stepney visualize the \glspl{L-system} in 2D with branching, but while Mock uses node rewriting~\cite{1998Mock}, Ochoa and Beaumont and Stepney use edge rewriting~\cite{1998Ochoa,2009Beaumont}, which results in different types of plants.
 The remaining authors use 3D visualization with branching~\cite{1994Jacob,2006Ashlock}, though Jacob adds the concepts of sprout, stalk leaf and bloom~\cite{1995Jacob}, and Ebner et al.\ only add leaves~\cite{2002Ebner,2003Ebner}.
 
 \subsection{Representation}
-The representation used for EA also varies.
-In the literature, there have been three main EA methods: genetic programming (GP), genetic algorithms (GA) and grammatical evolution (GE).
-Jacob and Ochoa use the GP methods~\cite{1994Jacob,1995Jacob,1998Ochoa}, both based on techniques introduced by Koza~\cite{1992Koza}.
-Ochoa uses a simple version of GP, where representation only consists of one single rule successor~\cite{1998Ochoa}.
+The representation used for \gls{EA} also varies.
+In the literature, there have been three main \gls{EA} methods: \gls{GP}, \gls{GA} and \gls{GE}.
+Jacob and Ochoa use the \gls{GP} methods~\cite{1994Jacob,1995Jacob,1998Ochoa}, both based on techniques introduced by Koza~\cite{1992Koza}.
+Ochoa uses a simple version of \gls{GP}, where representation only consists of one single rule successor~\cite{1998Ochoa}.
 The successor is divided into a hierarchy based on the branching in the string, such that top-level letters are on the top, and each stack below is one level down.
 In their paper, they only use successors with one level deep branching.
 
-Jacob represents the whole L-system as a tree structure, such as a GP method commonly does~\cite{1994Jacob}.
-The tree structure starts with the L-system root at the top, then with the axiom and rules as children, then with each rule as a child of rules.
+Jacob represents the whole \gls{L-system} as a tree structure, such as a \gls{GP} method commonly does~\cite{1994Jacob}.
+The tree structure starts with the \gls{L-system} root at the top, then with the axiom and rules as children, then with each rule as a child of rules.
 The axiom has one child for each letter, and each letter has a child for the parameter.
 Each rule have a left and right side, where the left is the predecessor and the right is the successor.
 The left node is composed the same way as the axiom, but without parameters.
@@ -124,8 +124,8 @@ The right node is also the same, but it can have parameters and also stacks for 
 It can practically represent any PD0L-system this way, but without conditions and with a limited set of letters.
 This could be extended.
 
-GA is the second major method used in the literature.
-The main difference between GA and GP is that GA represents the genotype as a flat string of elements, while GP represents it as a tree structure.
+\gls{GA} is the second major method used in the literature.
+The main difference between \gls{GA} and \gls{GP} is that \gls{GA} represents the genotype as a flat string of elements, while \gls{GP} represents it as a tree structure.
 Both Mock, Ochoa and Corchado et al.\ use only a single rule successor to represent the genotype~\cite{1998Mock,1998Ochoa,2009Corchado}.
 The successor is a plain string of symbols, including letters and the branching operators.
 While Ochoa only uses node rewriting~\cite{1998Ochoa}, Mock and Corchado et al.\ only use edge rewriting~\cite{1998Mock, 2009Corchado}.
@@ -134,56 +134,56 @@ Ebner et al.\ represent the genotype as a set of production rules with one edge 
 The predecessor is fixed based on the rule number.
 For example, the first rule predecessor is always \texttt{f}, while the second and third predecessors would be \texttt{A} and \texttt{B}.
 This means that the genotype is a set of strings (successors), instead of one single string.
-This would allow the GA to search a bigger space compared to Mock and Ochoa's genotypes.
+This would allow the \gls{GA} to search a bigger space compared to Mock and Ochoa's genotypes.
 
 Hornby and Pollack takes this further and represents the genotype as a fixed number of production rules composed of a predecessor and successor~\cite{2001Hornby}.
-In this case, the genotype has as set of pairs of strings, which would allow the GA to search a even bigger space.
+In this case, the genotype has as set of pairs of strings, which would allow the \gls{GA} to search a even bigger space.
 
-Finally, Ashlock et al.\ encodes the L-system as a string of real numbers~\cite{2006Ashlock}.
-Some of numbers encoded are used to index a table of a fixed set of L-system rules, and some are used directly in the L-system interpretation step.
-This enables the L-system and its interpretation to be tackled as one single parameter optimization problem.
-None of the previous genotypes presented represented the L-system interpretation, though Ebner et al. and Hornby and Pollock used PD0L-systems where some interpretation parameters can be moved into the L-system production strings.
-Even though the encoded genotype can affect more aspects of the L-system (rules and interpretation), it is more limited because of its fixed set of rules that are used.
+Finally, Ashlock et al.\ encodes the \gls{L-system} as a string of real numbers~\cite{2006Ashlock}.
+Some of numbers encoded are used to index a table of a fixed set of \gls{L-system} rules, and some are used directly in the \gls{L-system} interpretation step.
+This enables the \gls{L-system} and its interpretation to be tackled as one single parameter optimization problem.
+None of the previous genotypes presented represented the \gls{L-system} interpretation, though Ebner et al. and Hornby and Pollock used PD0L-systems where some interpretation parameters can be moved into the \gls{L-system} production strings.
+Even though the encoded genotype can affect more aspects of the \gls{L-system} (rules and interpretation), it is more limited because of its fixed set of rules that are used.
 Thus it can search a smaller space than Hornby and Pollack's representation.
 
-GE is the final and latest method used in the literature.
-It is ``an evolutionary algorithm (EA) that can evolve complete programs in an arbitrary language using a variable-length binary string''~\cite{2003Oneil}.
-It was introduced for L-systems by Ortega et al. to evolve a D0L-system into fractal curves~\cite{2003Ortega}.
+\gls{GE} is the final and latest method used in the literature.
+It is ``an [\gls{EA}] that can evolve complete programs in an arbitrary language using a variable-length binary string''~\cite{2003Oneil}.
+It was introduced for \glspl{L-system} by Ortega et al. to evolve a D0L-system into fractal curves~\cite{2003Ortega}.
 Beaumont and Stepney transferred this to generating D0L-system 2D plants to match a drawing of a plant~\cite{2009Beaumont}.
-Interestingly, L-systems themselves are grammar that produce plants, but Beaumont and Stepney's work define a grammar that produce the L-systems, which then is used to produce the plant.
-They represent the genome as a string of numbers that index into a Backus Naur Form (BNF) grammar to build the L-system.
-In this sense the representation is similar to that of Ashlock~\cite{2006Ashlock}, but with integers instead of real numbers and a different way of mapping from numbers to the L-system.
-It is also similar to Jacob's GP representation because it uses a pool of expressions that could be compared to a BNF.
-When undergoing evolution, the genotype (string of numbers) will be modified by a GA.
-Thus the GE method is strongly related to GA.
+Interestingly, \glspl{L-system} themselves are grammar that produce plants, but Beaumont and Stepney's work define a grammar that produce the \glspl{L-system}, which then is used to produce the plant.
+They represent the genome as a string of numbers that index into a Backus Naur Form (BNF) grammar to build the \gls{L-system}.
+In this sense the representation is similar to that of Ashlock~\cite{2006Ashlock}, but with integers instead of real numbers and a different way of mapping from numbers to the \gls{L-system}.
+It is also similar to Jacob's \gls{GP} representation because it uses a pool of expressions that could be compared to a BNF.
+When undergoing evolution, the genotype (string of numbers) will be modified by a \gls{GA}.
+Thus the \gls{GE} method is strongly related to \gls{GA}.
 
-Beaumont and Stepney use a limited search space for the GE method.
-Their alphabet only consists of \texttt{F}, \texttt{+} and \texttt{-}, their axiom is always \texttt{F}, and only \texttt{F} can be the production predecessor, i.e.\ it is an edge rewriting L-system.
+Beaumont and Stepney use a limited search space for the \gls{GE} method.
+Their alphabet only consists of \texttt{F}, \texttt{+} and \texttt{-}, their axiom is always \texttt{F}, and only \texttt{F} can be the production predecessor, i.e.\ it is an edge rewriting \gls{L-system}.
 They also have a fixed number of iterations and rotation angle.
 This can be expanded, and they did some experiments to try this.
 \texttt{+} and \texttt{-} was added as predecessor letters, and the axiom was allowed to contain any symbols and have any length.
 This expanded the search space, making the algorithm find fewer very bad solutions, but also far fewer good solutions.
-Finally they added a second terminal symbol \texttt{X} in addition to \texttt{F}, allowing for both edge and node rewriting L-systems.
+Finally they added a second terminal symbol \texttt{X} in addition to \texttt{F}, allowing for both edge and node rewriting \glspl{L-system}.
 This further expanded the search space, but required a significantly larger population size and more generations, making the computation time significantly longer.
-The search space for this GE representation is smaller than some of the other methods because of its use of non-parametric L-systems and limited set of symbols, but it could be expanded to include this.
+The search space for this \gls{GE} representation is smaller than some of the other methods because of its use of non-parametric \glspl{L-system} and limited set of symbols, but it could be expanded to include this.
 
-In addition, there is a non-EA method introduced by Vanak that still is relevant, called XL-system~\cite{2000Vanak}.
-Rather than evolving L-systems, the XL-system is another form of L-systems where two or more PD0L-systems are combined with an X-machine into an XL-system.
-The original L-systems are not modified in any way, but rather kept as two states in the X-machine.
-The XL-system is used as a normal L-system, running a specified amount of derivations to rewrite an axiom.
-The difference is that the XL-system switches between the contained L-systems based on specified conditions while iterating.
-The active L-system is the one switched to, and is the one that will be used for rewriting the axiom in the current derivation.
-This means that it for example can alternate between the productions of two L-systems every derivation, creating a phenotype with properties from both L-systems.
+In addition, there is a non-\gls{EA} method introduced by Vanak that still is relevant, called XL-system~\cite{2000Vanak}.
+Rather than evolving \glspl{L-system}, the XL-system is another form of \glspl{L-system} where two or more PD0L-systems are combined with an X-machine into an XL-system.
+The original \glspl{L-system} are not modified in any way, but rather kept as two states in the X-machine.
+The XL-system is used as a normal \gls{L-system}, running a specified amount of derivations to rewrite an axiom.
+The difference is that the XL-system switches between the contained \glspl{L-system} based on specified conditions while iterating.
+The active \gls{L-system} is the one switched to, and is the one that will be used for rewriting the axiom in the current derivation.
+This means that it for example can alternate between the productions of two \glspl{L-system} every derivation, creating a phenotype with properties from both \glspl{L-system}.
 
-The benefit of XL-systems is that they are a lossless combination of L-systems, compared to the EA methods presented where properties of the L-systems may be lost.
-The drawback is that the original L-systems have to be stored, causing an XL-system combining several generations of L-systems to be a large and complex structure.
+The benefit of XL-systems is that they are a lossless combination of \glspl{L-system}, compared to the \gls{EA} methods presented where properties of the \glspl{L-system} may be lost.
+The drawback is that the original \glspl{L-system} have to be stored, causing an XL-system combining several generations of \glspl{L-system} to be a large and complex structure.
 
 \subsection{Generation}
 There are multiple ways of generating individuals, depending on the representation used.
-When using a GP representation, one option is to randomly attach subexpressions based on pattern matching~\cite{1994Jacob}.
+When using a \gls{GP} representation, one option is to randomly attach subexpressions based on pattern matching~\cite{1994Jacob}.
 This works by using a tree structure that describes the pattern of the expressions that can be attached to child nodes. One of the expressions that match a pattern is randomly selected and attached to the node. Then it continues recursively until it reaches a terminal node.
 
-With GA, it depends on the specific representation.
+With \gls{GA}, it depends on the specific representation.
 To generate individuals with Mock's representation, they first select a random string length in some range for the successor, then fill the string with random characters from a set and finally repairs invalid branching (bracketing operators \texttt{[} and \texttt{]})~\cite{1998Mock}.
 
 Ebner et al.\ use a fixed initial population where every individual has the single identity rule $f\rightarrow f$~\cite{2002Ebner}.
@@ -195,10 +195,10 @@ Then, the successor string is generated by creating random blocks of two to thre
 \subsection{Selection}
 The \textit{Selection} step involves selecting individuals from the current population to be evolved into the next population.
 The basis for the selection is the fitness of the individuals calculated by a fitness function.
-In the literature, there are three main ways of calculating the fitness: evaluating at the properties of the interpreted L-system, evaluating how similar the interpreted L-system is to a target object, and human evaluation.
+In the literature, there are three main ways of calculating the fitness: evaluating at the properties of the interpreted \gls{L-system}, evaluating how similar the interpreted \gls{L-system} is to a target object, and human evaluation.
 
-Various research evaluates various properties of the interpreted L-Systems.
-Jacob first uses a simple method of rewarding L-systems with a majority of leaves outside an inner cube an inside an outer cube~\cite{1994Jacob}.
+Various research evaluates various properties of the interpreted \glspl{L-system}.
+Jacob first uses a simple method of rewarding \glspl{L-system} with a majority of leaves outside an inner cube an inside an outer cube~\cite{1994Jacob}.
 This created ``densely packed structures with broad branching''~\cite{1994Jacob}.
 
 While this fitness function was not aimed particularly at evolving plants, Jacob later used a different fitness function aimed at ``breeding artificial flowers''~\cite{1994Jacob}.
@@ -240,41 +240,41 @@ They assign a cost of 1 to each branch segment, and a cost of 3 to each leaf.
 This cost is then multiplied with a factor that grows with the distance from the root.
 Thus, plants with long branches and many leaves are more ``structural complex'' and are punished more (though this may be redeemed by their light gathering ability).
 
-Beaumont and Stepney measure the similarity between the interpreted 2D L-system (plant) and a target 2D plant.
+Beaumont and Stepney measure the similarity between the interpreted 2D \gls{L-system} (plant) and a target 2D plant.
 They do this by looking at each drawn pixel in one image and calculating the distance to the nearest drawn pixel in the other image.
 They find indications that ``elitism is required to ensure that good solutions are kept and built on, not lost or mutated in the next generation'', and make 20\% of the population be elites.~\cite{2009Beaumont}
 
-Ding et al.\ measure the similarity between an interpreted 3D L-system plant and a target image of a real tree.
+Ding et al.\ measure the similarity between an interpreted 3D \gls{L-system} plant and a target image of a real tree.
 They combine the similarity of the outlines, topology and internal space into the fitness function.~\cite{2013Ding}
 
-While Mock bred L-systems using a genetic algorithm, they also hand-bred plants using humans to select the ``most interesting plant from each generation''~\cite{1998Mock}.
+While Mock bred \glspl{L-system} using a genetic algorithm, they also hand-bred plants using humans to select the ``most interesting plant from each generation''~\cite{1998Mock}.
 
-McCormack used a similar method when they looked at aesthetic evolution of L-systems.
-They use a method called ``interactive aesthetic evolution'' where a normal GA process is used, but where humans select which individuals are to be used for the next population.
+McCormack used a similar method when they looked at aesthetic evolution of \glspl{L-system}.
+They use a method called ``interactive aesthetic evolution'' where a normal \gls{GA} process is used, but where humans select which individuals are to be used for the next population.
 They found that interactive evolution is still superior to autonomous evolution in terms of creativity.
 Interactive evolution can evolve plants into something that better matches a human's subjective criteria, while autonomous evolution only evolves plants into a similar style.~\cite{2004McCormack}
 
 \subsection{Genetic Operators}
-After selection, the individual L-systems will undergo some genetic operations that modify or combine genetic material.
+After selection, the individual \glspl{L-system} will undergo some genetic operations that modify or combine genetic material.
 The two most common operations are crossover and mutation, while there are some other operations used in special cases.
 
 The crossover operation varies based on different genetic representations.
-For GP, where it is represented as a tree structure, Jacob swaps two expressions that have matching heads~\cite{1994Jacob,1995Jacob}.
+For \gls{GP}, where it is represented as a tree structure, Jacob swaps two expressions that have matching heads~\cite{1994Jacob,1995Jacob}.
 
-For GA when the genotype is represented as a string, the operation varies based on what the string represents in the L-system.
+For \gls{GA} when the genotype is represented as a string, the operation varies based on what the string represents in the \gls{L-system}.
 Mock and Corchado et al.\ exchange production substrings with equal number of of push and pop bracket operators to avoid invalid syntax~\cite{1998Mock,2009Corchado}.
-Ochoa uses an approach inspired by GP by considering the successor string as a tree where nodes are defined by branches, and these nodes are exchanged~\cite{1998Ochoa}.
+Ochoa uses an approach inspired by \gls{GP} by considering the successor string as a tree where nodes are defined by branches, and these nodes are exchanged~\cite{1998Ochoa}.
 Hornby and Pollack create a copy of one parent, and replace either a complete successor or substring of a successor with an equivalent part from the other parent~\cite{2001Hornby}.
 Ebner et al.\ use two types of crossover operators: one-point crossover that exchanges rules and sub-tree crossover that exchanges sub-trees~\cite{2002Ebner,2003Ebner}.
 The latter is similar to Ochoa's method.
 
 For genotypes encoded as arrays of real parameters, Ashlock et al.\ use a one-point crossover on said array~\cite{2006Ashlock}.
-For the genotype used by GE, which is encoded as integral numbers, Beaumont and Stepney also use one-point crossover~\cite{2009Beaumont}.
+For the genotype used by \gls{GE}, which is encoded as integral numbers, Beaumont and Stepney also use one-point crossover~\cite{2009Beaumont}.
 
 The mutation operation also varies between different genotype representations.
 Unlike crossover, where there in most cases only is one operation, mutation often includes multiple different operators that mutate the genotype in some way.
 
-Jacob uses four different mutation operators for mutating GP trees.
+Jacob uses four different mutation operators for mutating \gls{GP} trees.
 The first is to replace a sub-expression with a new generated matching sub-expression.
 The second is to delete sub-expressions.
 The third is to duplicate a sub-expression, creating a copy of it.
@@ -293,9 +293,9 @@ Hornby and Pollack also use the addition and removal operators, but on symbol bl
 
 In addition to replacing, adding and removing, symbols may also be swapped, simply by swapping their positions~\cite{2002Ebner, 2003Ebner}
 
-Specialized operations are used for parametric L-systems to mutate the parameters of the symbols.
+Specialized operations are used for parametric \glspl{L-system} to mutate the parameters of the symbols.
 Parameters may be added to or subtracted from, or if the parameter is an equation, the equation may be changed to a production.
-As parametric L-systems also may contain conditions, the equation of the condition may be mutated in a similar manner.~\cite{2001Hornby}
+As parametric \glspl{L-system} also may contain conditions, the equation of the condition may be mutated in a similar manner.~\cite{2001Hornby}
 
 McCormack and others mentions that one needs to use measure to avoid invaliding bracket operators in a string.
 This may be done by excluding brackets from mutations, selecting sub-string within bracketed pairs, or repairing the brackets after mutation.~\cite{2004McCormack}

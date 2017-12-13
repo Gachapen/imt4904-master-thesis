@@ -4,18 +4,18 @@
 
 \section{Topic covered by the project}
 % AI, EA, PCG, plant modelling, L-system
-This project covers the topic of evolutionary algorithms (EA) which is part of evolutionary computing and even more broadly artificial intelligence.
-More specifically we cover the use of EA to generate L-systems which is one form of procedural content generation (PCG)~\cite{PCG_5}.
+This project covers the topic of \gls{EA} which is part of evolutionary computing and even more broadly artificial intelligence.
+More specifically we cover the use of \gls{EA} to generate \glspl{L-system} which is one form of \gls{PCG}~\cite{PCG_5}.
 
 In the area of computer graphics, visualization and game development, there is a desire to replicate environments and creatures found in nature in a virtual environment. %cite
 Many types of environments and creatures can be of interest, for example terrains, mountains, rivers, plants, animals and bacteria.
 These can be created by manually modeling the specific objects, for example by 3D artists, but this can be a slow process, especially when a large variation of the objects is required.
-Another approach is to generate the content using PCG methods.
+Another approach is to generate the content using \gls{PCG} methods.
 This way, digital programs can generate virtually infinite amounts of variations based on a representation and a recipe.
 
-Plants, specifically, can be generated using L-Systems where their structure is represented as strings of characters in a parallel rewrite system~\cite{2012Prusinkiewicz}.
+Plants, specifically, can be generated using \glspl{L-system} where their structure is represented as strings of characters in a parallel rewrite system~\cite{2012Prusinkiewicz}.
 Based on actual plants, one may model a virtual plant by creating the rewrite rules and parameters for how the system should be drawn.
-These models can be handcrafted, or alternatively EA can be applied to evolve the models into something desired.
+These models can be handcrafted, or alternatively \gls{EA} can be applied to evolve the models into something desired.
 
 \section{Keywords}
 \begin{itemize}
@@ -52,32 +52,32 @@ As a baseline the plants should be aesthetically pleasing, otherwise the user of
 This is especially important in video games where a user may quit if they do not enjoy playing it.
 Finally, if the plants should be crossed, their model should be represented in such a way that genes can be interchanged in a meaningful way that retains properties of the plants.
 
-The current research on evolving L-systems uses strict restrictions on the grammar which limit the variation in the plant, in addition to its potential for being aesthetically pleasing. %cite...???
+The current research on evolving \glspl{L-system} uses strict restrictions on the grammar which limit the variation in the plant, in addition to its potential for being aesthetically pleasing. %cite...???
 Thus a less restricting grammar is required, but this will increase the complexity of the problem, which will make it more difficult to produce meaningful and pleasing plants.
 
-In summary the problem to be studied is how to generate aesthetically pleasing and varied L-system plants that could be used for crossbreeding, with a particular focus on how to handle complex grammars.
+In summary the problem to be studied is how to generate aesthetically pleasing and varied \gls{L-system} plants that could be used for crossbreeding, with a particular focus on how to handle complex grammars.
 
 \section{Justification, motivation and benefit}
-PCG has many benefits over manually crafting content.
+\gls{PCG} has many benefits over manually crafting content.
 For example it may remove the need for artists which is a big expense in content creation, it may support the artist such that they may be more efficient and create better quality content, it can enable the creation of completely new games, it can adapt the content to the user's abilities or needs, it may allow for more creative solutions than what humans are able to create, and it may help understand design~\cite{PCG_1}.
 The specific problem studied in this thesis may have all of these benefits as it could improve the method of generating virtual plants.
-It may also create an understanding of what aesthetically pleasing plants consists of and what is required from an L-system.
+It may also create an understanding of what aesthetically pleasing plants consists of and what is required from an \gls{L-system}.
 With methods for how to crossbreed virtual plants a foundation for future games, movies or other virtual environments is created.
-Additionally, because L-systems, and more generally grammar, can be used to generate other content such as missions, spaces and levels~\cite{PCG_5}, the findings may improve the generation of such content, and possibly other content.
+Additionally, because \glspl{L-system}, and more generally grammar, can be used to generate other content such as missions, spaces and levels~\cite{PCG_5}, the findings may improve the generation of such content, and possibly other content.
 
 % The results from this research can be used in a game where users may create their own virtual garden, potentially in virtual reality (VR), where they breed the plants they always wanted to see or new surprising species, and have a place outside the busy world to relax and watch their plants grow.
-The findings can directly benefit game developers wishing to create games that involve plants either in the environment or as the main concept, and indirectly benefit the PCG research area, other game areas, users of the produced games and companies developing and publishing games.
+The findings can directly benefit game developers wishing to create games that involve plants either in the environment or as the main concept, and indirectly benefit the \gls{PCG} research area, other game areas, users of the produced games and companies developing and publishing games.
 The game developers and publishers will benefit from more revenue by producing new and interesting games, while users will benefit from new games that fulfill their entertainment needs.
 
 % Should I actually talk concretely about my solution, or should I keep it more abstract?
-It may not only benefit PCG and games, but also different computer science areas within evolutionary computing.
+It may not only benefit \gls{PCG} and games, but also different computer science areas within evolutionary computing.
 Specifically, other problems that involve formal grammars, such as computer programs defined by programming languages, may benefit because the methods presented only require that there is a grammar that can be used to produce a system that can be evaluated.
 It could also be adapted to other problems where choices need to be made to construct a system.
 
 The stakeholders in this project is mainly game programmers, game artists, level designers and game developers as a whole.
 Additionally, movie makers and creators of other virtual worlds, like simulators and training software, are included.
 Indirectly game players or consumers in general will also be stakeholders as they consume the content created by the creators
-At a broader level, stakeholders include EA researchers and any field that use EA, which now is found in most scientific and non-scientific fields and industries. %cite?
+At a broader level, stakeholders include \gls{EA} researchers and any field that use \gls{EA}, which now is found in most scientific and non-scientific fields and industries. %cite?
 
 \section{Research questions}
 The problem described can be summarized in a single research question: How can plants be generated that are aesthetically pleasing, varied and could be used to create offspring similar to its parents?
@@ -102,7 +102,7 @@ The questions are listed below.
 
 \section{Contribution}
 \begin{itemize}
-    \item A literature review of plant L-system representations and evolutionary algorithms used on them.
+    \item A literature review of plant \gls{L-system} representations and evolutionary algorithms used on them.
     \item A method of generating well-performing plants from a large parameter space.
-    \item An analysis of metrics that evaluate how aesthetically pleasing an L-system plant is, and important factors as indicated by humans.
+    \item An analysis of metrics that evaluate how aesthetically pleasing an \gls{L-system} plant is, and important factors as indicated by humans.
 \end{itemize}

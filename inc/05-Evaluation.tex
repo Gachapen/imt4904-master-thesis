@@ -1,21 +1,21 @@
 % !TEX root = ../Masters.tex
-\chapter{Evaluation of DGEL}
-DGEL consists of to main modules: \textit{generation} and \textit{evaluation}.
-The evaluation module consists of the fitness component which evaluates who good the L-system plants are.
+\chapter[Evaluation of DGEL]{Evaluation of \gls{DGEL}}
+\gls{DGEL} consists of to main modules: \textit{generation} and \textit{evaluation}.
+The evaluation module consists of the fitness component which evaluates who good the \gls{L-system} plants are.
 The remaining components are part of the generation component which generates plants, and uses the evaluation module to generate \textit{good} plants.
-To answer if DGEL solves the research questions, both modules have to be evaluated.
+To answer if \gls{DGEL} solves the research questions, both modules have to be evaluated.
 The generation module will be evaluated in a technical manner to determine if it performs well or not.
 The evaluation module will be evaluated using humans as to answer if the fitness function properly rates plants as aesthetically pleasing or not.
 
 \section{Evaluation of the Generation Module}
 \subsection{Method}
-As explained in Section~\ref{sec:overview} and shown in Figure~\ref{fig:dgel}, there are two main processes involved in generating the model for the L-system plants: \textit{SA} and \textit{GE}.
+As explained in Section~\ref{sec:overview} and shown in Figure~\ref{fig:dgel}, there are two main processes involved in generating the model for the \gls{L-system} plants: \textit{\gls{SA}} and \textit{\gls{GE}}.
 The remaining steps are dependent on the model and do not create variations on the same model.
-Thus GE and SA are the two processes of interests to evaluate.
+Thus \gls{GE} and \gls{SA} are the two processes of interests to evaluate.
 
 While the fitness score results does not depend on the hardware the experiment runs on, the duration does.
 It ran on a water-cooled Intel i7-4790K CPU (8M Cache, up to 4.40 GHz)\footnote{Intel i7-4790K: \url{https://ark.intel.com/products/80807/Intel-Core-i7-4790K-Processor-8M-Cache-up-to-4_40-GHz}} with 8GB of RAM.
-The GE, SA and brute-force processes are parallelized and ran with 9 threads.
+The \gls{GE}, \gls{SA} and brute-force processes are parallelized and ran with 9 threads.
 
 % Could explain why...
 When sample groups are compared, their distributions will be tested for normality using the Shapiro-Wilk normality test~\cite{1965Shapiro}.
@@ -26,20 +26,20 @@ Finally, in the cases when normality cannot be assumed, Mann-Whitney U test will
 % GE SA vs GE uniform - need data, how to measure?
 
 \subsubsection{Grammar Evolution Parameters}
-GE, as with GA, depends on multiple parameters, and with tournament sampling there are even more.
-Thus, before evaluation the GE process, good parameters should be found.
-Additionally, seeing what parameters are needed for a good performing GE may reveal additional properties of it.
+\gls{GE}, as with \gls{GA}, depends on multiple parameters, and with tournament sampling there are even more.
+Thus, before evaluation the \gls{GE} process, good parameters should be found.
+Additionally, seeing what parameters are needed for a good performing \gls{GE} may reveal additional properties of it.
 The parameters were found using a combined manual and automated approach by searching the parameter space in multiple steps.
-The idea was not to find the optimal parameters, but rather to find some parameters that made the GE produce an individual with good fitness within a reasonable time.
-It was assumed that the size parameters --- population size and number of generations --- are the baseline parameters for GE and thus should be found first.
+The idea was not to find the optimal parameters, but rather to find some parameters that made the \gls{GE} produce an individual with good fitness within a reasonable time.
+It was assumed that the size parameters --- population size and number of generations --- are the baseline parameters for \gls{GE} and thus should be found first.
 Then the tournament size for the tournament selection strategy should be found.
 Then good parameters for the recombination rates --- crossover rate and mutation rate --- should be found.
-Finally the parameter for the GE gene duplication operator should be found.
+Finally the parameter for the \gls{GE} gene duplication operator should be found.
 % Reason for these assumptions?
 
-To search for the GE parameters, a breadth-first graph search inspired approach was used.
+To search for the \gls{GE} parameters, a breadth-first graph search inspired approach was used.
 An example is shown in Figure~\ref{fig:parameter-search}.
-The approach tests a combination of parameters by doing 20 GE runs with those parameters and using the mean fitness score of the best individual from each run.
+The approach tests a combination of parameters by doing 20 \gls{GE} runs with those parameters and using the mean fitness score of the best individual from each run.
 If the score is an improvement of the previous score, the node will be considered an improvement and it will consider the neighboring nodes in the graph by increasing the parameter values.
 Otherwise, the current parameter values will be considered as not improving the performance and thus be discarded.
 When there are no more improvements, the parameter values that produced the best score will be returned.
@@ -51,18 +51,18 @@ Because the reproduction and duplication rate parameters are bounded ($[0, 1]$) 
 \begin{figure}
     \centering
     \includegraphics[width=0.6\textwidth]{figures/parameter-search}
-    \caption{Example of a GE parameter search}
+    \caption[Example of a GE parameter search]{Example of a \gls{GE} parameter search}
     \label{fig:parameter-search}
 \end{figure}
 
 \subsubsection{Grammar Evolution Test}
-The reason for using GE is to search the space in an efficient way.
+The reason for using \gls{GE} is to search the space in an efficient way.
 To see if it is doing this, it needs to be compared to a brute-force approach that finds completely random samples in the space and picks the best of them.
-Thus, the hypothesis is that DGEL GE finds plants with better fitness scores than brute-force does (\textbf{H1}).
+Thus, the hypothesis is that \gls{DGEL} \gls{GE} finds plants with better fitness scores than brute-force does (\textbf{H1}).
 
-To make a fair comparison, the brute-force should generate as many individuals as the GE generates and modifies (through mutation or crossover)
+To make a fair comparison, the brute-force should generate as many individuals as the \gls{GE} generates and modifies (through mutation or crossover)
 This way, both methods will ``generate'' the same amount of individuals, either being completely new individuals or modifications of existing individuals.
-GE uses a fixed number of generations and population size, resulting into a fixed number of total individuals: $individuals = population + population * generations$.
+\gls{GE} uses a fixed number of generations and population size, resulting into a fixed number of total individuals: $individuals = population + population * generations$.
 Thus the brute-force method will generate $individuals$ individuals.
 
 Because both methods depend on a random seed, an average of multiple runs will have to be used.
@@ -70,36 +70,36 @@ A sample size of 11 was selected as balanced choice between sample size and dura
 
 \subsubsection{Simulated Annealing}
 % \begin{itemize}
-% 	\item Can SA and the grammar distribution be used to find portions of the parameter space that generate better L-system plants?
+% 	\item Can SA and the grammar distribution be used to find portions of the arameter space that generate better L-system plants?
 % 	\item Does SA enable GE to find better L-system plants?
 % 	\item Can SA find multiple portions of the parameter space that each generate unique-looking plants?
 % \end{itemize}
-The main purpose of using SA with a grammar distribution is to improve the efficiency of the remaining components of DGEL by focusing the search space on a good area.
-Based on this a hypothesis can be formulated: An SA-optimized grammar distribution can find better individuals than a uniform grammar distribution (\textbf{H2}).
-An important word in the hypothesis is \textit{can}, because this means that the hypothesis does not imply that \textit{all} SA-optimized grammar distributions will find better individuals.
+The main purpose of using \gls{SA} with a grammar distribution is to improve the efficiency of the remaining components of \gls{DGEL} by focusing the search space on a good area.
+Based on this a hypothesis can be formulated: An \gls{SA}-optimized grammar distribution can find better individuals than a uniform grammar distribution (\textbf{H2}).
+An important word in the hypothesis is \textit{can}, because this means that the hypothesis does not imply that \textit{all} \gls{SA}-optimized grammar distributions will find better individuals.
 
-SA is used as described in previous sections to find an optimized grammar distribution, and the progress of it is plotted to see if it makes any meaningful progress.
-Then, to test the hypothesis a comparison is made between the average fitness of L-systems randomly generated by a uniform grammar distribution and L-systems randomly generated by an SA-optimized grammar distribution.
-The L-systems are generated in a brute-force manner, not using any evolutionary approach such as GE.
+\gls{SA} is used as described in previous sections to find an optimized grammar distribution, and the progress of it is plotted to see if it makes any meaningful progress.
+Then, to test the hypothesis a comparison is made between the average fitness of \glspl{L-system} randomly generated by a uniform grammar distribution and \glspl{L-system} randomly generated by an \gls{SA}-optimized grammar distribution.
+The \glspl{L-system} are generated in a brute-force manner, not using any evolutionary approach such as \gls{GE}.
 
-If \textbf{H2} is supported, we can further hypothesize that \textit{GE} with an SA-optimized grammar distribution can find better individuals than with a uniform grammar distribution (\textbf{H3}).
-% Have run tests with 160800 individuals, but GE with uniform is already so good that it isn't comparable.
+If \textbf{H2} is supported, we can further hypothesize that \textit{\gls{GE}} with an \gls{SA}-optimized grammar distribution can find better individuals than with a uniform grammar distribution (\textbf{H3}).
+% Have run tests with 160800 individuals, but \gls{GE} with uniform is already so good that it isn't comparable.
 % Thus we need a better comparison (fewer individuals? Time to convergence?)
-%To test this hypothesis, the performance of GE with a uniform grammar distribution is compared to the performance of GE with an SA-optimized grammar distribution.
-%Both GE processes were run 11 times, each time extracting the best L-system, before taking the mean of the best L-systems and using a t-test to test if the means were different.
+%To test this hypothesis, the performance of \gls{GE} with a uniform grammar distribution is compared to the performance of \gls{GE} with an \gls{SA}-optimized grammar distribution.
+%Both \gls{GE} processes were run 11 times, each time extracting the best L-system, before taking the mean of the best \glspl{L-system} and using a t-test to test if the means were different.
 
-% Finally,check variation of SA. How to? Right now I can only manually check some examples.
+% Finally,check variation of \gls{SA}. How to? Right now I can only manually check some examples.
 
 \subsection{Results}
 \subsubsection{Grammar Evolution Parameters}
 \begin{figure}
     \centering
     \includegraphics[width=0.8\textwidth]{figures/ge-size-sampling}
-    \caption[Visualized search of GE population size and number of generations]{Visualized search of GE population size and number of generations. Numbers are the mean of best fitness scores, box sizes are a representation of that number, and colors represent the mean duration of the GE.}
+    \caption[Visualized search of GE population size and number of generations]{Visualized search of \gls{GE} population size and number of generations. Numbers are the mean of best fitness scores, box sizes are a representation of that number, and colors represent the mean duration of the \gls{GE}.}
     \label{fig:size-sampling}
 \end{figure}
 
-Figure~\ref{fig:size-sampling} shows the search of the population size and number of generations to be used for the GE process.
+Figure~\ref{fig:size-sampling} shows the search of the population size and number of generations to be used for the \gls{GE} process.
 The search was prematurely stopped because at around either 1600 number of generations or population size the duration became unreasonable long.
 As seen, a minimum of either a population size of 200 or 200 generations is required for a reasonable performance.
 Additionally, for any number of generations, a population size of 200 makes a notable improvement.
@@ -113,7 +113,7 @@ Thus, these parameter values were selected for use.
 \begin{figure}
     \centering
     \includegraphics[width=0.7\textwidth]{figures/ge-tournament-sampling}
-    \caption[Visualized search of the GE tournament selection tournament size]{Visualized search of the GE tournament selection tournament size with standard error}
+    \caption[Visualized search of the GE tournament selection tournament size]{Visualized search of the \gls{GE} tournament selection tournament size with standard error}
     \label{fig:tournament-sampling}
 \end{figure}
 
@@ -136,7 +136,7 @@ Thus the tournament size was kept at the lowest value, i.e.\ 2.
         \caption{Standard deviation}
         \label{fig:recombination-sampling-variance}
     \end{subfigure}
-    \caption{Visualized search of the GE recombination parameters}
+    \caption[Visualized search of the GE recombination parameters]{Visualized search of the \gls{GE} recombination parameters}
 \end{figure}
 
 Figure~\ref{fig:recombination-sampling} shows the search of the recombination parameters: mutation rate and crossover rate.
@@ -155,16 +155,16 @@ Thus the recombination parameters will be using these values.
 \begin{figure}
     \centering
     \includegraphics[width=0.7\textwidth]{figures/ge-duplication-sampling}
-    \caption[Visualized search of the GE duplication rate]{Visualized search of the GE duplication rate with standard error}
+    \caption[Visualized search of the GE duplication rate]{Visualized search of the \gls{GE} duplication rate with standard error}
     \label{fig:duplication-sampling}
 \end{figure}
 
 Figure~\ref{fig:duplication-sampling} shows the search of the duplication rate.
 It shows a worsening of both score and duration from a rate of 0 to 0.1, from where it stays bad.
 % possibly run anova, but don't have raw data...
-Thus, a duplication rate is set to 0 and the operator is thus not included in the GE process.
+Thus, a duplication rate is set to 0 and the operator is thus not included in the \gls{GE} process.
 
-All of the GE parameters are summarized in Table~\ref{tab:ge-parameters}.
+All of the \gls{GE} parameters are summarized in Table~\ref{tab:ge-parameters}.
 
 \begin{table}
     \centering
@@ -184,7 +184,7 @@ All of the GE parameters are summarized in Table~\ref{tab:ge-parameters}.
     Duplication rate & 0 \\
     \hline
     \end{tabular}
-    \caption{GE parameter values selected based on searches}
+    \caption[GE parameter values selected based on searches]{\gls{GE} parameter values selected based on searches}
     \label{tab:ge-parameters}
 \end{table}
 
@@ -202,46 +202,46 @@ All of the GE parameters are summarized in Table~\ref{tab:ge-parameters}.
         \caption{Mean duration with SE}
         \label{fig:ge-random-duration}
     \end{subfigure}
-    \caption{GE and random performance compared}
+    \caption[GE and random performance compared]{\gls{GE} and random performance compared}
 \end{figure}
 
-Figure~\ref{fig:ge-random} shows the comparison of GE against random samples.
-A Shapiro-Wilk normality test suggests that the brute-force sample distribution can be assumed to be normally distributed (p >= 0.05, W = 0.97), while the GE sample distribution can not (p < 0.05, W = 0.46).
+Figure~\ref{fig:ge-random} shows the comparison of \gls{GE} against random samples.
+A Shapiro-Wilk normality test suggests that the brute-force sample distribution can be assumed to be normally distributed (p >= 0.05, W = 0.97), while the \gls{GE} sample distribution can not (p < 0.05, W = 0.46).
 A robust Brown-Forsythe Levene-type test suggests that the variances of the distributions can be considered equal (p >= 0.05, statistic = 0.09).
 Because there are non-normal distributions and different variances, the Mann-Whitney U test will be used.
-GE has a median score of 1.00, while random has 0.85 (difference of 0.15).
+\gls{GE} has a median score of 1.00, while random has 0.85 (difference of 0.15).
 The Mann–Whitney U test suggests that the true location shift of the distributions is greater than 0 (p < 0.05, U = 117).
 % Could run test on this as well, but necessary??
 
 % Caused by tournament sampling.
-Additionally, Figure~\ref{fig:ge-random-duration} shows the mean duration of the methods where GE is about 5 times faster than random.
-A Shapiro-Wilk normality test suggests that both the brute-force and GE samples can be assumed to be normally distributed (p >= 0.05, W = 0.89 and p >= 0.05, W = 0.93 respectively).
+Additionally, Figure~\ref{fig:ge-random-duration} shows the mean duration of the methods where \gls{GE} is about 5 times faster than random.
+A Shapiro-Wilk normality test suggests that both the brute-force and \gls{GE} samples can be assumed to be normally distributed (p >= 0.05, W = 0.89 and p >= 0.05, W = 0.93 respectively).
 A robust Brown-Forsythe Levene-type test suggests that the variances of the distributions can be considered unequal (p < 0.05, statistic = 17.13).
 Because the distributions can be assumed to be normally distributed and the variances can be assumed to be unequal, the Welch's t-test will be used.
-GE has a mean duration of 9.51, while random has 49.33 (difference of -39.82).
+\gls{GE} has a mean duration of 9.51, while random has 49.33 (difference of -39.82).
 The Welch's two-sample t-test suggests that the true difference in means are not 0 (p < 0.05, t = -35.90, df = 10.02)
 
 \subsubsection{Simulated Annealing}
 \begin{figure}
     \includegraphics[width=\textwidth]{figures/sa-progress}
-    \caption{The complete SA process with multiple re-annealings}
+    \caption[The complete SA process with multiple re-annealings]{The complete \gls{SA} process with multiple re-annealings}
     \label{fig:sa-progress}
 \end{figure}
 
-Figure~\ref{fig:sa-progress} shows the progress of one SA run, and Figure~\ref{fig:sa-progress-close} shows a close-up of the first annealing.
+Figure~\ref{fig:sa-progress} shows the progress of one \gls{SA} run, and Figure~\ref{fig:sa-progress-close} shows a close-up of the first annealing.
 The run had a maximum of 2000 moves per dimension and a cooldown rate of 0.002.
 The grammar distribution evaluation had a minimum 32 samples and an error threshold of 0.004.
 In total this resulted into 436000 moves over 9 annealings.
 As seen in the figure, for each annealing there is a general improvement from a fitness score of 0 to around 0.6.
-The SA process explores the space in the beginning, moving both up and down in score, and then gradually focuses more on hill climbing towards the end.
+The \gls{SA} process explores the space in the beginning, moving both up and down in score, and then gradually focuses more on hill climbing towards the end.
 Each annealing generally reach a plateau before being halfway through the annealing process, from when nearly all mutations are worse and thus it chooses to stay, though the second annealing is slower to reach the plateau.
 The fourth annealing found one exceptionally good grammar distribution with a score of almost 0.75, but when the same grammar distribution was measured over 100000 samples its score was 0.61 (SD = 0.25).
-Thus the score measured in the SA process may have been inaccurate.
-As this distribution was the one with the best score during the SA process, it will be the one used for further analysis.
+Thus the score measured in the \gls{SA} process may have been inaccurate.
+As this distribution was the one with the best score during the \gls{SA} process, it will be the one used for further analysis.
 
 \begin{figure}
     \includegraphics[width=\textwidth]{figures/sa-progress-close}
-    \caption{Close-up of the first annealing of the SA process}
+    \caption[Close-up of the first annealing of the SA process]{Close-up of the first annealing of the \gls{SA} process}
     \label{fig:sa-progress-close}
 \end{figure}
 
@@ -251,7 +251,7 @@ Additionally there is a clustering at exactly 0.
 
 \begin{figure}
     \includegraphics[width=\textwidth]{figures/sa-qq}
-    \caption{Q-Q plot of SA and uniform sample populations}
+    \caption[Q-Q plot of SA and uniform sample populations]{Q-Q plot of \gls{SA} and uniform sample populations}
     \label{fig:sa-qq}
 \end{figure}
 
@@ -279,29 +279,29 @@ A robust Brown-Forsythe Levene-type test shows that the variances of the distrib
 \begin{figure}
     \centering
     \includegraphics[width=0.8\textwidth]{figures/sa-population}
-    \caption{Sample population of L-systems generated using the SA-optimized grammar distribution}
+    \caption[Sample population of L-systems generated using the SA-optimized grammar distribution]{Sample population of \glspl{L-system} generated using the \gls{SA}-optimized grammar distribution}
     \label{fig:sa-population}
 \end{figure}
 
 Figure~\ref{fig:uniform-population} shows the uniform grammar distribution' sample distribution, where practically the whole population has a score of 0.
 When removing all zero-scored individuals, another distribution presents itself in Figure~\ref{fig:uniform-population-no0}.
 Here, a somewhat double bell-shaped distribution around the score 0.5 with a high concentration at around 0.4 is revealed for the remaining 121 individuals (0.12\% of the total).
-Figure~\ref{fig:sa-population} shows the SA grammar distribution's distribution of fineness scores.
-87.87\% of the SA sample population have a score larger than 0, compared to 0.121\% in the uniform sample population.
-%Thus the SA grammar distribution helps avoid most of the worst L-systems.
+Figure~\ref{fig:sa-population} shows the \gls{SA} grammar distribution's distribution of fineness scores.
+87.87\% of the \gls{SA} sample population have a score larger than 0, compared to 0.121\% in the uniform sample population.
+%Thus the \gls{SA} grammar distribution helps avoid most of the worst \glspl{L-system}.
 %As the distribution is skewed to the left, the median may be a better estimate of the population average.
 
 \begin{figure}
     \centering
     \includegraphics[width=0.4\textwidth]{figures/sa-uniform}
-    \caption{Random population with uniform grammar distribution compared to SA-optimized grammar distribution}
+    \caption[Random population with uniform grammar distribution compared to SA-optimized grammar distribution]{Random population with uniform grammar distribution compared to \gls{SA}-optimized grammar distribution}
     \label{fig:sa-uniform}
 \end{figure}
 
-Figure~\ref{fig:sa-uniform} shows a comparison of L-system populations generated by the grammar distribution found by SA in Figure~\ref{fig:sa-progress} and a uniform grammar distribution.
-The SA grammar distribution has a median of 0.71 (MAD: 0.12), compared to 0.00 (MAD: 0.00) for the uniform grammar distribution.
+Figure~\ref{fig:sa-uniform} shows a comparison of \gls{L-system} populations generated by the grammar distribution found by \gls{SA} in Figure~\ref{fig:sa-progress} and a uniform grammar distribution.
+The \gls{SA} grammar distribution has a median of 0.71 (MAD: 0.12), compared to 0.00 (MAD: 0.00) for the uniform grammar distribution.
 A Mann–Whitney U test on the full sample suggests that the true location shift is not zero (p < 0.05, U = 608550000).
-Even with all individuals with score 0 removed, the SA grammar distribution's median score is higher with a median of 0.72 (MAD: 0.10) compared to 0.47 (MAD: 0.08), though the difference of 0.25 is smaller.
+Even with all individuals with score 0 removed, the \gls{SA} grammar distribution's median score is higher with a median of 0.72 (MAD: 0.10) compared to 0.47 (MAD: 0.08), though the difference of 0.25 is smaller.
 A Mann–Whitney U test on the sample without zero scores still suggests that the true location shift is not zero (p < 0.05, U = 1318100).
 
 % might split these into separate figures and put them inbetween the above paragraphs
@@ -344,12 +344,12 @@ A Mann–Whitney U test on the sample without zero scores still suggests that th
         \caption{\%x41-55}
         \label{fig:sa-dist-var}
     \end{subfigure}
-    \caption[SA-optimized grammar distribution]{SA-optimized grammar distribution. Captions are the respective parts of Listing~\ref{lst:grammar}.}
+    \caption[SA-optimized grammar distribution]{\gls{SA}-optimized grammar distribution. Captions are the respective parts of Listing~\ref{lst:grammar}.}
     \label{fig:sa-dist}
 \end{figure}
 
 The grammar distribution found in the SA process is shown in Figure~\ref{fig:sa-dist}.
-As seen in Figure~\ref{fig:sa-dist-prod}, this grammar distribution favors around 10 production rules in the L-system, though 20 productions is also a strong contender.
+As seen in Figure~\ref{fig:sa-dist-prod}, this grammar distribution favors around 10 production rules in the \gls{L-system}, though 20 productions is also a strong contender.
 Figure~\ref{fig:sa-dist-stack} shows that it always favors symbols over stacks, starting at around 60\% symbols in the top depth, then around 90\% symbols in the next depth, and 100\% symbols in the final depth.
 This makes all of the distributions at depth 3 irrelevant as they will never be used.
 It favors shorter strings in depth 0, but not too short strings, as seen in Figure~\ref{fig:sa-dist-strlen}.
@@ -370,7 +370,7 @@ Only 3--4 of the variables have a strong weight in each of the depths.
 \begin{figure}
     \centering
     \includegraphics[width=0.6\textwidth]{figures/sa-plant}
-    \caption[Example plant generated by the SA-optimized grammar distribution]{Example plant generated by the SA-optimized grammar distribution, fitness 0.78}
+    \caption[Example plant generated by the SA-optimized grammar distribution]{Example plant generated by the \gls{SA}-optimized grammar distribution, fitness 0.78}
     \label{fig:sa-plant}
 \end{figure}
 
@@ -385,9 +385,9 @@ T -> PT[>&^>&&&>&&R&&<>>]
 \end{lstlisting}
 
 % Try to connect this to the above even more.
-An example of a plant generated with the SA-optimized distribution can be seen in Figure~\ref{fig:sa-plant}, and its L-system is found in in Listing~\ref{lst:sa-plant}.
+An example of a plant generated with the \gls{SA}-optimized distribution can be seen in Figure~\ref{fig:sa-plant}, and its \gls{L-system} is found in in Listing~\ref{lst:sa-plant}.
 This plant is very tall and straight, has few branches and few fractal patterns.
-The L-system goes to depth 2, but depth 2 never includes any symbols, thus not being relevant.
+The \gls{L-system} goes to depth 2, but depth 2 never includes any symbols, thus not being relevant.
 Depth 1 is mostly producing operators, but also an occasional variable.
 There is recursion in the segment drawing as \texttt{F} produces \texttt{P} and \texttt{T} which in turn produce \texttt{F}.
 Additionally, part of the recursion is inside a stack, thus allowing for fractal patterns.
@@ -395,19 +395,19 @@ Additionally, part of the recursion is inside a stack, thus allowing for fractal
 \section{Evaluation of Evaluation Module}
 \subsection{Method}
 \textbf{RQ2} asks ``how aesthetically pleasing plants can be generated''.
-DGEL was the developed solution to this question, but to know if it can actually generate aesthetically pleasing plants or not, the evaluation module has to be analyzed and compared to how humans rank the plants.
+\gls{DGEL} was the developed solution to this question, but to know if it can actually generate aesthetically pleasing plants or not, the evaluation module has to be analyzed and compared to how humans rank the plants.
 If the ranking made by the humans agree with the ranking made by the fitness component in the evaluation module, it would suggest that the generator know how to distinguish good plants from bad plants, and can thus apply its evolutionary algorithms to generate aesthetically pleasing plants.
-Thus the hypothesis (\textbf{H4}) is: Humans agree with the ranking made by the DGEL fitness component.
-If the humans do not completely agree with the DGEL ranking, the next question is why this is the case and what can be done to improve the rank correlation?
+Thus the hypothesis (\textbf{H4}) is: Humans agree with the ranking made by the \gls{DGEL} fitness component.
+If the humans do not completely agree with the \gls{DGEL} ranking, the next question is why this is the case and what can be done to improve the rank correlation?
 
 While the first question can be answered by quantitative methods, the second question requires support from a qualitative analysis to understand what factors are important to distinguish good generated plants from bad.
 Thus an embedded design mixed-method with qualitative data as a supplementary will be used~\cite{PracticalResearch}.
 
 % Write about AHP?
-A pairwise comparison of a set of DGEL-generated plants will be performed by human participants and the analytical hierarchy process (AHP) will be used to create a ranking of all of the plants~\cite{2008Saaty}.
+A pairwise comparison of a set of \gls{DGEL}-generated plants will be performed by human participants and the analytical hierarchy process (AHP) will be used to create a ranking of all of the plants~\cite{2008Saaty}.
 By using AHP, we will not only get a ranking of the plants, but also distances between the ranks.
 This is useful because humans may consider some of the plants equally pleasing, or some plants much more pleasing than others.
-Finally, all of the rankings will be aggregated and compared to the ranking made by DGEL using Kendall's Tau~\cite{1938Kendall}, and dRank~\cite{2009Carterette}.
+Finally, all of the rankings will be aggregated and compared to the ranking made by \gls{DGEL} using Kendall's Tau~\cite{1938Kendall}, and dRank~\cite{2009Carterette}.
 Kendall's Tau will test the ranking correlation and the data fit the requirements of Kendall's Tau~\cite{2010Webber}: they are unweighted, conjoint and have a definite range.
 It will also give an indication of how correlated they are in range $[-1, 1]$, where 1 is perfectly positively correlated, 0 is not correlated and -1 is perfectly negatively correlated.
 But there are two problems with it: it does not consider the relative distances between the ranks~\cite{2010Webber}, and the different participant's rankings will have to be aggregated beforehand, meaning Kendall's Tau does not consider the variance between the different human rankings rankings.
@@ -420,7 +420,7 @@ The final number of plants used is based on the estimated time used on a compari
 The plants should also be spread over the whole range of the fitness score, so that the rank comparison will be valid for the complete range.
 They should also always be \textit{something} (have at least one branch), otherwise there is nothing to rate.
 The ideal score range would be $[0, 1]$, but it was found difficult to generate plants with perfect 0 (with the plant being \textit{something}) and 1 scores.
-Thus GE is used to generate the worst possible plant with score above 0, and the best possible plant.
+Thus \gls{GE} is used to generate the worst possible plant with score above 0, and the best possible plant.
 Then, $n - 2$ additional plants are generated uniformly between these two extremes.
 
 % Actually, I was the very first pilot run.
@@ -561,7 +561,7 @@ Because of this, a separate module \textit{stats} in the API layer contains the 
 
 \subsection{Results}
 \subsubsection{Plants}
-The lowest possible plant fitness score found by GE was 0.27, and the highest was 0.97.
+The lowest possible plant fitness score found by \gls{GE} was 0.27, and the highest was 0.97.
 Thus, the plant fitness scores used are: 0.27, 0.34, 0.40, 0.46, 0.53, 0.59, 0.65, 0.72, 0.78, 0.84, 0.91 and 0.97.
 The plants will be referred to with their fitness score.
 All of the plants can be viewed in Figure~\ref{fig:survey-plants} in Appendix~\ref{app:survey-plants}.

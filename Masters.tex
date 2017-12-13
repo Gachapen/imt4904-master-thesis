@@ -16,11 +16,11 @@
 \usepackage{textcomp}
 \usepackage{graphicx}
 \usepackage[hyphens]{url}
-\usepackage{hyperref}
+\usepackage[hidelinks]{hyperref}
 
 \usepackage{color}
 \hypersetup{
-    colorlinks=true,
+    colorlinks=false,
     linkcolor=blue,
     citecolor=blue,
     filecolor=blue,
@@ -38,6 +38,7 @@
 \usepackage{subcaption}
 \usepackage{listings}
 \usepackage{chngcntr}
+\usepackage[acronym]{glossaries}
 
 \setlength\extrarowheight{2pt}
 
@@ -54,6 +55,19 @@
 \AtBeginDocument{\counterwithout{lstlisting}{chapter}}
 \renewcommand{\lstlistlistingname}{List of Listings}
 
+\makeglossaries
+
+\newacronym{EA}{EA}{evolutionary algorithm}
+\newacronym{GE}{GE}{grammatical evolution}
+\newacronym{SA}{SA}{simulated annealing}
+\newacronym{DGEL}{DGEL}{distribution-based grammatical evolution of L-systems}
+\newacronym{DGE}{DGE}{distribution-based grammatical evolution}
+\newacronym{GP}{GP}{genetic programming}
+\newacronym{GLP}{GLP}{genetic L-system programming}
+\newacronym{GA}{GA}{genetic algorithm}
+\newacronym{PCG}{PCG}{procedural content generation}
+\newglossaryentry{L-system}{name=L-system, description={Lindenmayer systems}}
+
 \begin{document}
 
 \input{inc/DaimData}
@@ -69,6 +83,7 @@
 \listoffigures
 \listoftables
 \lstlistoflistings
+\printglossaries
 
 % Remember a glossary of abbreviations.
 
