@@ -12,7 +12,7 @@ Rust, by the language design itself, does not allow unsafe operations, thus guar
 The guarantee about data races is particularly useful since it makes the writing of parallel code easier and safer, which the \gls{DGEL} processes can benefit heavily of.
 Finally, as Rust uses LLVM\footnote{The LLVM compiler infrastructure: \url{http://llvm.org/}} to compile to machine code, it has good cross-platform support.
 
-While Rust is fairly new\footnote{First stable Rust version released in May 2015: \url{https://blog.rust-lang.org/2015/05/15/Rust-1.0.html}}, it already has a large repository of libraries, including 12,767 published crates (Rust's name for an external library) as of December 2017\footnote{crates.io, The Rust community’s crate registry: \url{https://crates.io/}}.
+Although Rust is fairly new\footnote{First stable Rust version released in May 2015: \url{https://blog.rust-lang.org/2015/05/15/Rust-1.0.html}}, it already has a large repository of libraries, including 12,767 published crates (Rust's name for an external library) as of December 2017\footnote{crates.io, The Rust community’s crate registry: \url{https://crates.io/}}.
 This will aid the implementation of \gls{DGEL}.
 
 \section{Overview}
@@ -35,7 +35,7 @@ The first is the implementation of the original \gls{GE} chromosome, the second 
 
 \texttt{lsys} implements \gls{L-system} functionality, including D0L-systems (\texttt{ol}), IL-systems (\texttt{il}), parametric \glspl{L-system} (\texttt{param}) and the expansion of them.
 It generalizes features of \glspl{L-system} in the \texttt{common} module so that different \glspl{L-system} have a common interface and can be easily swapped out.
-For example, \texttt{Instruction} represents a generic \gls{L-system} instruction with a parameters, \texttt{Skeleton} represents the structure of an interpreted \gls{L-system}, and \texttt{Rewriter} has an interface to expand the \gls{L-system} into a single string.
+For example, \texttt{Instruction} represents a generic \gls{L-system} instruction with parameters, \texttt{Skeleton} represents the structure of an interpreted \gls{L-system}, and \texttt{Rewriter} has an interface to expand the \gls{L-system} into a single string.
 In the case of \texttt{dgel}, only D0L-systems are used, and the others are there for other experimental reasons.
 
 Finally, \texttt{lsys\_kiss3d} is the \gls{L-system} interpreter implemented using the Kiss3d crate for rendering\footnote{Kiss3d: \url{http://kiss3d.org/}}.
@@ -43,7 +43,7 @@ It supports all of the instructions in Table~\ref{tab:turtle-cmd}, and has an al
 
 \section{L-system expansion}
 The expansion of the \glspl{L-system} is implemented as an iterator over the expanded instructions such that it can stop the expansion prematurely if it reaches the instruction or skeleton limit.
-To accomplish this, the iterator keeps a stack of the instructions that next should be expanded and the rewrite iteration it was expanded from.
+To accomplish this, the iterator keeps a stack of the instructions that should be expanded next and the rewrite iteration it was expanded from.
 In each iteration of the iterator, it recursively rewrites the current instruction while storing production successors in the stack until it reaches the max number of \gls{L-system} iterations, where it returns the current instruction.
 % algorithm??
 
@@ -63,4 +63,4 @@ The specific function that is parallelized is \texttt{GENERATE} in Algorithm~\re
 This function will in parallel generate and evaluate $n$ \glspl{L-system}.
 
 While it could be parallelized with Rayon, it instead uses the \texttt{futures\_cpupool}\footnote{futures\_cpupool: \url{https://crates.io/crates/futures-cpupool}} crate such that it may add other operations to the pool of parallel tasks.
-In this case it puts the saving of the \gls{SA} progress into the thread pool such that it will not block while waiting for I/O.
+In this case it puts the saving of the \gls{SA} progress into the thread pool so that it will not block while waiting for I/O.
