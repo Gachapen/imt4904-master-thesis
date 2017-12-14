@@ -14,8 +14,10 @@ Finally, as Rust uses LLVM\footnote{The LLVM compiler infrastructure: \url{http:
 
 Although Rust is fairly new\footnote{First stable Rust version released in May 2015: \url{https://blog.rust-lang.org/2015/05/15/Rust-1.0.html}}, it already has a large repository of libraries, including 12,767 published crates (Rust's name for an external library) as of December 2017\footnote{crates.io, The Rust community’s crate registry: \url{https://crates.io/}}.
 This will aid the implementation of \gls{DGEL}.
+% TODO: it feels wrong to read WILL (future tense) in a report about work that has been already done. You should rephrase it to past or at least present perfect tense.
 
 \section{Overview}
+% TODO: somewhat because of the use of passive voice, it is not clear what you have implemented, and what is provided by others or standard crates in RUST. Make it clear what was part of THIS project, and which facilities THIS project relies on from outside.
 The \gls{DGEL} implementation is part of a larger application designed to experiment with \glspl{L-system}.
 It is a module \texttt{dgel} within the program \texttt{lsystem}~\cite{CodeLsystem}.
 \texttt{lsystem} additionally contain a \texttt{fitness} module where the fitness function is implemented.

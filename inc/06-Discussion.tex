@@ -1,14 +1,18 @@
 % !TEX root = ../Masters.tex
 \chapter{Discussion}
 \section{Grammar Evolution}
-As evident from the results, the \gls{DGEL} \gls{GE} process has the upper hand on the brute-force approach, and the significantly different medians of their scores makes a strong support for \textbf{H1}.
-Additionally, the fact that \gls{GE} was five times faster than brute-force means that even if both methods produce just as good individuals, \gls{GE} should be faster at doing so.
+As evident from the results, the \gls{DGEL} \gls{GE} process has the upper hand on
+% TODO: perhaps say: performs significantly better than 
+the brute-force approach, and the statistically significant difference in their scores medians makes a strong support for % TODO repeat the hypothesis here, so that the reader does not need to search for it back in text 
+(\textbf{H1}).
+Additionally, the fact that \gls{GE} was five times faster than brute-force means that even if both methods produce just as good individuals, \gls{GE} will be faster at doing so.
 
 The difference in duration is an interesting case because both \gls{GE} and brute-force generate the same amount of individuals, and while brute-force only fills a vector of random numbers, \gls{GE} must do both a crossover and mutation which are more complex functions.
 It is likely that this is caused by the tournament sampling that \gls{GE} uses.
 Because this sampling method is stochastic, it does not necessarily evaluate each of the chromosomes, and this evaluation process is expensive.
 Thus, the \gls{GE} process can save time by not evaluating certain individuals.
-% What is the average percentage of evaluated individuals? Does this correlate with the difference in duration?
+% TODO: What is the average percentage of evaluated individuals? Does this correlate with the difference in duration?
+% TODO: yes - good questions. Also, it is a bit unclear why tournament doesn't need evaluation of all chromosomes - can you explain?
 
 \section{Simulated Annealing}
 The clustering of the movements around the current score in the \gls{SA} process (Figure~\ref{fig:sa-progress-close}) indicates that the mutation function used has a good locality, i.e. that the neighboring grammar distributions are fairly close in terms of score.

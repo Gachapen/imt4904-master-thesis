@@ -46,7 +46,7 @@ While Ortega et al.\ and Beaumont and Stepney make assumptions about the grammar
 To make the search space reasonable, there still has to be some limits.
 The number of productions, string length, and number of characters for a variable were limited to a maximum of 20.
 A higher number did not seem reasonable as no \glspl{L-system} in the literature reviewed used larger numbers, and the search times for higher numbers started to become unreasonably long.
-
+% TODO: "unreasonable" and "Reasonable" are not really clear, or operationally defined. It is OKish, but, you could try to be more precise.
 Additionally, to limit the complexity of \glspl{L-system}, complex features such as leaves, flowers, \gls{branch segment} width and more were not included.
 Thus the grammar used can only produce the branches of a plant.
 This is the most essential part of a plant, which can be expanded later by modifying only the grammar description.
@@ -97,6 +97,8 @@ Since there are four alternatives, and a uniform distribution is used, the 3-bit
 The gene value 3 maps into the second segment, which maps to the second alternative in the rule, i.e.\ $D$.
 This process would then continue with the next gene, 0, on the $D$ rule.
 
+% TODO: what if there were 3 alternatives? How would the 3-bit structure be split uniformly?
+
 \begin{figure}
     \centering
     \includegraphics[width=0.8\textwidth]{figures/gene}
@@ -107,7 +109,8 @@ This process would then continue with the next gene, 0, on the $D$ rule.
 \section{Interpreting L-systems Into Plant 3D Models}
 \label{sec:interpreting}
 As seen in Figure~\ref{fig:dgel}, after an \gls{L-system} has been generated, it needs to be interpreted into a 3D-model such that people may see the plant.
-Turtle interpretation is used to do this~\cite{2012Prusinkiewicz}, as it is a popular method used in the literature.
+Turtle interpretation is used to do this~\cite{2012Prusinkiewicz}, as it is a popular method used in the literature.y 
+% TODO: you use the phrase "... method used in literature." It is a bit weak - methods are really used in research on something, on in application of something, and then described/referred to in literature. So it is a mental shortcut. It would be better, if you spell out exactly where it is used, eg. "Turtle interpretation is a popular method for 2D structure generation based on the L-system." or something along those lines. Check early sections for the use "literature" and see where you can replace it with more accurate/specific formulation.
 A 3D version of the turtle interpretation is used, where the turtle can draw lines with \texttt{F}, and rotate around three axes using \texttt{-} and \texttt{+} for yaw, \texttt{\textasciicircum} and \texttt{\&} for pitch, and \texttt{<} and \texttt{>} for roll.
 The bracket operators, \texttt{[} and \texttt{]}, are used to create \glspl{branch base}.
 Table~\ref{tab:turtle-cmd} shows a complete overview of the characters and their operations, including extra operators used for more control and features like leaves (e.g.\ Listing~\ref{lst:grammar2}).
@@ -193,7 +196,7 @@ This interpretation of the \gls{L-system} can be swapped out with a different in
 For example a more realistic interpretation with smoothed branches or branches bent by gravity could be used.
 Thus the \gls{DGEL} algorithm is not dependent on this particular interpretation, but the results described later will be.
 
-\section{Using a Grammar Distribution to Limit Search Space}
+\section{Using a Grammar Distribution to Limit the Search Space}
 In \gls{DGEL}, grammar distributions are used for three reasons: to guide the \gls{GE} to more efficiently find good plants, to guide \gls{GE} to search in a space with certain types of plants, and to prevent infinite recursion.
 
 \begin{figure}
@@ -275,7 +278,7 @@ Both tournament selection and ranking selection are recommended as good options,
 Therefore, because it is assumed that \gls{DGEL} may be used in real-time applications, tournament selection is preferred.
 
 In order for the choice of tournament selection based on Blickle and Thiele's comparison to be valid, the \gls{GE} algorithm is implemented as \gls{GA} is described by Blickle and Thiele~\cite{1995Blickle}.
-The only difference from the \gls{GA} algorithm is the addition of the duplication and prune operators that were specifically added to \gls{GE} because of their benefits in biology~\cite{1998Ryan}.
+The only difference from the \gls{GA} algorithm is the addition of the duplication and prune operators that were specifically added to \gls{GE} because of their benefits in biology~\cite{1998Ryan}. % TODO: such as ....
 
 \section{Using a Fitness Function to Evaluate Plants}
 A crucial component of both the \gls{SA} and \gls{GE} process is the fitness function.
@@ -331,7 +334,7 @@ If the \texttt{F} was instead a rotation operator, $20^5$ matrix multiplications
 Thus the number of instructions (i.e. characters in expanded string) is limited to a maximum of 50,000 (instruction limit).
 Both limits were experimentally found to be balanced in time and space, while still allowing complex structures.
 If they are breached the \gls{L-system} will become \textit{nothing} and thus be scored zero
-
+% TODO: a bit confusing that nothing is scored zero but the equation says -1 if no branches.
 \begin{equation}
 \label{eq:nothing}
     nothing(x) =

@@ -1,6 +1,6 @@
 % !TEX root = ../Masters.tex
 \chapter[Evaluation of DGEL]{Evaluation of \gls{DGEL}}
-\gls{DGEL} consists of to main modules: \textit{generation} and \textit{evaluation}.
+\gls{DGEL} consists of two main modules: \textit{generation} and \textit{evaluation}.
 The evaluation module consists of the fitness component which evaluates how good the \gls{L-system} plants are.
 The remaining components are part of the generation component which generates plants, and uses the evaluation module to generate \textit{good} plants.
 To answer if \gls{DGEL} solves the research questions, both modules have to be evaluated.
@@ -13,7 +13,7 @@ As explained in Section~\ref{sec:overview} and shown in Figure~\ref{fig:dgel}, t
 The remaining steps are dependent on the model and do not create variations on the same model.
 Thus \gls{GE} and \gls{SA} are the two processes of interests to evaluate.
 
-While the fitness score results does not depend on the hardware the experiment runs on, the duration does.
+While the fitness score does not depend on the hardware the experiment runs on, the fitness calculation duration does.
 It ran on a water-cooled Intel i7-4790K CPU (8M Cache, up to 4.40 GHz)\footnote{Intel i7-4790K: \url{https://ark.intel.com/products/80807/Intel-Core-i7-4790K-Processor-8M-Cache-up-to-4_40-GHz}} with 8GB of RAM.
 The \gls{GE}, \gls{SA} and brute-force processes are parallelized and ran with 9 threads.
 
@@ -208,9 +208,11 @@ Figure~\ref{fig:ge-random} shows the comparison of \gls{GE} against random sampl
 A Shapiro-Wilk normality test suggests that the brute-force sample distribution can be assumed to be normally distributed (p >= 0.05, W = 0.97), while the \gls{GE} sample distribution can not (p < 0.05, W = 0.46).
 A robust Brown-Forsythe Levene-type test suggests that the variances of the distributions can be considered equal (p >= 0.05, statistic = 0.09).
 Because there are non-normal distributions and different variances, the Mann-Whitney U test will be used.
+% TODO: do not use FUTURE tense.
 \gls{GE} has a median score of 1.00, while random has 0.85 (difference of 0.15).
 The Mann–Whitney U test suggests that the true location shift of the distributions is greater than 0 (p < 0.05, U = 117).
 % Could run test on this as well, but necessary??
+% Mariusz: i think not necessary.
 
 Additionally, Figure~\ref{fig:ge-random-duration} shows the mean duration of the methods where \gls{GE} is about 5 times faster than random.
 A Shapiro-Wilk normality test suggests that both the brute-force and \gls{GE} samples can be assumed to be normally distributed (p >= 0.05, W = 0.89 and p >= 0.05, W = 0.93 respectively).
