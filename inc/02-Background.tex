@@ -158,6 +158,13 @@ It is also similar to Jacob's \gls{GP} representation because it uses a pool of 
 When undergoing evolution, the genotype (string of numbers) will be modified by a \gls{GA}.
 Thus the \gls{GE} method is strongly related to \gls{GA}.
 
+In addition to the common mutation and crossover operators used in \gls{GA}, \gls{GE} uses duplication and prune operators because of their benefits in biology.
+The duplication operator picks a series of genes, copies them and pastes them at the end of the chromosome.
+If the original genes are mutated in such a way that they are no longer functional, the duplicated genes can be used as a backup.
+The original genes may also be mutated in a beneficial way without removing their old functions.
+Finally, increased presence of the same genes may have biological effects.
+The prune operator removes unused genes, and therefore works well with the duplication operator that adds more and more genes.~\cite{1998Ryan}
+
 Beaumont and Stepney use a limited search space for the \gls{GE} method.
 Their alphabet only consists of \texttt{F}, \texttt{+} and \texttt{-}, their axiom is always \texttt{F}, and only \texttt{F} can be the production predecessor, i.e.\ it is an edge rewriting \gls{L-system}.
 They also have a fixed number of iterations and rotation angle.
