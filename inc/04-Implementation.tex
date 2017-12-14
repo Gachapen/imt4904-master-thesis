@@ -13,21 +13,20 @@ The guarantee about data races is particularly useful since it makes the writing
 Finally, as Rust uses LLVM\footnote{The LLVM compiler infrastructure: \url{http://llvm.org/}} to compile to machine code, it has good cross-platform support.
 
 Although Rust is fairly new\footnote{First stable Rust version released in May 2015: \url{https://blog.rust-lang.org/2015/05/15/Rust-1.0.html}}, it already has a large repository of libraries, including 12,767 published crates (Rust's name for an external library) as of December 2017\footnote{crates.io, The Rust community’s crate registry: \url{https://crates.io/}}.
-This will aid the implementation of \gls{DGEL}.
-% TODO: it feels wrong to read WILL (future tense) in a report about work that has been already done. You should rephrase it to past or at least present perfect tense.
+This has aided the implementation of \gls{DGEL}.
 
 \section{Overview}
-% TODO: somewhat because of the use of passive voice, it is not clear what you have implemented, and what is provided by others or standard crates in RUST. Make it clear what was part of THIS project, and which facilities THIS project relies on from outside.
 The \gls{DGEL} implementation is part of a larger application designed to experiment with \glspl{L-system}.
-It is a module \texttt{dgel} within the program \texttt{lsystem}~\cite{CodeLsystem}.
-\texttt{lsystem} additionally contain a \texttt{fitness} module where the fitness function is implemented.
-Then there are four independent crates that are used by \texttt{lsystem} and \texttt{dgel} for various purposes: \texttt{abnf}, \texttt{lsys}, \texttt{lsys\_kiss3d}, and \texttt{yobun}.
+It implements a module \texttt{dgel} within the program \texttt{lsystem}.
+\texttt{lsystem} additionally implements a \texttt{fitness} module where the fitness function is implemented.
+Four independent crates that are used by \texttt{lsystem} and \texttt{dgel} for various purposes are additionally implemented: \texttt{abnf}, \texttt{lsys}, \texttt{lsys\_kiss3d}, and \texttt{yobun}.
+The source code for the complete application is archived on Zenodo~\cite{CodeLsystem}.
 
 \texttt{yobun} is the simplest crate and consists of utility functions of various sorts, including general interpolation functions, filesystem functions, parsing functions and more.
 
 \texttt{abnf} implements parts of the ABNF syntax, file parsing and expansion of rules, which is a central part of \texttt{dgel}.
 The \texttt{parse} module within it implements the parsing of ABNF files using the \texttt{nom} create\footnote{nom crate: \url{https://crates.io/crates/nom}}, which enables the composition of smaller parsers into larger ones.
-Each of the parsers are tested thoroughly using Rusts built-in unit testing feature.
+Each of the parsers are tested thoroughly using Rust's built-in unit testing feature.
 The parser parses the file into the structures defined in \texttt{syntax}, which represents the concepts in ABNF, such as alternatives and repetitions, and can be created or modified programmatically.
 The \texttt{core} module contains some of the ABNF core rules as defined in the RFC~\cite{RFC5234}.
 Finally, the \texttt{expand} module can expand the ABNF grammar from a rule into a full string using a specified \texttt{SelectionStrategy}.
@@ -43,6 +42,118 @@ In the case of \texttt{dgel}, only D0L-systems are used, and the others are ther
 Finally, \texttt{lsys\_kiss3d} is the \gls{L-system} interpreter implemented using the Kiss3d crate for rendering\footnote{Kiss3d: \url{http://kiss3d.org/}}.
 It supports all of the instructions in Table~\ref{tab:turtle-cmd}, and has an alternative interpretation using the heuristics described in Section~\ref{sec:interpreting}.
 
+\begin{table}
+    \centering
+    \begin{tabular}{| l | l | l | l | l | l |}
+    \hline
+    Language           & Files       & Lines       &  Code    & Comments      & Blanks \\
+    \hline
+    Rust               &    22       & 11879       &  9955    &      296      &   1628 \\
+    TOML               &     5       &    88       &    72    &        5      &     11 \\
+    YAML               &     2       &    84       &    84    &        0      &      0 \\
+    Markdown           &     1       &    13       &    13    &        0      &      0 \\
+    \hline
+    Total              &    30       & 12064       & 10124    &      301      &   1639 \\
+    \hline
+    \end{tabular}
+    \caption{Code count of whole application}
+    \label{tab:lsys-count}
+\end{table}
+
+To give an idea of the scope of the program and its source code, the code count is shown in Table~\ref{tab:lsys-count} (counted by Tokei\footnote{Tokei code counting program: \url{https://github.com/Aaronepower/tokei/tree/v6.1.2}}).
+The whole program consists of around 12,000 lines of code (including blanks).
+In addition to Rust files, TOML files describe the five crates implemented, YAML files describe \gls{L-system} grammars, distributions and settings, and Markdown files are informative.
+In total there are 445 revisions of the code (managed by Git\footnote{Git \gls{VCS}: \url{https://git-scm.com/}}).
+
+\begin{table}
+    \centering
+    \begin{tabular}{| l | l | l | l | l | l |}
+    \hline
+    Crate           & Files       & Lines       &  Code    & Comments      & Blanks \\
+    \hline
+    lsystem        & 10           & 7502        & 6320     & 146           & 1036 \\
+    lsys           & 5            & 1889        & 1540     &  60           &  289 \\
+    abnf           & 5            & 1356        & 1169     &  27           &  160 \\
+    lsys\_kiss3d   & 1            &  527        &  441     &   6           &   80 \\
+    yobun          & 1            &  605        &  485     &  57           &   63 \\
+    \hline
+    \end{tabular}
+    \caption{Code count for each implemented crate}
+    \label{tab:lsys-crate-count}
+\end{table}
+
+As seen in Table~\ref{tab:lsys-crate-count}, most of the code is in the main crate (\texttt{lsystem}),  while substantial amounts are also in \texttt{lsys} and \texttt{abnf}.
+This is because the main crate includes both the \gls{GE} process, the \gls{SA} process and all of the command-line tools.
+Parts from both \gls{GE} and \gls{SA} could potentially be moved out into separate crates if they are generalized.
+
+\begin{table}
+    \centering
+    \begin{tabular}{| l | l |}
+    \hline
+    Command & Description \\
+    \hline
+    animated    & Run animated visualization of plant growth \\
+    dgel        & Run random plant generation using GE \\
+    generated   & Run random generation of plant \\
+    measure     & Measure the fitness of a model \\
+    static      & Run visualization of static plant \\
+    \hline
+    \end{tabular}
+    \caption{Commands available to the application}
+    \label{tab:lsys-cli}
+\end{table}
+
+\begin{table}
+    \centering
+    \begin{tabularx}{\textwidth}{| l | X |}
+    \hline
+    Command & Description \\
+    \hline
+    abnf                  & Print the parsed ABNF structure \\
+    bench                 & Run benchmarks \\
+    dist-csv-to-bin       & Convert a CSV distribution file to a bincode file \\
+    dump-default-dist     & Dump default distribution to files \\
+    ge                    & Run grammatical evolution \\
+    inferred              & Run program that infers the genes of an L-system \\
+    learning              & Run learning program until you type 'quit' \\
+    random                & Randomly generate plant based on random genes and ABNF \\
+    record-video          & Record a video of a plant model \\
+    sample-weight-space   & Sample a weight space and write points to file \\
+    sampling              & Run random sampling program until you type 'quit' \\
+    sampling-dist         & Take samples from directory and output a distribution CSV file \\
+    sort-models           & Sort stored models based on score \\
+    stats                 & Generate samples and dump stats to be analyzed \\
+    visualized            & Generate plants based on a predefined distribution \\
+    \hline
+    \end{tabularx}
+    \caption[Commands available to the \texttt{dgel} command]{Commands available to the \texttt{dgel} command (\texttt{learing} is the command that runs the \gls{SA} process and should be renamed to reflect this)}
+    \label{tab:dgel-cli}
+\end{table}
+
+\begin{table}
+    \centering
+    \begin{tabularx}{\textwidth}{| l | X |}
+    \hline
+    Command & Description \\
+    \hline
+    duplication-sampling     & Find the best GE duplication rate \\
+    recombination-sampling   & Find the best GE crossover and mutation rates \\
+    run                      & Run GE \\
+    size-sampling            & Find the best GE population size and number of generations \\
+    tournament-sampling      & Find the best GE tournament size \\
+    \hline
+    \end{tabularx}
+    \caption{Commands available to the \texttt{dgel ge} command}
+    \label{tab:ge-cli}
+\end{table}
+
+There are multiple command-line tools available in the application.
+Table~\ref{tab:lsys-cli} shows all top-level tools, Table~\ref{tab:dgel-cli} shows tools specific for the \texttt{dgel} command and Table~\ref{tab:ge-cli} shows tools available for the \texttt{dgel ge} command.
+Note that the command descriptions are extracted from the help command and may be outdated.
+To run the complete DGEL process, the distribution first as to be generated using \texttt{dgel learning} (\gls{SA}), then the \gls{GE} process can be run using \texttt{dgel ge run -d <dist>}, where \texttt{<dist>} is the distribution generated by the previous step.
+Finally, \texttt{dgel visualized} can be run to visualize the L-system model that \gls{GE} saved to the filesystem as a YAML file.
+Other commands are tools that aided the research in branchmarking code, generating statistics, sampling the space, recording videos of the plants for the survey in Section~\ref{sec:survey-design}, and measuring L-systems.
+
 \section{L-system expansion}
 The expansion of the \glspl{L-system} is implemented as an iterator over the expanded instructions such that it can stop the expansion prematurely if it reaches the instruction or skeleton limit.
 To accomplish this, the iterator keeps a stack of the instructions that should be expanded next and the rewrite iteration it was expanded from.
@@ -54,7 +165,7 @@ The \gls{GE} implementation is a modified version of the RsGenetic crate\footnot
 It was modified to match the \gls{GA} algorithm as specified by Blickle and Thiele~\cite{1995Blickle}, in addition to supporting custom genetic operators, such that the duplication and pruning operators used by \gls{GE} can be used.
 
 The genetic operators use the Rayon crate\footnote{Rayon: \url{https://github.com/rayon-rs/rayon}} to parallelize all of the operators with parallel iterators.
-Thus the operators will modify individuals from the population in parallel, allowing for much higher throughput on multi-core CPUs.
+Thus the operators modify individuals from the population in parallel, allowing for much higher throughput on multi-core CPUs.
 It is an easy to use method that only involves including the crate and changing \texttt{iter()} to \texttt{par\_iter()}, while allowing for a significant increase in performance.
 The tournament selection is parallelized in a similar manner, doing all the selections of new individuals in parallel.
 
@@ -62,7 +173,7 @@ The tournament selection is parallelized in a similar manner, doing all the sele
 The \gls{SA} is parallelized in terms of the grammar distribution measurement as this is the most costly part; it has to generated several individual \glspl{L-system} and evaluate their fitness before finding their average.
 This part is also perfect for parallelization because each \gls{L-system} can be generated and evaluated completely independently, making it an embarrassingly parallel problem.
 The specific function that is parallelized is \texttt{GENERATE} in Algorithm~\ref{alg:eval-dist}.
-This function will in parallel generate and evaluate $n$ \glspl{L-system}.
+This function generates and evaluates $n$ \glspl{L-system} in parallel.
 
 While it could be parallelized with Rayon, it instead uses the \texttt{futures\_cpupool}\footnote{futures\_cpupool: \url{https://crates.io/crates/futures-cpupool}} crate such that it may add other operations to the pool of parallel tasks.
-In this case it puts the saving of the \gls{SA} progress into the thread pool so that it will not block while waiting for I/O.
+In this case it puts the saving of the \gls{SA} progress into the thread pool so that it does not block while waiting for I/O.
