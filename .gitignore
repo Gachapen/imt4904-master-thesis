@@ -13,3 +13,10 @@
 *.lol
 *.synctex.gz
 *.spl
+*.acn
+*.acr
+*.alg
+*.glg
+*.glo
+*.gls
+*.ist
