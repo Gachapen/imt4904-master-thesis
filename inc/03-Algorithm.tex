@@ -324,6 +324,14 @@ Table~\ref{tab:fitness} lists all of the metrics and their weight.
     \label{tab:fitness}
 \end{table}
 
+The fitness metrics can be either rewarding, punishing, or both.
+Rewarding metrics give a score of $[0,1]$, while punishing metrics score them $[-1,0]$ and metrics that are both score them $[-1,1]$.
+Metrics that use the full range are considered punishing if the score is negative and rewarding if not.
+Having these different ranges makes it possible to intuitively understand if the plant is good, bad or OK in terms of a metric.
+The final fitness score is an summation of the rewarding and punishing scores, transformed to range $[0,1]$: $\frac{reward + punishment + 1}{2}$.
+% TODO: comment on why I made it so...
+% I may have made a mistake as I find no good argument for changing the range to 0--1 now... oh w/e
+
 \textit{Nothing} is the simplest and most basic metric.
 It punishes plants that have no \glspl{branch segment}.
 This may happen if for example the \gls{L-system} contains no drawing commands (the character \texttt{F}).
@@ -338,8 +346,7 @@ Therefore the number of points in the interpreted 3D model is limited to 10,000 
 If the \texttt{F} was instead a rotation operator, $20^5$ matrix multiplications would have to be performed, and the skeleton limit would not be breached.
 Thus the number of instructions (i.e. characters in expanded string) is limited to a maximum of 50,000 (instruction limit).
 Both limits were experimentally found to be balanced in time and space, while still allowing complex structures.
-If they are breached the \gls{L-system} will become \textit{nothing} and thus be scored zero
-% TODO: a bit confusing that nothing is scored zero but the equation says -1 if no branches.
+If they are breached the \gls{L-system} will become \textit{nothing} and thus be scored zero in the final fitness score.
 \begin{equation}
 \label{eq:nothing}
     nothing(x) =
