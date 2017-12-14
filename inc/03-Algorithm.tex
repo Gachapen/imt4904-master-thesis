@@ -115,8 +115,7 @@ Even without rounding the value, there is only a \num{2.33e-8}\% difference betw
 \section{Interpreting L-systems Into Plant 3D Models}
 \label{sec:interpreting}
 As seen in Figure~\ref{fig:dgel}, after an \gls{L-system} has been generated, it needs to be interpreted into a 3D-model such that people may see the plant.
-Turtle interpretation is used to do this~\cite{2012Prusinkiewicz}, as it is a popular method used in the literature.
-% TODO: you use the phrase "... method used in literature." It is a bit weak - methods are really used in research on something, on in application of something, and then described/referred to in literature. So it is a mental shortcut. It would be better, if you spell out exactly where it is used, eg. "Turtle interpretation is a popular method for 2D structure generation based on the L-system." or something along those lines. Check early sections for the use "literature" and see where you can replace it with more accurate/specific formulation.
+Turtle interpretation is used to do this~\cite{2012Prusinkiewicz}, because it is a popular method for 2D and 3D structure generation based on \glspl{L-system}.
 A 3D version of the turtle interpretation is used, where the turtle can draw lines with \texttt{F}, and rotate around three axes using \texttt{-} and \texttt{+} for yaw, \texttt{\textasciicircum} and \texttt{\&} for pitch, and \texttt{<} and \texttt{>} for roll.
 The bracket operators, \texttt{[} and \texttt{]}, are used to create \glspl{branch base}.
 Table~\ref{tab:turtle-cmd} shows a complete overview of the characters and their operations, including extra operators used for more control and features like leaves (e.g.\ Listing~\ref{lst:grammar2}).
