@@ -1,18 +1,16 @@
 % !TEX root = ../Masters.tex
 \chapter{Discussion}
 \section{Grammar Evolution}
-As evident from the results, the \gls{DGEL} \gls{GE} process has the upper hand on
-% TODO: perhaps say: performs significantly better than 
-the brute-force approach, and the statistically significant difference in their scores medians makes a strong support for % TODO repeat the hypothesis here, so that the reader does not need to search for it back in text 
-(\textbf{H1}).
+As evident from the results, the \gls{DGEL} \gls{GE} process performs significantly better than the brute-force approach, and the statistically significant difference in their scores support that \gls{DGEL} \gls{GE} finds plants with better fitness scores than brute-force does (\textbf{H1}).
 Additionally, the fact that \gls{GE} was five times faster than brute-force means that even if both methods produce just as good individuals, \gls{GE} will be faster at doing so.
 
 The difference in duration is an interesting case because both \gls{GE} and brute-force generate the same amount of individuals, and while brute-force only fills a vector of random numbers, \gls{GE} must do both a crossover and mutation which are more complex functions.
-It is likely that this is caused by the tournament sampling that \gls{GE} uses.
-Because this sampling method is stochastic, it does not necessarily evaluate each of the chromosomes, and this evaluation process is expensive.
-Thus, the \gls{GE} process can save time by not evaluating certain individuals.
+It is likely that this is caused by the tournament sampling that \gls{GE} uses, which does not necessarily evaluate all of the chromosomes.
+For each individual that should be in the population of the next generation, tournament selection picks a pair of individuals (with a tournament size of 2) randomly from the current population, evaluates them and allows the best one to become part of the next generation.
+Because of this, tournament sampling may pick the same individuals multiple times, which means the cached evaluation is used, and some individuals may not be picked at all.
+The fitness evaluation of a chromosome is expensive because it has to generate the L-system, interpret it into a 3D structure and then run each metric on this structure, so this may have a big impact.
+The chance that an individual in the population is, in the case of a population size of 800,
 % TODO: What is the average percentage of evaluated individuals? Does this correlate with the difference in duration?
-% TODO: yes - good questions. Also, it is a bit unclear why tournament doesn't need evaluation of all chromosomes - can you explain?
 
 \section{Simulated Annealing}
 The clustering of the movements around the current score in the \gls{SA} process (Figure~\ref{fig:sa-progress-close}) indicates that the mutation function used has a good locality, i.e. that the neighboring grammar distributions are fairly close in terms of score.
@@ -72,7 +70,7 @@ With Kendall's tau indicating no correlation in the middle region, it is a stron
 Interestingly, dRank indicates that the distance between the rankings the middle region (5.21) is smaller than the complete ranks (16.67). % I don't know how to interpret this...
 This effect could be caused by the reduction of the number of systems (plants), which the dRank distance is highly dependent on~\cite{2009Carterette}.
 In any case, the p-value of dRank is still 0, indicating that they are still not correlated.
-Based on this, \textbf{H4} is rejected, and the next question should be why they do not agree and what could be done to improve the agreement.
+Based on this, the hypothesis that humans agree with the ranking made by the \gls{DGEL} fitness component (\textbf{H4}) is rejected, and the next question should be why they do not agree and what could be done to improve the agreement.
 
 The categorization of factors that humans find important can give an overview of what the fitness function should include or exclude.
 Directional factors are directly useful since they can be used to change a fitness metric's direction or create new metrics for the fitness function.
