@@ -241,8 +241,6 @@ Thus, plants with long branches and many leaves are more structurally complex an
 
 Beaumont and Stepney measure the similarity between the interpreted 2D \gls{L-system} (plant) and a target 2D plant.
 They do this by looking at each drawn pixel in one image and calculating the distance to the nearest drawn pixel in the other image.
-% TODO: Elitism has not been introduced - do we assume reader will know what it is?
-They find indications that ``elitism is required to ensure that good solutions are kept and built on, not lost or mutated in the next generation'', and therefore assigns 20\% of the population to be elites.~\cite{2009Beaumont}
 
 Ding et al.\ measure the similarity between an interpreted 3D \gls{L-system} plant and a target image of a real tree.
 They combine the similarity of the outlines, topology and internal space into the fitness function.~\cite{2013Ding}
@@ -296,6 +294,9 @@ In addition to replacing, adding and removing, symbols may also be swapped, simp
 Specialized operations are used for parametric \glspl{L-system} to mutate the parameters of the symbols.
 Parameters may be added to or subtracted from, or if the parameter is an equation, the equation may be changed to a production.
 As parametric \glspl{L-system} also may contain conditions, the equation of the condition may be mutated in a similar manner.~\cite{2001Hornby}
+
+Beaumont and Stepney use elitism where a certain amount of the most fit individuals move to the next generation without being mutated.
+They find indications that ``elitism is required to ensure that good solutions are kept and built on, not lost or mutated in the next generation'', and therefore assign 20\% of the population to be elites.~\cite{2009Beaumont}
 
 McCormack and others mention that one needs to use measure to avoid invalidating bracket operators in a string.
 This may be done by excluding brackets from mutations, selecting sub-string within bracketed pairs, or repairing the brackets after mutation.~\cite{2004McCormack}
