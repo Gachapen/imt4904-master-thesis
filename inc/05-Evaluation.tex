@@ -4,8 +4,8 @@
 The evaluation module consists of the fitness component which evaluates how good the \gls{L-system} plants are.
 The remaining components are part of the generation component which generates plants, and uses the evaluation module to generate \textit{good} plants.
 To answer if \gls{DGEL} solves the research questions, both modules have to be evaluated.
-The generation module will be evaluated in a technical manner to determine if it performs well or not.
-The evaluation module will be evaluated using humans as to answer if the fitness function properly rates plants as aesthetically pleasing or not.
+The generation module is evaluated in a technical manner to determine if it performs well or not.
+The evaluation module is evaluated using humans as to answer if the fitness function properly rates plants as aesthetically pleasing or not.
 
 \section{Evaluation of the Generation Module}
 \subsection{Method}
@@ -13,15 +13,15 @@ As explained in Section~\ref{sec:overview} and shown in Figure~\ref{fig:dgel}, t
 The remaining steps are dependent on the model and do not create variations on the same model.
 Thus \gls{GE} and \gls{SA} are the two processes of interests to evaluate.
 
-While the fitness score does not depend on the hardware the experiment runs on, the fitness calculation duration does.
+While the resulting fitness scores do not depend on the hardware the experiment runs on, the duration used on calculating them does.
 It ran on a water-cooled Intel i7-4790K CPU (8M Cache, up to 4.40 GHz)\footnote{Intel i7-4790K: \url{https://ark.intel.com/products/80807/Intel-Core-i7-4790K-Processor-8M-Cache-up-to-4_40-GHz}} with 8GB of RAM.
 The \gls{GE}, \gls{SA} and brute-force processes are parallelized and ran with 9 threads.
 
 % Could explain why...
-When sample groups are compared, their distributions will be tested for normality using the Shapiro-Wilk normality test~\cite{1965Shapiro}.
-If Shapiro-Wilk is not applicable because of the sample size, a Q-Q plot will be analyzed~\cite{1968Wilk}.
-Robust Brown-Forsythe Levene-type test will be used to test if the variances in the distributions are equal~\cite{1974Brown}.
-Finally, in the cases when normality cannot be assumed, Mann-Whitney U test will be used to test the location shift of the distributions~\cite{1947Mann}.
+When sample groups are compared, their distributions are tested for normality using the Shapiro-Wilk normality test~\cite{1965Shapiro}.
+If Shapiro-Wilk is not applicable because of the sample size, a Q-Q plot is analyzed~\cite{1968Wilk}.
+Robust Brown-Forsythe Levene-type test is used to test if the variances in the distributions are equal~\cite{1974Brown}.
+Finally, in the cases when normality cannot be assumed, Mann-Whitney U test is used to test the location shift of the distributions~\cite{1947Mann}.
 
 % GE SA vs GE uniform - need data, how to measure?
 
@@ -40,12 +40,12 @@ Finally the parameter for the \gls{GE} gene duplication operator should be found
 To search for the \gls{GE} parameters, a breadth-first graph search inspired approach was used.
 An example is shown in Figure~\ref{fig:parameter-search}.
 The approach tests a combination of parameters by doing 20 \gls{GE} runs with those parameters and using the mean fitness score of the best individual from each run.
-If the score is an improvement of the previous score, the node will be considered an improvement and it will consider the neighboring nodes in the graph by increasing the parameter values.
-Otherwise, the current parameter values will be considered as not improving the performance and thus be discarded.
-When there are no more improvements, the parameter values that produced the best score will be returned.
-The parameter values will start at a small value and increase in an exponential fashion.
+If the score is an improvement of the previous score, the node is considered an improvement and it will consider the neighboring nodes in the graph by increasing the parameter values.
+Otherwise, the current parameter values are considered as not improving the performance and thus be discarded.
+When there are no more improvements, the parameter values that produced the best score is returned.
+The parameter values start at a small value and increase in an exponential fashion.
 This is based on the assumption that the parameters are more sensitive when the values are small.
-All of the parameter searches, except for the reproduction parameter and duplication rate search, will increase with a multiplicative of 2.
+All of the parameter searches, except for the reproduction parameter and duplication rate search, are increasing with a multiplicative of 2.
 Because the reproduction and duplication rate parameters are bounded ($[0, 1]$) and to cover the whole range with a reasonable amount of steps, custom steps of 0.01, 0.1, 0.5 and 1 are used.
 
 \begin{figure}
@@ -61,10 +61,10 @@ To see if it is doing this, it needs to be compared to a brute-force approach th
 Thus, the hypothesis is that \gls{DGEL} \gls{GE} finds plants with better fitness scores than brute-force does (\textbf{H1}).
 
 To make a fair comparison, the brute-force should generate as many individuals as the \gls{GE} generates and modifies (through mutation or crossover).
-This way, both methods will ``generate'' the same amount of individuals, either being completely new individuals or modifications of existing individuals.
-\gls{GE} uses a fixed number of generations and population size, resulting into a fixed number of total individuals: $individuals = population + population * generations$, that the brute-force method also will generate.
+This way, both methods ``generate'' the same amount of individuals, either being completely new individuals or modifications of existing individuals.
+\gls{GE} uses a fixed number of generations and population size, resulting into a fixed number of total individuals: $individuals = population + population * generations$, that the brute-force method also generates.
 
-Because both methods depend on a random seed, an average of multiple runs will have to be used.
+Because both methods depend on a random seed, an average of multiple runs is used.
 A sample size of 11 was selected as balanced choice between sample size and duration.
 
 \subsubsection{Simulated Annealing}
@@ -75,7 +75,7 @@ A sample size of 11 was selected as balanced choice between sample size and dura
 % \end{itemize}
 The main purpose of using \gls{SA} with a grammar distribution is to improve the efficiency of the remaining components of \gls{DGEL} by focusing the search space on a good area.
 Based on this a hypothesis can be formulated: An \gls{SA}-optimized grammar distribution can find better individuals than a uniform grammar distribution (\textbf{H2}).
-An important word in the hypothesis is \textit{can}, because this means that the hypothesis does not imply that \textit{all} \gls{SA}-optimized grammar distributions will find better individuals.
+An important word in the hypothesis is \textit{can}, because this means that the hypothesis does not imply that \textit{all} \gls{SA}-optimized grammar distributions find better individuals.
 
 \gls{SA} is used as described in previous sections to find an optimized grammar distribution, and the progress of it is plotted to see if it makes any meaningful progress.
 Then, to test the hypothesis a comparison is made between the average fitness of \glspl{L-system} randomly generated by a uniform grammar distribution and \glspl{L-system} randomly generated by an \gls{SA}-optimized grammar distribution.
@@ -149,7 +149,7 @@ The best fitness score is provided by a mutation rate of 1 and crossover rate of
 Figure~\ref{fig:recombination-sampling-variance} shows the standard deviations in the same search.
 The pattern is similar to that of the mean fitness scores.
 The most stable performance is provided by a mutation rate of 1 and crossover rate of 0.5.
-Thus the recombination parameters will be using these values.
+Thus the recombination parameters is set to these values.
 
 \begin{figure}
     \centering
@@ -207,8 +207,7 @@ All of the \gls{GE} parameters are summarized in Table~\ref{tab:ge-parameters}.
 Figure~\ref{fig:ge-random} shows the comparison of \gls{GE} against random samples.
 A Shapiro-Wilk normality test suggests that the brute-force sample distribution can be assumed to be normally distributed (p >= 0.05, W = 0.97), while the \gls{GE} sample distribution can not (p < 0.05, W = 0.46).
 A robust Brown-Forsythe Levene-type test suggests that the variances of the distributions can be considered equal (p >= 0.05, statistic = 0.09).
-Because there are non-normal distributions and different variances, the Mann-Whitney U test will be used.
-% TODO: do not use FUTURE tense.
+Because there are non-normal distributions and different variances, the Mann-Whitney U test is used.
 \gls{GE} has a median score of 1.00, while random has 0.85 (difference of 0.15).
 The Mann–Whitney U test suggests that the true location shift of the distributions is greater than 0 (p < 0.05, U = 117).
 % Could run test on this as well, but necessary??
@@ -217,7 +216,7 @@ The Mann–Whitney U test suggests that the true location shift of the distribut
 Additionally, Figure~\ref{fig:ge-random-duration} shows the mean duration of the methods where \gls{GE} is about 5 times faster than random.
 A Shapiro-Wilk normality test suggests that both the brute-force and \gls{GE} samples can be assumed to be normally distributed (p >= 0.05, W = 0.89 and p >= 0.05, W = 0.93 respectively).
 A robust Brown-Forsythe Levene-type test suggests that the variances of the distributions can be considered unequal (p < 0.05, statistic = 17.13).
-Because the distributions can be assumed to be normally distributed and the variances can be assumed to be unequal, the Welch's t-test will be used.
+Because the distributions can be assumed to be normally distributed and the variances can be assumed to be unequal, the Welch's t-test is used.
 \gls{GE} has a mean duration of 9.51, while random has 49.33 (difference of -39.82).
 The Welch's two-sample t-test suggests that the true difference in means are not 0 (p < 0.05, t = -35.90, df = 10.02)
 
@@ -237,7 +236,7 @@ The \gls{SA} process explores the space in the beginning, moving both up and dow
 Each annealing generally reach a plateau before getting halfway through the annealing process, from which point nearly all mutations are worse and so it chooses to stay, though the second annealing is slower to reach the plateau.
 The fourth annealing found one exceptionally good grammar distribution with a score of almost 0.75, but when the same grammar distribution was measured over 100000 samples its score was 0.61 (SD = 0.25).
 Therefore the score measured in the \gls{SA} process may have been inaccurate.
-As this distribution was the one with the best score during the \gls{SA} process, it will be the one used for further analysis.
+As this distribution was the one with the best score during the \gls{SA} process, it is the one used for further analysis.
 
 \begin{figure}
     \includegraphics[width=\textwidth]{figures/sa-progress-close}
@@ -401,19 +400,19 @@ So the hypothesis (\textbf{H4}) is: Humans agree with the ranking made by the \g
 If the humans do not completely agree with the \gls{DGEL} ranking, the next question is why this is the case and what can be done to improve the rank correlation?
 
 While the first question can be answered by quantitative methods, the second question requires support from a qualitative analysis to understand what factors are important to distinguish good generated plants from bad.
-Thus an embedded design mixed-method with qualitative data as a supplementary will be used~\cite{PracticalResearch}.
+Thus an embedded design mixed-method with qualitative data as a supplementary is used~\cite{PracticalResearch}.
 
 % Write about AHP?
-A pairwise comparison of a set of \gls{DGEL}-generated plants will be performed by human participants and the \gls{AHP} will be used to create a ranking of all of the plants~\cite{2008Saaty}.
-By using \gls{AHP}, we will not only get a ranking of the plants, but also distances between the ranks.
+A pairwise comparison of a set of \gls{DGEL}-generated plants is performed by human participants and the \gls{AHP} is used to create a ranking of all of the plants~\cite{2008Saaty}.
+By using \gls{AHP}, we do not only get a ranking of the plants, but also distances between the ranks.
 This is useful because humans may consider some of the plants equally pleasing, or some plants much more pleasing than others.
-Finally, all of the rankings will be aggregated and compared to the ranking made by \gls{DGEL} using Kendall's Tau~\cite{1938Kendall}, and dRank~\cite{2009Carterette}.
-Because the human rankings only has priority weights and not absolute scores, the DGEL fitness scores will be translated into weights by dividing each score by the sum of the scores such that they sum to 1.
+Finally, all of the rankings are aggregated and compared to the ranking made by \gls{DGEL} using Kendall's Tau~\cite{1938Kendall}, and dRank~\cite{2009Carterette}.
+Because the human rankings only has priority weights and not absolute scores, the DGEL fitness scores are translated into weights by dividing each score by the sum of the scores such that they sum to 1.
 The data fit the requirements of Kendall's Tau~\cite{2010Webber}: they are unweighted, conjoint and have a definite range.
-Therefore Kendall's Tau will be used to test the ranking correlation.
-It will also give an indication of how correlated they are in range $[-1, 1]$, where 1 is perfectly positively correlated, 0 is not correlated and -1 is perfectly negatively correlated.
-But there are two problems with this: it does not consider the relative distances between the ranks~\cite{2010Webber}, and the different participant's rankings will have to be aggregated beforehand, meaning Kendall's Tau does not consider the variance between the different human rankings.
-Therefore, dRank will be used as an additional statistic, as it considers the distances between ranks and that there are multiple rankings aggregated together~\cite{2010Webber,2009Carterette}.
+Therefore Kendall's Tau is used to test the ranking correlation.
+It also gives an indication of how correlated they are in range $[-1, 1]$, where 1 is perfectly positively correlated, 0 is not correlated and -1 is perfectly negatively correlated.
+But there are two problems with this: it does not consider the relative distances between the ranks~\cite{2010Webber}, and the different participant's rankings have to be aggregated beforehand, meaning Kendall's Tau does not consider the variance between the different human rankings.
+Therefore, dRank is used as an additional statistic, as it considers the distances between ranks and that there are multiple rankings aggregated together~\cite{2010Webber,2009Carterette}.
 Whenever a dRank statistic is shown, the B is the bootstrap sampling size used for estimating the p-value~\cite{2009Carterette}.
 
 As many plants as possible is desired, but humans have limited patience and the number of comparisons to rate is $\frac{n * (n - 1)}{2}$, where $n$ is the number of plants.
@@ -490,7 +489,7 @@ They recommend CRF values from 15 to 35, and based on the resolution and Google 
 For H.264, according FFMpeg Wiki a CRF value of 17--18 can be considered ``visually lossless''~\cite{ffmpeg-h264}.
 Thus, 18 was selected as it allows the files to be smaller than 17.
 Based on this, WebM is encoded with the parameters \texttt{-quality best -crf 32 -b:v 0}, while MPEG-4 is encoded with \texttt{-preset veryslow -crf 18}.
-\texttt{-quality best} and \texttt{-preset veryslow} will enable better quality per file size at the cost of slower encoding~\cite{ffmpeg-h264}, but as the videos are encoded offline, the encoding time cost is not important.
+\texttt{-quality best} and \texttt{-preset veryslow} enable better quality per file size at the cost of slower encoding~\cite{ffmpeg-h264}, but as the videos are encoded offline, the encoding time cost is not important.
 
 The participant is presented with three categories to choose between: left is more pleasing, they are equally (dis)pleasing, and right is more pleasing.
 If they find one more pleasing they need to rate how much pleasing it is on a scale of 1 to 3.
@@ -500,7 +499,7 @@ Based on feedback from the pilot run, the ``equally (dis)pleasing'' option was l
 ``(dis)'' was also added based on the feedback because without it it seemed like it meant that the plants were good.
 With these changes, the participant should be less reluctant to select ``equal''.
 
-By pressing the ``next'' button, the participant will be presented with new pairs until all have been rated.
+By pressing the ``next'' button, the participant is presented with new pairs until all have been rated.
 The pairs are presented in random order and with random placement (left or right), as to not make the order create a bias.
 
 \begin{figure}
@@ -571,7 +570,7 @@ All of the plants can be viewed in Figure~\ref{fig:survey-plants} in Appendix~\r
 There were 56 people that registered.
 Of those, 37 completed ranking the plants.
 This means that 34\% of the 56 participants did not rank the plant, of which many likely are people that unintentionally registered multiple times.
-Those who did not complete the ranking of the plants will be excluded from the analysis.
+Those who did not complete the ranking of the plants are excluded from the analysis.
 Finally, one of the 37 did not submit the post questionnaire.
 
 The demographic of the participants is mainly 20--30 year old (65\%) males (78\%) with a bachelor or higher degree (76\%) in information and communication technologies (49\%).
