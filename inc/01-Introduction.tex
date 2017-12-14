@@ -5,28 +5,60 @@
 \section{Topic covered by the project}
 
 This project covers the topic of \gls{EA} which is part of evolutionary computing and even more broadly artificial intelligence.
-More specifically, we cover the use of \gls{EA} to generate \glspl{L-system} which is one form of \gls{PCG}~\cite{PCG_5}.
+More specifically, we cover the use of \gls{EA} to evolve \glspl{L-system} into good graphical models of aesthetically pleasing plants.
+% which is one form of \gls{PCG}~\cite{PCG_5}.
 
-In the area of computer graphics, visualization and game development, there is a desire to replicate environments and creatures found in nature in a virtual environment. %cite
-Many types of environments and creatures can be of interest, for example terrains, mountains, rivers, plants, animals and bacteria.
-These can be created by manually modeling the specific objects, for example by 3D artists, but this can be a slow process, especially when a large variation of the objects is required.
-Another approach is to generate the content using \gls{PCG} methods.
-This way, digital programs can generate virtually infinite amounts of variations based on a representation and a recipe.
+L-system were originally conceived as a mathematical model for cellular interactions in development~\cite{1968Lindenmayer-1,1968Lindenmayer-2}.
+From this, geometric interpretations of L-systems have been created so that they can be used to model plants~\cite{2012Prusinkiewicz}.
+An L-system is a rewriting system, meaning that it rewrites itself based on a set of rules defined by a grammar.
+A simple example is an L-system with the rules $a \rightarrow b$ and $b \rightarrow ba$, and the axiom $a$.
+Based on the rules, the $a$ axiom is first rewritten to $b$.
+Then $b$ is rewritten to $ba$, $ba$ is rewritten to $bab$, which is rewritten to $babba$, and so on.
 
-Plants, specifically, can be generated using \glspl{L-system} where their structure is represented as strings of characters in a parallel rewrite system~\cite{2012Prusinkiewicz}.
-Based on actual plants, one may model a virtual plant by creating the rewrite rules and parameters for how the system should be drawn.
-These models can be handcrafted, or alternatively \gls{EA} can be applied to evolve the models into something desired.
+These rewritten strings do not mean anything on their own, and that is were the interpretation comes in.
+If we interpret $b$ as rotating 45° left and $a$ as drawing a line 1 cm forward, the L-system would model a growing structure, as visualized in Figure~\ref{fig:example-l}.
+If the alphabet is expanded from only $a$ and $b$, and more interpretations are added, L-systems can model complex structures in both 2D and 3D, such as plants.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{figures/lsystem}
+    \caption{Example L-system being rewritten and interpreted}
+    \label{fig:example-l}
+\end{figure}
+
+How do you then create L-systems that model the complex structures you desire?
+They could be hand crafted by manually defining the rules, but this is difficult for non-experts and require significant amounts of experimentation and analysis of the desired structure~\cite{1993McCormack}.
+Additionally, what if an exact structure is not desired, but rather a structure that fulfills some requirement, for example being aesthetically pleasing?
+This is where \gls{EA} is useful.
+
+\gls{EA} is not directly connected to L-systems, but it is a tool that can be used to evolve data structures, for example \glspl{L-system}.
+\glspl{EA} generate an initial population of structures, then repeatedly evaluate their quality, select structures to reproduce, reproduce them and replaces the population with the new structures until they are satisfied~\cite{2006AshlockEA}.
+By repeatedly selecting good individuals and reproducing them, \gls{EA} may find solutions to problems that perform exceptionally well.
+It is used in many fields, and has many applications.
+For example, \gls{EA} has been used to find weights for an \gls{ANN} that is used in a virtual robot, it has been used to optimize the fuel consumption of stoves, and is being used for modeling complex or noisy data~\cite{2006AshlockEA}.
+Finally, it has of course been used to evolve L-systems, both simple fractal structures and 2D and 3D plants~\cite{1998Mock,1998Ochoa,2002Ebner,2003Ebner,2006Ashlock,2009Beaumont,2009Corchado,1994Jacob,2000Vanak,2001Hornby,1995Jacob, 1996Jacob, 1996Jacob-2}.
+% used in many fields
+% robot, ANN, stoves (Nicaragua), modelling complex or noisy data,
+
+% In the area of computer graphics, visualization and game development, there is a desire to replicate environments and creatures found in nature in a virtual environment. %cite
+% Many types of environments and creatures can be of interest, for example terrains, mountains, rivers, plants, animals and bacteria.
+% These can be created by manually modeling the specific objects, for example by 3D artists, but this can be a slow process, especially when a large variation of the objects is required.
+% Another approach is to generate the content using \gls{PCG} methods.
+% This way, digital programs can generate virtually infinite amounts of variations based on a representation and a recipe.
+
+% Plants, specifically, can be generated using \glspl{L-system} where their structure is represented as strings of characters in a parallel rewrite system~\cite{2012Prusinkiewicz}.
+% Based on actual plants, one may model a virtual plant by creating the rewrite rules and parameters for how the system should be drawn.
+% These models can be handcrafted, or alternatively \gls{EA} can be applied to evolve the models into something desired.
 
 \section{Keywords}
 \begin{itemize}
     \item L-system
     \item plants
-    \item games
-    \item procedural content generation
     \item artificial intelligence
     \item evolutionary algorithm
     \item genetic algorithm
     \item grammatical evolution
+    \item procedural content generation
 \end{itemize}
 
 \section{Problem description}
@@ -42,7 +74,7 @@ For example, a user may like both apple trees and Venus flytraps, so they want t
 The problem is that randomly crossing the representation of different plants may not produce meaningful or interesting offspring, but rather random creatures that do not satisfy the user.
 
 To be able to create meaningful crossovers between virtual plants, a baseline requirement is to have something that models the plants and something that generates the plants.
-The plant model is the baseline requirement of the system, as no generator or crossover would work without this, and a generator is required to generate the parent plants.
+The plant model is a baseline requirement of the system, as no generator or crossover would work without this, and a generator is required to generate the parent plants.
 Additionally the generator could be used to cross the plants into something the user is satisfied with.
 
 Plants that are to be bred should be varied in their shape and features, like real plants are, otherwise interesting combinations can not be made.
@@ -54,29 +86,32 @@ Finally, if the plants should be crossed, their model should be represented in s
 The current research on evolving \glspl{L-system} uses strict restrictions on the grammar which limits the variation in the plant, in addition to its potential for being aesthetically pleasing. %cite...???
 Thus a less restricting grammar is required, but this will increase the complexity of the problem, making it more difficult to produce meaningful and pleasing plants.
 
-In summary the problem to be studied is how to generate aesthetically pleasing and varied \gls{L-system} plants that could be used for crossbreeding, with a particular focus on how to handle complex grammars.
+In summary the problem to be studied is how \gls{L-system} can be used to generate aesthetically pleasing and varied plants that could be used for crossbreeding, with a particular focus on how to handle complex grammars.
 
 \section{Justification, motivation and benefit}
-\gls{PCG} has many benefits over manually crafting content.
-For example it may remove the need for artists which is a considerable expense in content creation, it may support the artist such that they may be more efficient and create better quality content, it can enable the creation of completely new games, it can adapt the content to the user's abilities or needs, it may allow for more creative solutions than what humans are able to create, and it may help understand design~\cite{PCG_1}.
-The specific problem studied in this thesis may have all of these benefits as it could improve the method of generating virtual plants.
+This project mainly has three areas that could directly benefit from it: \gls{EA}, \glspl{L-system} and \gls{PCG}.
+As is apparent from Chapter~\ref{chap:background}, mostly restricted L-systems have currently been evolved.
+More complex L-systems that could form more complex interpreted structures introduce a complexity to the search space that makes L-systems more challenging to evolve.
+With the solution presented in Chapter~\ref{chap:dgel}, the search may perform faster and be more focused, so that good solutions can be found faster, and the solutions can be more varied.
+
+These benefits are not limited to only \glspl{L-system}, but can be applied to any problems that use \gls{EA} and grammars, for example computer programs, with some modifications.
+It could also be adapted to other problems where choices need to be made to construct a system.
+% Because it is an \gls{EA} and because \gls{EA} is used in many fields and has many applications~\cite{2006AshlockEA}, it has the potential to posititvely benefit... what?
+
+\Gls{PCG} could also benefit from this as \glspl{L-system} are used in \gls{PCG}~\cite{PCG_5}.
+The most direct benefit in \gls{PCG} is the generation of plants which may get improved performance and variety.
+Additionally, because \glspl{L-system}, and more generally grammar, can be used to generate other content such as missions, spaces and levels~\cite{PCG_5}, the findings may improve the generation of such content, and possibly other content.
+In a broader sense, this also benefits content creators, such as game developers, artists and movie makers, and content consumers because \gls{PCG} can remove the need for artists which is a considerable expense in content creation, it may support the artist such that they may be more efficient and create better quality content, it can enable the creation of completely new games, it can adapt the content to the user's abilities or needs, it may allow for more creative solutions than what humans are able to create, and it may help understand design~\cite{PCG_1}.
+
 It may also create an understanding of what aesthetically pleasing plants consist of and what is required from an \gls{L-system}.
 With methods for how to crossbreed virtual plants, a foundation for future games, movies or other virtual environments is created.
-Additionally, because \glspl{L-system}, and more generally grammar, can be used to generate other content such as missions, spaces and levels~\cite{PCG_5}, the findings may improve the generation of such content, and possibly other content.
 
 % The results from this research can be used in a game where users may create their own virtual garden, potentially in virtual reality (VR), where they breed the plants they always wanted to see or new surprising species, and have a place outside the busy world to relax and watch their plants grow.
-The findings can directly benefit game developers wishing to create games that involve plants either in the environment or as the main concept, and indirectly benefit the \gls{PCG} research area, other game areas, users of the produced games and companies developing and publishing games.
-The game developers and publishers will benefit from more revenue by producing new and interesting games, while users will benefit from new games that fulfill their entertainment needs.
 
-% Should I actually talk concretely about my solution, or should I keep it more abstract?
-It may not only benefit \gls{PCG} and games, but also different computer science areas within evolutionary computing.
-Specifically, other problems that involve formal grammars, such as computer programs defined by programming languages, may benefit because the methods presented only require that there is a grammar that can be used to produce systems that can be evaluated.
-It could also be adapted to other problems where choices need to be made to construct a system.
-
-The stakeholders in this project are mainly game programmers, game artists, level designers and game developers as a whole.
-Additionally, movie makers and creators of other virtual worlds, like simulators and training software, are included.
-Indirectly game players or consumers in general will also be stakeholders as they consume the content created by the creators
-At a broader level, stakeholders include \gls{EA} researchers and any field that use \gls{EA}, which is now found in most scientific and non-scientific fields and industries. %cite?
+% The stakeholders in this project are mainly game programmers, game artists, level designers and game developers as a whole.
+% Additionally, movie makers and creators of other virtual worlds, like simulators and training software, are included.
+% Indirectly game players or consumers in general will also be stakeholders as they consume the content created by the creators.
+% At a broader level, stakeholders include \gls{EA} researchers and any field that use \gls{EA}, which is now found in most scientific and non-scientific fields and industries. %cite?
 
 \section{Research questions}
 The problem described can be summarized in a single research question: How can we generate plants that are aesthetically pleasing, varied and could be used to create offspring similar to its parents?
@@ -91,11 +126,11 @@ The questions are listed below.
 % Finally, the combination of the features needs to happen, and thus comes the question: How can the features be combined to create offspring that contain distinct features from both parents?
 
 \begin{description}
-    \item[RQ0] How can we generate plants that are aesthetically pleasing, varied and could be used to create offspring similar to its parents?
+    \item[RQ0] How can \glspl{L-system} be used to generate plants that are aesthetically pleasing, varied and could be used to create offspring similar to its parents?
     \begin{description}
-        \item[RQ1] What models are appropriate to represent plants both found in nature and not found in nature, and that could be combined into new plants?
-        \item[RQ2] How can aesthetically pleasing plants be generated?
-        \item[RQ3] How can varied plants be generated?
+        \item[RQ1] What \glspl{L-system} models are appropriate to represent plants both found in nature and not found in nature, and that could be combined into new plants?
+        \item[RQ2] How can aesthetically pleasing \glspl{L-system} plants be generated?
+        \item[RQ3] How can varied \glspl{L-system} plants be generated?
     \end{description}
 \end{description}
 
