@@ -7,7 +7,7 @@
 *.lot
 *.out
 *.toc
-*.pdf
+Masters.pdf
 *.fdb_latexmk
 *.fls
 *.lol
