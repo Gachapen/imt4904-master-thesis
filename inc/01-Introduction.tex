@@ -9,14 +9,14 @@ This project covers the topic of \gls{EA} which is part of evolutionary computin
 More specifically, it covers the use of \gls{EA} to evolve \glspl{L-system} into good graphical models of aesthetically pleasing plants.
 % which is one form of \gls{PCG}~\cite{PCG_5}.
 
-L-system were originally conceived as a mathematical model for cellular interactions in development~\cite{1968Lindenmayer-1,1968Lindenmayer-2}.
+\glspl{L-system} were originally conceived as a mathematical model for cellular interactions in development~\cite{1968Lindenmayer-1,1968Lindenmayer-2}.
 From this, geometric interpretations of L-systems have been created so that they can be used to model plants~\cite{2012Prusinkiewicz}.
 An L-system is a rewriting system, meaning that it rewrites itself based on a set of rules defined by a grammar.
 A simple example is an L-system with the rules $a \rightarrow b$ and $b \rightarrow ba$, and the axiom $a$.
 Based on the rules, the $a$ axiom is first rewritten to $b$.
 Then $b$ is rewritten to $ba$, $ba$ is rewritten to $bab$, which is rewritten to $babba$, and so on.
 
-These rewritten strings do not mean anything on their own, and that is were the interpretation comes in.
+These rewritten strings do not mean anything on their own, and that is where the interpretation comes in.
 If we interpret $b$ as rotating 45° left and $a$ as drawing a line 1 cm forward, the L-system would model a growing structure, as visualized in Figure~\ref{fig:example-l}.
 If the alphabet is expanded from only $a$ and $b$, and more interpretations are added, L-systems can model complex structures in both 2D and 3D, such as plants.
 
@@ -95,7 +95,7 @@ As is apparent from Chapter~\ref{chap:background}, currently \gls{EA} has only b
 The research often only studies the simplest types of L-systems~\cite{1998Mock,1998Ochoa,2002Ebner,2003Ebner,2006Ashlock,2009Beaumont,2009Corchado}, while sometimes also the more versatile parametric L-systems~\cite{1994Jacob,2000Vanak,2001Hornby}.
 In both cases, the L-systems are usually based on assumptions about the size of the alphabet, string lengths, number of productions and branching depths.
 This restricts the potential power of L-systems, thus also restricting the potential of generating complex and intricate structures, in particular aesthetically pleasing and varied plants.
-This project explores a more expressive L-system and techniques to guide the generation of good solutions in it.
+This project explores a more expressive L-system as well as techniques to guide the generation of good solutions in it.
 While we do not explore the most flexible forms of L-systems, the techniques explored can potentially be applied to these as well.
 
 These benefits are not limited to only \glspl{L-system}, but can be applied to any problems that use \gls{EA} and grammars, for example computer programs, with some modifications.
@@ -111,7 +111,7 @@ Therefore, this project can improve the techniques used in \gls{PCG} to help the
 
 With an understanding of how to measure to what degree an L-system plant is aesthetically pleasing, an understanding on how L-systems can be genetically represented and combined, and an understanding of how to generate L-systems in a large parameter space, a basis for combining L-system plants into good offspring is created.
 This can be directly useful for \gls{PCG}, as new game concepts or game mechanics of interactions with plants can be created.
-Taking this a step further, the findings could be adapted to other types of content, such game levels where two levels with different concepts should be combined into a new level that borrows concepts from both or combines the concepts into new concepts.
+Taking this a step further, the findings could be adapted to other types of content, such as game levels where two levels with different concepts should be combined into a new level that borrows concepts from both or combines the concepts into new ones.
 In an even broader scope, because \gls{EA} is being used, the techniques may be adapted to other problems, such as \gls{ANN}, computer programs or architecture to combine two solutions with some desired properties each into one solution with the properties combined.
 
 % The results from this research can be used in a game where users may create their own virtual garden, potentially in virtual reality (VR), where they breed the plants they always wanted to see or new surprising species, and have a place outside the busy world to relax and watch their plants grow.
@@ -122,7 +122,7 @@ In an even broader scope, because \gls{EA} is being used, the techniques may be 
 % At a broader level, stakeholders include \gls{EA} researchers and any field that use \gls{EA}, which is now found in most scientific and non-scientific fields and industries. %cite?
 
 \section{Research questions}
-The problem described can be summarized in a single research question: How can we generate \glspl{L-system} plants that are aesthetically pleasing, varied and could be used to create offspring similar to its parents?
+The problem described can be summarized in a single research question: How can we generate \gls{L-system} plants that are aesthetically pleasing, varied and could be used to create offspring similar to its parents?
 The base problem to be solved in this question is how to generate plants, and is accompanied with three requirements: being aesthetically pleasing, varied and usable for cross-breeding.
 Thus the research question is split into three sub-questions that aim to tackle the three requirements, such that the main research question may be answered.
 The questions are listed below.
