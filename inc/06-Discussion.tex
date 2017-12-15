@@ -1,15 +1,16 @@
 % !TEX root = ../Masters.tex
 \chapter{Discussion}
-\section{Grammar Evolution}
+\section{Grammatical Evolution}
+\label{sec:discuss-ge}
 As evident from the results, the \gls{DGEL} \gls{GE} process performs significantly better than the brute-force approach, and the statistically significant difference in their scores support that \gls{DGEL} \gls{GE} finds plants with better fitness scores than brute-force does (\textbf{H1}).
 Additionally, the fact that \gls{GE} was five times faster than brute-force means that even if both methods produce just as good individuals, \gls{GE} will be faster at doing so.
 
 The difference in duration is an interesting case because both \gls{GE} and brute-force generate the same amount of individuals, and while brute-force only fills a vector of random numbers, \gls{GE} must do both a crossover and mutation which are more complex functions.
-It is likely that this is caused by the tournament sampling that \gls{GE} uses, which does not necessarily evaluate all of the chromosomes.
+It is likely that this is caused by the tournament sampling and the fact that \gls{GE} improves the population with each generation, reducing the complexity of the L-systems, thus reducing the time spent evaluating them.
 For each individual that should be in the population of the next generation, tournament selection picks a pair of individuals (with a tournament size of 2) randomly from the current population, evaluates them and allows the best one to become part of the next generation.
 Because of this, tournament sampling may pick the same individuals multiple times, which means the cached evaluation is used, and some individuals may not be picked at all.
 The fitness evaluation of a chromosome is expensive because it has to generate the L-system, interpret it into a 3D structure and then run each metric on this structure, so this may have a big impact.
-The chance that an individual in the population is, in the case of a population size of 800,
+% The chance that an individual in the population is, in the case of a population size of 800,
 % TODO: What is the average percentage of evaluated individuals? Does this correlate with the difference in duration?
 
 \section{Simulated Annealing}
@@ -22,12 +23,12 @@ The clustering at exactly 0 is more likely to be caused by the fitness measure, 
 It could also happen if the distribution does not allow for any \texttt{F} symbols as without it no branches will be drawn in the 3D model.
 %, indicating a discontinuity in the fitness metric.
 
-Because brute-force with the \gls{SA}-optimized distribution has a higher percentage of non-zero fitness scores than with a uniform distribution, one of the benefits of using an optimized distribution is that it avoids many of the problematic `nothing'' plants that are scored 0.
+Because brute-force with the \gls{SA}-optimized distribution has a higher percentage of non-zero fitness scores than with a uniform distribution, one of the benefits of using an optimized distribution is that it avoids many of the problematic ``nothing'' plants that are scored 0.
 This is good because even though the non-zero scores in majorly zero-scored grammar distributions may have good scores (as evident from Figure~\ref{fig:uniform-population-no0}), a large amount of zero-scored plants will lead to a slow search process.
 
 Because of the large amounts of zero-scored plants, as evident from Figure~\ref{fig:sa-population} and~\ref{fig:uniform-population}, the median should be a better measure for central tendency.
 Based on this, it may be argued that the median should be used instead of the mean when measuring the grammar distributions as well.
-But since a large amount of zero-scored plants is bad, which is something the grammar distribution should consider, the mean may also could also be argued as being a good measurement.
+But since a large amount of zero-scored plants is bad, which is something the grammar distribution should consider, the mean could be argued as being a better measurement for the grammar distribution.
 Additionally, by using the median, it will suddenly jump from a good score to zero if the amount of zero-scored plants goes below 50\%.
 Thus comparing distributions that are at around this limit by the median may be unfair, so the mean is more appropriate.
 
@@ -49,9 +50,13 @@ Additionally the fact that only a small amount of the other variables are strong
 
 With a significant difference in the medians by a large amount, it is clear that ``an \gls{SA}-optimized grammar distribution can find better individuals than a uniform grammar distribution'' (\textbf{H2})
 The additional fact that the \gls{SA}-optimized grammar distribution produced a significantly smaller proportion of zero-scored individuals further supports this hypothesis.
-This may not be restricted to only \gls{SA}, but any parameter optimization technique.
-Additionally, since the \gls{GE} method is not specific to \glspl{L-system}, other systems using grammar descriptions, such as programming languages, could benefit from the same method.
-The important fact is that the novel grammar distribution method used by \gls{DGEL} helps focus the grammar at desired regions in the grammar space.
+
+As there was no statistically significant difference between \gls{GE} with a uniform grammar distribution and random brute-force with an \gls{SA}-optimized grammar distribution, hypothesis \textbf{H3} that random brute-force with an \gls{SA}-optimized distribution can perform as well as \gls{GE} with a uniform grammar distribution is supported.
+This is rather interesting, because this indicates that only pre-optimizing the grammar distribution can have a significant beneficial impact on the search, at least as strong impact as \gls{GE} has.
+Though it should be kept in mind that, as discussed in Section~\ref{sec:discuss-ge}, \gls{GE} uses significantly shorter time to perform the search than a random brute-force search on the same amount of individuals, which may mean that even if random brute-force with an \gls{SA}-optimized distribution can perform as well as \gls{GE} with a uniform grammar distribution, the latter may be faster.
+
+The statistically significant difference in the medians of \gls{GE} with an \gls{SA}-optimized distribution and \gls{GE} with a uniform distribution supports hypothesis \textbf{H4} that ``GE with an SA-optimized grammar distribution can find better individuals than with a uniform grammar distribution''.
+This indicates that a grammar distribution optimized by \gls{SA} not only can improve random brute-force search, but can also improve \gls{GE}, and possible other \glspl{EA}, to perform better with stricter parameters, thus decreasing its duration.
 
 %GE with an \gls{SA}-optimized grammar distribution can find better individuals than with a uniform grammar distribution (H3)
 
@@ -70,7 +75,7 @@ With Kendall's tau indicating no correlation in the middle region, it is a stron
 Interestingly, dRank indicates that the distance between the rankings the middle region (5.21) is smaller than the complete ranks (16.67). % I don't know how to interpret this...
 This effect could be caused by the reduction of the number of systems (plants), which the dRank distance is highly dependent on~\cite{2009Carterette}.
 In any case, the p-value of dRank is still 0, indicating that they are still not correlated.
-Based on this, the hypothesis that humans agree with the ranking made by the \gls{DGEL} fitness component (\textbf{H4}) is rejected, and the next question should be why they do not agree and what could be done to improve the agreement.
+Based on this, the hypothesis that humans agree with the ranking made by the \gls{DGEL} fitness component (\textbf{H5}) is rejected, and the next question should be why they do not agree and what could be done to improve the agreement.
 
 The categorization of factors that humans find important can give an overview of what the fitness function should include or exclude.
 Directional factors are directly useful since they can be used to change a fitness metric's direction or create new metrics for the fitness function.
@@ -133,7 +138,7 @@ These recombination rates focuses more on crossover than mutation, thus being mo
 Alternatively, since the \gls{DGEL} generation process is able to produce fit individuals, it could be used together with a fitness measure of how similar the offspring is to its parents.
 
 While the fitness function used does not correctly measure how aesthetically pleasing an \gls{L-system} plant is, based on the analysis, it has the potential for it.
-Because the rankings done by humans only indicate the relative differences between plants and not how pleasing a plant is on an absolute scale, it is difficult to say if \gls{DGEL} manages to generate aesthetically pleasing plants (\textbf{RQ2}).
+Because the rankings done by humans only indicate the relative differences between plants and not how pleasing a plant is on an absolute scale, it is difficult to say if \gls{DGEL} manages to generate aesthetically pleasing \gls{L-system} plants (\textbf{RQ2}).
 What we can say is that \gls{DGEL} is able to generate both plants that are less aesthetically pleasing and more aesthetically pleasing.
 
 To know if the ``more aesthetically pleasing'' plants are actually aesthetically pleasing, they would have to be evaluated in a different manner.
@@ -143,7 +148,7 @@ This assumes that the fitness function and humans agree on the ranking.
 
 % Where is the data for this? need to ditch it if I can't add results for it.
 Looking at the observations of participants in the survey, some said that certain plants looked realistic or natural.
-Based on this and the assumption that realistic or natural plants are aesthetically pleasing, could suggest that using \gls{DGEL} is able to generate aesthetically pleasing plants (\textbf{RQ2}), though this is a stretch.
+Based on this and the assumption that realistic or natural plants are aesthetically pleasing, this could suggest that \gls{DGEL} is able to generate aesthetically pleasing \gls{L-system} plants (\textbf{RQ2}), though this is a stretch.
 % generalize?
 
 With the in-depth analysis of one \gls{SA}-optimized grammar distribution, there is an indication that the \gls{DGEL} grammar distribution together with \gls{SA} can focus the parameter space onto certain areas that contain plants with particular properties.
@@ -154,13 +159,13 @@ Additionally, the 37 different factors of aesthetic plants found from the qualit
 For example, both natural, artificial, chaos, symmetry, asymmetry, curves, straight, sideways, environment and details were found as factors.
 They are all different or opposites of others, and since the participants were asked specifically about the plants that they ranked, this shows that there was a clear variation in those 12 plants.
 The fact that these 12 plants were randomly generated by \gls{DGEL} suggests that this may apply generally for \gls{DGEL} and that another 12 new plants may also be varied.
-Thus, using \glspl{L-system} with \gls{GE}, and optionally using grammar distributions with parameter optimizers is a method of generating varied plants (\textbf{RQ3})
+Thus, using \glspl{L-system} with \gls{GE}, and optionally using grammar distributions with parameter optimizers is a method of generating varied \gls{L-system} plants (\textbf{RQ3})
 
-All of this together suggests that the \gls{DGEL} architecture and algorithms is a viable solution to generating plants ``that are aesthetically pleasing, varied and could be used to create offspring similar to its parents'' (\textbf{RQ0}).
+All of this together suggests that the \gls{DGEL} architecture and algorithm is a viable solution to generating plants ``that are aesthetically pleasing, varied and could be used to create offspring similar to its parents'' (\textbf{RQ0}).
 It can ``generate plants'', they are ``aesthetically pleasing'', they are ``varied'', and their model could potentially ``be used to create offspring similar to its parents''.
 
 The concept of \gls{DGEL} is not restricted to \glspl{L-system}.
-By removing the L in \gls{DGEL}, thus becoming Distribution-based Grammar Evolution (DGE), the same methods may be applicable to other grammar-based systems.
+By removing the L in \gls{DGEL}, thus becoming Distribution-based Grammatical Evolution (DGE), the same methods may be applicable to other grammar-based systems.
 Particularly the novel approach of using a grammar distribution for \gls{GE} is a method that other problems may benefit from.
 It can help focus the solutions on particular aspects that may be more useful for a set of problems.
 A simple example is to for example use a distribution that focuses on the multiplier operator when doing \gls{GP} to solve a problem.
@@ -197,3 +202,8 @@ The perception of the plant may also be different depending on the context it is
 For example a potted plant in the window inside a house may have different criteria for being aesthetically pleasing than a plant in the garden, or a plant found in the wild.
 
 % symbols over stacks: PROBABLY CAUSED BY THE INSTRUCTION LIMIT, WHICH IS A LIMITATION.
+
+% \section{Implications of Findings}
+% This may not be restricted to only \gls{SA}, but any parameter optimization technique.
+% Additionally, since the \gls{GE} method is not specific to \glspl{L-system}, other systems using grammar descriptions, such as programming languages, could benefit from the same method.
+% The important fact is that the novel grammar distribution method used by \gls{DGEL} helps focus the grammar at desired regions in the grammar space.
