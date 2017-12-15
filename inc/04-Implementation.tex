@@ -17,9 +17,10 @@ This has aided the implementation of \gls{DGEL}.
 
 \section{Overview}
 The \gls{DGEL} implementation is part of a larger application designed to experiment with \glspl{L-system}.
-It implements a module \texttt{dgel} within the program \texttt{lsystem}.
-\texttt{lsystem} additionally implements a \texttt{fitness} module where the fitness function is implemented.
-Four independent crates that are used by \texttt{lsystem} and \texttt{dgel} for various purposes are additionally implemented: \texttt{abnf}, \texttt{lsys}, \texttt{lsys\_kiss3d}, and \texttt{yobun}.
+It implements the modules \texttt{dgel} and \texttt{fitness} within the program \texttt{lsystem}.
+\texttt{dgel} contains the implementation of the \gls{DGEL} algorithm itself, and functionality to experiment and test \gls{DGEL}.
+\texttt{fitness} contains the fitness function with all of the metrics implemented.
+Four independent crates that are used by \texttt{lsystem} for various purposes are additionally implemented: \texttt{abnf}, \texttt{lsys}, \texttt{lsys\_kiss3d}, and \texttt{yobun}.
 The source code for the complete application is archived on Zenodo~\cite{CodeLsystem}.
 
 \texttt{yobun} is the simplest crate and consists of utility functions of various sorts, including general interpolation functions, filesystem functions, parsing functions and more.

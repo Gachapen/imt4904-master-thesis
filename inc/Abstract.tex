@@ -1,19 +1,29 @@
 % !TEX root = ../Masters.tex
 \chapter*{Abstract}
 
-TODO
-% Plants can be cross-bred to create offspring with features from both parents, but not all combinations will work.
-% A virtual world could remove this limitation by allowing all combinations of plants to be bred into new offspring with features from both parents.
-% This could allow users to combine their favorite plants into new species never seen in the real world, thus allowing for entertaining and interesting games to be created around the concept.
-% The problem is that if the offspring becomes a warped and messy version of both parents, the user may be displeased.
-% Thus it is important to keep distinct features from both parents in the offspring.
-%
-% Virtual content can be generated using procedural content generation (PCG).
-% More specifically, plants can be generated using L-systems.
-% L-systems are parallel rewrite systems consisting of a grammar than can be expanded and then visualized as 3D modelled plants.
-% There are multiple types of L-systems appropriate for different situations, and genetic algorithms have been applied to evolve L-systems into varied plants.
-% This can be used to solve the above problem.
-%
-% This thesis will do a literature review of L-system representations and what features they consist of; it will propose an algorithm that can combine two parents into an offspring with distinct features from both parents; it will produce a software implementation of the said algorithm; and it will do an analysis of how well users perceive the offspring compared to their parents.
+This thesis explores how to improve L-system plant generation using \glspl{EA}.
+The plants should be aesthetically pleasing, varied, and have the ability to be combined with other plants.
+
+Previous work has shown that simple \glspl{D0L-system}, \glspl{PD0L-system} and \glspl{PDIL-system} can be evolved using \glspl{EA} both automatically and interactively.
+The \gls{L-system} grammar used is simple, restricting the possible solutions.
+Additionally often only parts of the grammar is represented in the genotype that is used in the \gls{EA}, thus limiting the evolution.
+
+More complex \glspl{L-system} are required to generate aesthetically pleasing and varied plants, but this also complicates the generator and therefore also the evolution.
+To mitigate this issue, \gls{DGEL} is introduced and implemented.
+It is based on \gls{GE} of \glspl{L-system}, but introduces a grammar distribution to control the parts of the grammar that should have a higher priority.
+\Gls{SA} is used to optimize this grammar so that \gls{DGEL} can produce well performing plants in a more efficient manner.
+Additionally, using different optimized grammar distributions could allow for a larger variety of plants, while still keeping the quality up.
+Fitness metrics used were both adapted from the reviewed literature and created from scratch to assess the pleasingness of the generated L-system plants.
+
+\Gls{DGEL} was evaluated in three parts: \gls{GE}, \gls{SA} and fitness function.
+Plain \gls{GE} was tested against a random brute-force approach to see if it has any benefit.
+\Gls{SA}s progress was studied in depth, and its performance was compared in various ways using both \gls{GE} and random brute-force approaches.
+The fitness metric was compared to human evaluations of generated L-system plants through \gls{AHP} and rank correlation statistics.
+Additionally, it was analyzed what factors humans think are important for distinguishing good from bad plants.
+\Gls{GE} was found to be superior to brute-force.
+\Gls{SA} was found to improve the efficiency of both brute-force and \gls{GE}.
+Finally, the fitness function was found to not match the human evaluation, but a small correlation was still present.
+
+The findings suggest that \gls{DGEL} can improve the efficiency of generating L-system plants in a complex space. In a more general sense, the findings suggest that accompanying an EA with a probability distribution, and optimizing it using optimization techniques, can improve its efficiency in complex spaces, allowing for faster searches and more varied structures.
 
 \hypersetup{pageanchor=false}
