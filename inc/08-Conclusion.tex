@@ -9,12 +9,12 @@ Finally the plants should be modeled in such a way that they can be combined int
 Thus, the research question is formed: How can we generate plants that are aesthetically pleasing, varied and could be used to create offspring similar to its parents?
 
 Previous research on \gls{L-system} generation has been focused on restricted \gls{L-system} grammars and with fitness functions that aim at generating realistic plants.
-Multiple \gls{L-system} versions have been used, including D0L-systems, parametric D0L-systems, and parametric DIL-systems, which have then been evolved using evolutionary algorithms including \gls{GA}, \gls{GP} and \gls{GE}.
-Both automated fitness evaluation of \glspl{L-system}, human evaluation and similarity evaluation have been used as selections strategies in the evolutionary algorithms.
+Multiple \gls{L-system} versions have been used, including D0L-systems, \glspl{PD0L-system}, and \glspl{PDIL-system}, which have then been evolved using evolutionary algorithms including \gls{GA}, \gls{GP} and \gls{GE}.
+Both autonomous fitness evaluation of \glspl{L-system}, human evaluation and similarity evaluation have been used as selections strategies in the evolutionary algorithms.
 Several different metrics have been used to measure the fitness of a plant, mostly aiming at evaluating the survivability of the plant, though some use humans to aesthetically evolve the plants.
 Multiple genetic operators have been used to modify the the \gls{L-system} genes in order to evolve them, and they are often specifically designed for \glspl{L-system} in order to not invalidate the syntax, and often only parts of the \glspl{L-system} can be modified.
 
-We introduce a concept called Distribution-based Grammatical Evolution of \glspl{L-system} (DGEL), based on the use of \gls{GE} to evolve \glspl{L-system}~\cite{1998Ryan,2003Ortega,2009Beaumont}.
+We introduced a concept called Distribution-based Grammatical Evolution of \glspl{L-system} (DGEL), based on the use of \gls{GE} to evolve \glspl{L-system}~\cite{1998Ryan,2003Ortega,2009Beaumont}.
 It follows the traditional \gls{GE} method~\cite{1998Ryan}, but introduces a grammar distribution to control which parts of the grammar that should be weighted the most.
 Because varied plants are required, \gls{DGEL} does not restrict the grammar and modification of the \gls{L-system} as much as the previous research does.
 But with a less restricting grammar, the search space becomes significantly larger.
@@ -55,7 +55,7 @@ Additionally, size and complexity should be weighted more when they have worse s
 
 All of this together suggests that the presented \gls{DGEL} is a solution to generating plants ``that are aesthetically pleasing, varied and could be used to create offspring similar to its parents''.
 By removing the L in \gls{DGEL}, it could be used for other problems that are not related to plants or \glspl{L-system}, but use grammars to describe a system, for example computer programs.
-Furthermore, by looking at in more abstract terms, the findings suggest that accompanying an \gls{EA} with a probability distribution, and optimizing it using optimization techniques, can improve its efficiency in complex spaces, allowing for faster searches and more varied structures.
+Furthermore, by looking at in more abstract terms, the findings suggest that accompanying an \gls{EA} with a probability distribution, and optimizing it using optimization techniques, can improve its efficiency in complex spaces, allowing for faster searches and more varied solutions.
 
 Though there are limitations to the project, especially concerning the survey and the analysis of the \gls{SA} process.
 The sample used in the survey is highly biased making the results not directly generalizable to the population, but it still gives an indication of what may be the truth.

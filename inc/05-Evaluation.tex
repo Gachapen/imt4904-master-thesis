@@ -1,11 +1,11 @@
 % !TEX root = ../Masters.tex
 \chapter[Evaluation of DGEL]{Evaluation of \gls{DGEL}}
+\label{chap:evaluation}
 \gls{DGEL} consists of two main modules: \textit{generation} and \textit{evaluation}.
 The evaluation module consists of the fitness component which evaluates how good the \gls{L-system} plants are.
 The remaining components are part of the generation component which generates plants, and uses the evaluation module to generate \textit{good} plants.
 To answer if \gls{DGEL} solves the research questions, both modules have to be evaluated.
-The generation module is evaluated in a technical manner to determine if it performs well or not.
-The evaluation module is evaluated using humans as to answer if the fitness function properly rates plants as aesthetically pleasing or not.
+The generation module is evaluated in a technical manner to determine if it performs well or not, while the evaluation module is evaluated using humans as to answer if the fitness function properly rates plants as aesthetically pleasing or not.
 
 \section{Evaluation of the Generation Module}
 \subsection{Method}
@@ -31,9 +31,9 @@ Therefore, before evaluation the \gls{GE} process, good parameters should be fou
 Additionally, seeing what parameters are needed for a good performing \gls{GE} may reveal additional properties of it.
 The parameters were found using a combined manual and automated approach by searching the parameter space in multiple steps.
 The idea was not to find the optimal parameters, but rather to find some parameters that made the \gls{GE} produce an individual with good fitness within a reasonable time.
-It was assumed that the size parameters --- population size and number of generations --- are the baseline parameters for \gls{GE} and thus should be found first.
+It was assumed that the size parameters---population size and number of generations---are the baseline parameters for \gls{GE} and thus should be found first.
 Then the tournament size for the tournament selection strategy should be found.
-Then good parameters for the recombination rates --- crossover rate and mutation rate --- should be found.
+Then good parameters for the recombination rates---crossover rate and mutation rate---should be found.
 Finally the parameter for the \gls{GE} gene duplication operator should be found.
 % Reason for these assumptions?
 
@@ -83,7 +83,7 @@ Then, to test the hypothesis a comparison is made between the average fitness of
 The \glspl{L-system} are generated in a brute-force manner, not using any evolutionary approach such as \gls{GE}.
 
 If \textbf{H2} is supported, we hypothesize that random brute-force with an \gls{SA}-optimized distribution can perform as well as \gls{GE} with a uniform distribution (\textbf{H3}).
-This is tested by the same method as for \textbf{H1}, but with random brute-force using an \gls{SA}-optimized grammar distribution instead.
+This is tested by the same method as for \textbf{H1}, but with random brute-force using an \gls{SA}-optimized grammar distribution instead of a uniform grammar distribution.
 
 Additionally, we can hypothesize that \gls{GE} with an \gls{SA}-optimized grammar distribution can find better individuals than with a uniform grammar distribution (\textbf{H4}).
 As shown in Section~\ref{sec:ge-test-res}, GE is already performing so well that adding SA can not improve it further.
@@ -115,14 +115,14 @@ Thus these parameter values were selected for use.
 \begin{figure}
     \centering
     \includegraphics[width=0.7\textwidth]{figures/ge-tournament-sampling}
-    \caption[Visualized search of the GE tournament selection tournament size]{Visualized search of the \gls{GE} tournament selection tournament size with standard error}
+    \caption[Visualized search of the GE tournament size]{Visualized search of the \gls{GE} tournament selection tournament size with standard error}
     \label{fig:tournament-sampling}
 \end{figure}
 
 Figure~\ref{fig:tournament-sampling} shows the search of the tournament size.
 Contrasted to the other searches, this is a one-dimensional search.
 % Possibly do a significance test. Need to re-run to generate raw data...
-As seen in the figure, the search did not find any improvements at all.
+As seen in the figure, the search did not find any improvements.
 Therefore the tournament size was kept at the lowest value, i.e.\ 2.
 
 \begin{figure}
@@ -209,7 +209,7 @@ All of the \gls{GE} parameters are summarized in Table~\ref{tab:ge-parameters}.
     \caption[GE and random performance compared]{\gls{GE} and random performance compared}
 \end{figure}
 
-With a population size of 800 and 200 generations, the total number of individuals generated will be 160800 (according to Section~\ref{sec:ge-test-meth}).
+With a population size of 800 and 200 generations, the total number of individuals generated will be 160,800 (according to Section~\ref{sec:ge-test-meth}).
 Figure~\ref{fig:ge-random} shows the comparison of \gls{GE} against random samples.
 A Shapiro-Wilk normality test suggests that the brute-force sample distribution can be assumed to be normally distributed (p >= 0.05, W = 0.97), while the \gls{GE} sample distribution can not (p < 0.05, W = 0.46).
 A robust Brown-Forsythe Levene-type test suggests that the variances of the distributions can be considered equal (p >= 0.05, statistic = 0.09).
@@ -224,7 +224,7 @@ A Shapiro-Wilk normality test suggests that both the brute-force and \gls{GE} sa
 A robust Brown-Forsythe Levene-type test suggests that the variances of the distributions can be considered unequal (p < 0.05, statistic = 17.13).
 Because the distributions can be assumed to be normally distributed and the variances can be assumed to be unequal, the Welch's t-test is used.
 \gls{GE} has a mean duration of 9.51, while random has 49.33 (difference of -39.82).
-The Welch's two-sample t-test suggests that the true difference in means are not 0 (p < 0.05, t = -35.90, df = 10.02)
+The Welch's two-sample t-test suggests that the true difference in means is not 0 (p < 0.05, t = -35.90, df = 10.02)
 
 \subsubsection{Simulated Annealing}
 \begin{figure}
@@ -240,7 +240,7 @@ In total this resulted into 436000 moves over 9 annealings.
 As seen in the figure, for each annealing there is a general improvement from a fitness score of 0 to around 0.6.
 The \gls{SA} process explores the space in the beginning, moving both up and down in score, and then gradually focuses more on hill climbing towards the end.
 Each annealing generally reach a plateau before getting halfway through the annealing process, from which point nearly all mutations are worse and so it chooses to stay, though the second annealing is slower to reach the plateau.
-The fourth annealing found one exceptionally good grammar distribution with a score of almost 0.75, but when the same grammar distribution was measured over 100000 samples its score was 0.61 (SD = 0.25).
+The fourth annealing found one exceptionally good grammar distribution with a score of almost 0.75, but when the same grammar distribution was measured over 100,000 samples its score was 0.61 (SD = 0.25).
 Therefore the score measured in the \gls{SA} process may have been inaccurate.
 As this distribution was the one with the best score during the \gls{SA} process, it is the one used for further analysis.
 
@@ -329,7 +329,7 @@ The Mann–Whitney U test suggests that the true location shift of the distribut
     \label{fig:h4}
 \end{figure}
 
-Figure~\ref{fig:h4} shows the comparison of \gls{GE} with an \gls{SA}-optimized distribution (ge-sa) against \gls{GE} with a uniform distribution (ge-uni), both with half the number of generations (100) (\textbf{H4}).
+Figure~\ref{fig:h4} shows the comparison of \gls{GE} with an \gls{SA}-optimized distribution (ge-sa) against \gls{GE} with a uniform distribution (ge-uni), both with half the number of generations (i.e.\ 100) (\textbf{H4}).
 A Shapiro-Wilk normality test suggests that both ge-sa and ge-uni samples can not be assumed to be normally distributed (p < 0.05, W = 0.86 and p < 0.05, W = 0.60 respectively).
 A robust Brown-Forsythe Levene-type test suggests that the variances of the distributions can be considered equal (p >= 0.05, statistic = 2.90).
 ge-sa has a median score of 0.99, while ge-uni has 0.86 (with difference of 0.13).
@@ -402,7 +402,7 @@ Only 3--4 of the variables have a strong weight in each of the depths.
 \begin{figure}
     \centering
     \includegraphics[width=0.6\textwidth]{figures/sa-plant}
-    \caption[Example plant generated by the SA-optimized grammar distribution]{Example plant generated by the \gls{SA}-optimized grammar distribution, fitness 0.78}
+    \caption[Plant generated by SA-optimized grammar distribution]{Example plant generated by the \gls{SA}-optimized grammar distribution, fitness 0.78}
     \label{fig:sa-plant}
 \end{figure}
 
@@ -437,7 +437,7 @@ Thus an embedded design mixed-method with qualitative data as a supplementary is
 
 % Write about AHP?
 A pairwise comparison of a set of \gls{DGEL}-generated plants is performed by human participants and the \gls{AHP} is used to create a ranking of all of the plants~\cite{2008Saaty}.
-By using \gls{AHP}, we do not only get a ranking of the plants, but also distances between the ranks.
+By using \glsfirst{AHP}, we do not only get a ranking of the plants, but also distances between the ranks.
 This is useful because humans may consider some of the plants equally pleasing, or some plants much more pleasing than others.
 Finally, all of the rankings are aggregated and compared to the ranking made by \gls{DGEL} using Kendall's Tau~\cite{1938Kendall}, and dRank~\cite{2009Carterette}.
 Because the human rankings only has priority weights and not absolute scores, the DGEL fitness scores are translated into weights by dividing each score by the sum of the scores such that they sum to 1.
@@ -499,7 +499,7 @@ This is because the quality of the visualization may affect their ratings.
 \begin{figure}
     \centering
     \includegraphics[width=1.0\textwidth]{figures/pairwise}
-    \caption{Pairwise comparison task as viewed on a small screen}
+    \caption[Pairwise comparison task]{Pairwise comparison task as viewed on a small screen}
     \label{fig:pairwise}
 \end{figure}
 

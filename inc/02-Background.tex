@@ -11,7 +11,7 @@ Prusinkiewicz and Lindenmayer summarize multiple research papers into a comprehe
 
 There are also multiple types of \glspl{L-system}, including discrete, stochastic, context sensitive and parametric~\cite{2012Prusinkiewicz}.
 All of these can be combined into one \gls{L-system}.
-A stochastic, context sensitive and parametric \gls{L-system} (parametric S2L-System) can model all of the other types of \gls{L-system} by having 100\% probabilities (discrete), no contexts or no parameters, and is thus the most flexible representation.
+A stochastic, context sensitive and parametric \gls{L-system} (PS2L-System) can model all of the other types of \gls{L-system} by having 100\% probabilities (making it discrete), no contexts or no parameters, and is thus the most flexible representation.
 
 Discrete context-free \glspl{L-system} (D0L-systems) are the simplest \glspl{L-system}, and can be created using edge rewriting, node rewriting, or both~\cite{2012Prusinkiewicz}.
 In these systems, there exists one production rule per letter in the alphabet.
@@ -73,15 +73,6 @@ Genetic evolution involves crossing and mutating genes from parents to create of
 Thus, the research field of \gls{L-system} genetic evolution is a good starting point for finding out both how to generate \glspl{L-system} and combine them.
 A set of research papers published between 1995 and 2013 was studied to see what different techniques have been used.
 
-When evolving objects, an \gls{EA} is often used.
-\gls{EA} is composed of a series of steps that will evolve a population over multiple generations based on some criteria.
-It begins by generating an initial population of individuals.
-Then it evaluates the individuals with a fitness function.
-This is then used to select the best individuals to be used for reproduction.
-The individuals are then used to create offspring for a new population by using crossover and mutation.
-Finally, the new population is evaluated and the steps repeat.
-In the context of \glspl{L-system}, the \textit{object} will be replaced with \gls{L-system}.
-
 To get a better overview of the \gls{EA} techniques used for \glspl{L-system}, the \gls{EA} has been split into five parts: model, representation, generation, selection, and genetic operators.
 The \textit{model} and \textit{representation} are related and sometimes almost equal.
 The difference is that the model describes how the plant is modeled, while the representation may be a small part of the model or the model represented in a different format, and is the part which is evolved by the algorithm.
@@ -103,7 +94,8 @@ Additionally, Hornby and Pollack use repetition brackets (\texttt{\{} and \textt
 
 The \gls{L-system} type is only the first part of the model required to model a plant.
 The second and final part is the interpretation of the \gls{L-system} into a visualized model.
-Even though the literature only use three types of \glspl{L-system} (D0L, PD0L and PDIL), they use different ways of interpreting it.
+Even though in the literature they only use three types of \glspl{L-system} (D0L, PD0L and PDIL), they use different ways of interpreting it.
+
 Both Mock, Ochoa, and Beaumont and Stepney visualize the \glspl{L-system} in 2D with branching, but while Mock uses node rewriting~\cite{1998Mock}, Ochoa and also Beaumont and Stepney use edge rewriting~\cite{1998Ochoa,2009Beaumont}, which results in different types of plants.
 The remaining authors use 3D visualization with branching~\cite{1994Jacob,2006Ashlock}, though Jacob adds the concepts of sprout, stalk leaf and bloom~\cite{1995Jacob}, and Ebner et al.\ only add leaves~\cite{2002Ebner,2003Ebner}.
 
@@ -150,7 +142,7 @@ Thus it can search a smaller space than Hornby and Pollack's representation.
 It is ``an [\gls{EA}] that can evolve complete programs in an arbitrary language using a variable-length binary string''~\cite{2003Oneil}.
 It was introduced for \glspl{L-system} by Ortega et al. to evolve a D0L-system into fractal curves~\cite{2003Ortega}.
 Beaumont and Stepney transferred this to generating D0L-system 2D plants to match a drawing of a plant~\cite{2009Beaumont}.
-Interestingly, \glspl{L-system} themselves are grammar that produce plants, but Beaumont and Stepney's work defines a grammar that produces the \glspl{L-system}, which is then used to produce the plant.
+Interestingly, \glspl{L-system} themselves are grammar that produce plants, but Beaumont and Stepney's work define a grammar that produces the \glspl{L-system}, which is then used to produce the plant.
 They represent the genome as a string of numbers that index into a Backus Naur Form (BNF) grammar in order to build the \gls{L-system}.
 In this sense the representation is similar to that of Ashlock~\cite{2006Ashlock}, but with integers instead of real numbers and a different way of mapping from numbers to the \gls{L-system}.
 It is also similar to Jacob's \gls{GP} representation because it uses a pool of expressions that could be compared to a BNF.
@@ -202,7 +194,7 @@ Then, the successor string is generated by creating random blocks of two to thre
 \subsection{Selection}
 The \textit{Selection} step involves selecting individuals from the current generation of the population to be used in the next generation.
 The basis for the selection is the fitness of the individuals calculated by a fitness function.
-In the literature, there are three main ways of calculating the fitness: evaluating at the properties of the interpreted \gls{L-system}, evaluating how similar the interpreted \gls{L-system} is to a target object, and human-based evaluation.
+There are three main ways of calculating the fitness: evaluating at the properties of the interpreted \gls{L-system}, evaluating how similar the interpreted \gls{L-system} is to a target object, and human-based evaluation.
 
 Various research evaluates various properties of the interpreted \glspl{L-system}.
 Jacob first uses a simple method of rewarding \glspl{L-system} with a majority of leaves between an inner cube and an outer cube~\cite{1994Jacob}.
